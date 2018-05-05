@@ -1,4 +1,4 @@
-package Hotel;
+package hotel;
 
 public class Reserva {
 
