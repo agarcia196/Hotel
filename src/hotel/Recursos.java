@@ -1,8 +1,7 @@
 /**
- * clasesBodega: Recursos.
+ * 
  *
- * @author Alexis García Ramirez 
- * @author Jorge Luis Soriano Cuevas
+ * @author Alexis García Ramírez 
  * @version 4.3.2018
  * 
  */
