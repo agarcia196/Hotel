@@ -41,5 +41,8 @@ public class Cocina {
 	public void addCola() {
 		
 	}
+	public void despacharPlato() {
+		
+	}
 	
 }
