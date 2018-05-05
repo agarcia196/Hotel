@@ -9,11 +9,11 @@ public class Plato implements Comparable<Plato>, Serializable {
 
 	private static final long serialVersionUID = -2580818623849027985L;
 	private String nombre;
+	private Double duracion;
 	private boolean disponibilidad;
-	private double duracion;
 	private double valor;
 		
-	public Plato(String nombre, boolean disponibilidad, double duracion, double valor) {
+	public Plato(String nombre, boolean disponibilidad, Double duracion, double valor) {
 		super();
 		this.nombre = nombre;
 		this.disponibilidad = disponibilidad;
@@ -41,7 +41,7 @@ public class Plato implements Comparable<Plato>, Serializable {
 		return duracion;
 	}
 
-	public void setDuracion(double duracion) {
+	public void setDuracion(Double duracion) {
 		this.duracion = duracion;
 	}
 
@@ -54,9 +54,9 @@ public class Plato implements Comparable<Plato>, Serializable {
 	}
 
 	@Override
-	public int compareTo(Plato o) {
+	public int compareTo(Plato arg0) {
 		// TODO Auto-generated method stub
-		return 0;
+		return duracion.compareTo(arg0.getDuracion());
 	}
 
 }
