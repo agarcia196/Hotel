@@ -3,7 +3,11 @@
  */
 package hotel;
 
-public class Plato implements Comparable<Plato> {
+import java.io.Serializable;
+
+public class Plato implements Comparable<Plato>, Serializable {
+
+	private static final long serialVersionUID = -2580818623849027985L;
 	private String nombre;
 	private boolean disponibilidad;
 	private double duracion;

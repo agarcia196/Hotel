@@ -3,10 +3,13 @@
  */
 package hotel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
-public class Cocina {
+public class Cocina implements Serializable {
+
+	private static final long serialVersionUID = 7911124575383121936L;
 	private PriorityQueue<Plato>cola_servicios;
 	private ArrayList<Plato> menu;
 	

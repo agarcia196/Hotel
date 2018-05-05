@@ -1,14 +1,15 @@
 package hotel;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Reserva {
-	Date Llegada,Salida;
-	Habitacion Habitacion;
-	double Tarifa;
+public class Reserva implements Serializable{
+	private static final long serialVersionUID = 8428205740350054875L;
+	private Date Llegada,Salida;
+	private Habitacion Habitacion;
+	private double Tarifa;
 	
-	
-	
+		
 	public Date getLlegada() {
 		return Llegada;
 	}

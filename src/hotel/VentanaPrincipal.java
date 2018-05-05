@@ -1,9 +1,12 @@
 package hotel;
 
+import java.io.Serializable;
 import java.util.Stack;
 import javax.swing.JPanel;
 
-public class VentanaPrincipal {
+public class VentanaPrincipal  implements Serializable{
+	
+	private static final long serialVersionUID = -8927533672316034907L;
 	private Stack<JPanel> paneles_activos;
 	
 	

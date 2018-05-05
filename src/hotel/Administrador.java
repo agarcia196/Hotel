@@ -3,14 +3,16 @@
  */
 package hotel;
 
+import java.io.Serializable;
 import exception.ECamposVacios;
 import exception.EIgualdad;
 import exception.ELongitud;
 import exception.ETipoInconrrecto;
 
-public class Administrador extends Empleado {
+public class Administrador extends Empleado implements Serializable {
 
-	
+	private static final long serialVersionUID = -3017452336359703718L;
+
 	public Administrador(String nombre, String apellido, String genero, String correo, String id, String tipoId,
 			String pwd) {
 		super(nombre, apellido, genero, correo, id, tipoId, pwd);

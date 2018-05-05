@@ -1,11 +1,14 @@
 package hotel;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 
-public class Habitacion {
-	String ID,Tipo;
-	ArrayList<Date> Disponibilidad;
+public class Habitacion implements Serializable{
+
+	private static final long serialVersionUID = -1958359261029677855L;
+	private String ID,Tipo;
+	private ArrayList<Date> Disponibilidad;
 	
 	public Habitacion(String iD, String tipo) {
 		super();
