@@ -11,6 +11,16 @@ public abstract class Persona {
 	protected String pwd;
 	
 	
+	public Persona(String nombre, String apellido, String genero, String correo, String id, String tipoId, String pwd) {
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.genero = genero;
+		this.correo = correo;
+		this.id = id;
+		this.tipoId = tipoId;
+		this.pwd = pwd;
+	}
 	public String getNombre() {
 		return nombre;
 	}
