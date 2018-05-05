@@ -6,13 +6,18 @@ import java.util.ArrayList;
 public class Hotel implements Serializable{
 	
 	private static final long serialVersionUID = -2223602071197796134L;
-	ArrayList<Cliente> Usuarios;
-	ArrayList<Habitacion> Habitaciones;
-	ArrayList<Empleado> Personal;
+	private ArrayList<Cliente> Usuarios;
+	private ArrayList<Habitacion> Habitaciones;
+	private ArrayList<Empleado> Personal;
+	private String nombre;
 	
 	
 	public Hotel() {
 		super();
+	}
+	public Hotel(String nombre) {
+		super();
+		this.nombre= nombre;
 		Usuarios = new ArrayList<Cliente>();
 		Habitaciones = new ArrayList<Habitacion>();
 		Personal = new ArrayList<Empleado>();
