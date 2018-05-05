@@ -6,6 +6,13 @@ import java.util.ArrayList;
 public class Habitacion {
 	String ID,Tipo;
 	ArrayList<Date> Disponibilidad;
+	
+	public Habitacion(String iD, String tipo) {
+		super();
+		ID = iD;
+		Tipo = tipo;
+		Disponibilidad = new ArrayList<Date>();
+	}
 	public String getID() {
 		return ID;
 	}

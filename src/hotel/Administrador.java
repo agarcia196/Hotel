@@ -1,3 +1,6 @@
+/*
+ * @author Alexis García Ramírez
+ */
 package hotel;
 
 import exception.ECamposVacios;
@@ -13,9 +16,42 @@ public class Administrador extends Empleado {
 		super(nombre, apellido, genero, correo, id, tipoId, pwd);
 		// TODO Auto-generated constructor stub
 	}
-	public void addHabitacion() {
-		
+	
+	/**
+	 * Agregar habitación.
+	 *
+	 * @param iD  número de la habitación
+	 * @param tipo Categoría de habitación;
+	 * @param h El hotel
+	 * @throws ECamposVacios the e campos vacíos
+	 */
+	public void addHabitacion(String iD, String tipo,Hotel h) throws ECamposVacios {
+		if (iD.compareTo("")==0 ||tipo.compareTo("")==0) {
+			throw new ECamposVacios();
+		}
+		else {
+			h.addHabitacion(new Habitacion(iD, tipo));
+		}
 	}
+	
+	/**
+	 * Agregar empleado.
+	 *
+	 * @param nombre El nombre
+	 * @param apellido El apellido
+	 * @param genero El genero
+	 * @param correo  El correo
+	 * @param id El número de cédula
+	 * @param tipoId El tipo de cédula
+	 * @param pwd La contraseña
+	 * @param cpwd La confirmación de contraseña
+	 * @param cargo El cargo
+	 * @param h El hotel
+	 * @throws ELongitud the e longitud
+	 * @throws ECamposVacios the e campos vacíos
+	 * @throws EIgualdad the e igualdad
+	 * @throws ETipoInconrrecto the e tipo incorrecto
+	 */
 	public void addEmpleado(String nombre, String apellido, String genero, String correo, String id, String tipoId,
 			String pwd, String cpwd, String cargo , Hotel h) throws ELongitud, ECamposVacios, EIgualdad, ETipoInconrrecto {
 		if (nombre.compareTo("")==0 ||apellido.compareTo("")==0 || id.compareTo("")==0 || tipoId.compareTo("")==0 
@@ -27,10 +63,10 @@ public class Administrador extends Empleado {
 			throw new EIgualdad();
 		}else {
 			switch (cargo) {
-			case "Gerente":
-				//h.addEmpleado(new Administrador(nombre, apellido, genero, correo, id, tipoId, pwd));
+			case "Administrador":
+				h.addEmpleado(new Administrador(nombre, apellido, genero, correo, id, tipoId, pwd));
 				break;
-			case "Bodeguero":
+			case "Recepcion":
 				
 				//h.addEmpleado(new Rece);
 				break;

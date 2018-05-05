@@ -8,6 +8,12 @@ public class Hotel {
 	ArrayList<Empleado> Personal;
 	
 	
+	public Hotel() {
+		super();
+		Usuarios = new ArrayList<Cliente>();
+		Habitaciones = new ArrayList<Habitacion>();
+		Personal = new ArrayList<Empleado>();
+	}
 	public ArrayList<Cliente> getUsuarios() {
 		return Usuarios;
 	}
@@ -26,7 +32,12 @@ public class Hotel {
 	public void setPersonal(ArrayList<Empleado> personal) {
 		Personal = personal;
 	}
-	
+	public void addHabitacion(Habitacion h) {
+		
+	}
+	public void addEmpleado(Empleado e ) {
+		
+	}
 	
 	
 }
