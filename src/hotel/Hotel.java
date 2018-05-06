@@ -11,7 +11,22 @@ public class Hotel implements Serializable{
 	private ArrayList<Empleado> personal;
 	private String nombre;
 	
+	//Prueba
+	public static void main(String[] args) {
+		Hotel h = new Hotel("Trivago");
+		Habitacion h1 = new Habitacion("301A", "VIP");
+		Administrador e = new Administrador("Lopez", "Daniel", "Sin especificar", "DD", "123", "CC", "123");
+		h.addHabitacion(h1);
+		h.addEmpleado(e);
+	  System.out.println(h.getPersonal().get(0).getNombre() +" "+ h.getHabitaciones().get(0).getID() );
+	}
 	
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 	public Hotel() {
 		super();
 	}
@@ -40,19 +55,19 @@ public class Hotel implements Serializable{
 		return usuarios;
 	}
 	public void setUsuarios(ArrayList<Cliente> usuarios) {
-		usuarios = usuarios;
+		this.usuarios = usuarios;
 	}
 	public ArrayList<Habitacion> getHabitaciones() {
 		return habitaciones;
 	}
 	public void setHabitaciones(ArrayList<Habitacion> habitaciones) {
-		habitaciones = habitaciones;
+		this.habitaciones = habitaciones;
 	}
 	public ArrayList<Empleado> getPersonal() {
 		return personal;
 	}
 	public void setPersonal(ArrayList<Empleado> personal) {
-		personal = personal;
+		this.personal = personal;
 	}
 	
 	
