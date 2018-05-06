@@ -5,55 +5,62 @@ import java.sql.Date;
 
 public class Reserva implements Serializable{
 	private static final long serialVersionUID = 8428205740350054875L;
-	private Date Llegada,Salida;
-	private Habitacion Habitacion;
-	private double Tarifa;
+	private Date date_in,date_out;
+	private Habitacion habitacion;
+	private double tarifa;
+	
+	public Reserva(Date in,Date out,Habitacion h,double T) {
+		date_in=in;
+		date_out=out;
+		habitacion=h;
+		tarifa=T;
+	}
 	
 		
 	public Date getLlegada() {
-		return Llegada;
+		return date_in;
 	}
 
 
 
 	public void setLlegada(Date llegada) {
-		Llegada = llegada;
+		date_in = llegada;
 	}
 
 
 
 	public Date getSalida() {
-		return Salida;
+		return date_out;
 	}
 
 
 
 	public void setSalida(Date salida) {
-		Salida = salida;
+		date_out = salida;
 	}
 
 
 
 	public Habitacion getHabitacion() {
-		return Habitacion;
+		return habitacion;
 	}
 
 
 
 	public void setHabitacion(Habitacion habitacion) {
-		Habitacion = habitacion;
+		habitacion = habitacion;
 	}
 
 
 
 	public double getTarifa() {
-		return Tarifa;
+		return tarifa;
 	}
 
 
 
 	public void setTarifa(double tarifa) {
-		Tarifa = tarifa;
+		tarifa = tarifa;
 	}
 
 

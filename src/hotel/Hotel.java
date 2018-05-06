@@ -6,9 +6,9 @@ import java.util.ArrayList;
 public class Hotel implements Serializable{
 	
 	private static final long serialVersionUID = -2223602071197796134L;
-	private ArrayList<Cliente> Usuarios;
-	private ArrayList<Habitacion> Habitaciones;
-	private ArrayList<Empleado> Personal;
+	private ArrayList<Cliente> usuarios;
+	private ArrayList<Habitacion> habitaciones;
+	private ArrayList<Empleado> personal;
 	private String nombre;
 	
 	
@@ -18,33 +18,41 @@ public class Hotel implements Serializable{
 	public Hotel(String nombre) {
 		super();
 		this.nombre= nombre;
-		Usuarios = new ArrayList<Cliente>();
-		Habitaciones = new ArrayList<Habitacion>();
-		Personal = new ArrayList<Empleado>();
+		usuarios = new ArrayList<Cliente>();
+		habitaciones = new ArrayList<Habitacion>();
+		personal = new ArrayList<Empleado>();
 	}
+	
+	public void addHabitacion(Habitacion h) {
+		habitaciones.add(h);
+	}
+	
+	public void addEmpleado(Empleado e) {
+		personal.add(e);
+	}
+	
+	public void addUser(Cliente c) {
+		usuarios.add(c);
+	}
+	
+	
 	public ArrayList<Cliente> getUsuarios() {
-		return Usuarios;
+		return usuarios;
 	}
 	public void setUsuarios(ArrayList<Cliente> usuarios) {
-		Usuarios = usuarios;
+		usuarios = usuarios;
 	}
 	public ArrayList<Habitacion> getHabitaciones() {
-		return Habitaciones;
+		return habitaciones;
 	}
 	public void setHabitaciones(ArrayList<Habitacion> habitaciones) {
-		Habitaciones = habitaciones;
+		habitaciones = habitaciones;
 	}
 	public ArrayList<Empleado> getPersonal() {
-		return Personal;
+		return personal;
 	}
 	public void setPersonal(ArrayList<Empleado> personal) {
-		Personal = personal;
-	}
-	public void addHabitacion(Habitacion h) {
-		
-	}
-	public void addEmpleado(Empleado e ) {
-		
+		personal = personal;
 	}
 	
 	
