@@ -58,22 +58,26 @@ public class Hotel implements Serializable{
 		
 	}
 	
-	
 	public ArrayList<Cliente> getUsuarios() {
 		return usuarios;
 	}
+	
 	public void setUsuarios(ArrayList<Cliente> usuarios) {
 		this.usuarios = usuarios;
 	}
+	
 	public ArrayList<Habitacion> getHabitaciones() {
 		return habitaciones;
 	}
+	
 	public void setHabitaciones(ArrayList<Habitacion> habitaciones) {
 		this.habitaciones = habitaciones;
 	}
+	
 	public ArrayList<Empleado> getPersonal() {
 		return personal;
 	}
+	
 	public void setPersonal(ArrayList<Empleado> personal) {
 		this.personal = personal;
 	}

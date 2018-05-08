@@ -3,7 +3,7 @@ package hotel;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Reserva implements Serializable{
+public class Reserva implements Serializable {
 	private static final long serialVersionUID = 8428205740350054875L;
 	private Date date_in,date_out;
 	private Habitacion habitacion;
@@ -97,6 +97,4 @@ public class Reserva implements Serializable{
 	public void setUsuario(Cliente usuario) {
 		this.usuario = usuario;
 	}
-	
-
 }

@@ -8,8 +8,6 @@ public class Cliente extends Persona implements Usuario{
 
 	private ArrayList <Reserva> reservasActivas;
 	
-	private SimpleDateFormat formatoFecha = new SimpleDateFormat ("dd/MM/yyyy-kk:mm");
-	
 	//Constructors
 	
 	public Cliente(String nombre, String apellido, String genero, String correo, String id, String tipoId, String pwd) {
@@ -32,9 +30,16 @@ public class Cliente extends Persona implements Usuario{
 
 
 	@Override
-	public boolean addReserva (Date dateIn, Date dateOut, Habitacion habitacion) {
+	public boolean addReserva (Date dateIn, Date dateOut, Habitacion habitacion, Cliente cliente) {
 
+		if (habitacion.verDisponibilidad(dateIn, dateOut)) {
+			
+			reservasActivas.add (new Reserva(dateIn, dateOut, habitacion, cliente));
+			
+			return true;
+		} 
 		
+		return false;	
 	}
 
 	@Override

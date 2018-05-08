@@ -33,4 +33,6 @@ public void checkReserva();
  */
 public void deleteUser();
 
+public Reserva buscarReserva (String id);
+
 }
