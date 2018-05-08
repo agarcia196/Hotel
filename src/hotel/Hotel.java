@@ -52,6 +52,12 @@ public class Hotel implements Serializable{
 		usuarios.add(c);
 	}
 	
+	// buscar reserva 
+	public Reserva buscarReserva (String id) {
+		return null;
+		
+	}
+	
 	
 	public ArrayList<Cliente> getUsuarios() {
 		return usuarios;

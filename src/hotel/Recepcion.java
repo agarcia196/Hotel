@@ -12,7 +12,17 @@ public class Recepcion extends Empleado   {
 	}
 	
 	
-	public void checkIn() {
+	public void checkIn(String id, Hotel h,Date dateIn, Date dateOut, Habitacion habitacion) {
+		if (h.buscarReserva(id)==null) {
+			addCliente();
+			addReserva( dateIn,  dateOut,  habitacion,  usuario);
+			
+		}
+		
+		
+		
+		// preguntar si tiene reservaactiva sino addCLiente, addReserva (buscar habitacion disponible )
+		
 		
 	}
 	
@@ -21,11 +31,6 @@ public class Recepcion extends Empleado   {
 	}
 
 
-	@Override
-	public Reserva buscarReserva(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 
 	@Override
@@ -36,7 +41,7 @@ public class Recepcion extends Empleado   {
 
 
 	@Override
-	public boolean addReserva(Date dateIn, Date dateOut, Habitacion habitacion) {
+	public boolean addReserva(Date dateIn, Date dateOut, Habitacion habitacion, Cliente usuario) {
 		// TODO Auto-generated method stub
 		return false;
 	}

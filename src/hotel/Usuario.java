@@ -8,16 +8,14 @@ import java.util.Date;
 public interface Usuario {
 	
 /**
- * Buscar una reserva.
- */
-public Reserva buscarReserva (String id);
+
 
 public void addCliente ();
 
 /**
 * Agregar reserva.
 */
-public boolean addReserva(Date dateIn, Date dateOut, Habitacion habitacion);
+public boolean addReserva(Date dateIn, Date dateOut, Habitacion habitacion, Cliente usuario);
 /**
  * Cancelar reserva.
  */
