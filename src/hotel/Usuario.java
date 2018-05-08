@@ -12,6 +12,8 @@ public interface Usuario {
  */
 public Reserva buscarReserva (String id);
 
+public void addCliente ();
+
 /**
 * Agregar reserva.
 */

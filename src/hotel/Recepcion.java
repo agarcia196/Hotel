@@ -1,13 +1,12 @@
 package hotel;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 public class Recepcion extends Empleado   {
 	
 
-	//Constructors
 	
+	private static final long serialVersionUID = 3300864296393909387L;
 	public Recepcion (String nombre, String apellido, String genero, String correo, String id, String tipoId,String pwd) {
 		super(nombre, apellido, genero, correo, id, tipoId, pwd);
 	}
@@ -22,13 +21,24 @@ public class Recepcion extends Empleado   {
 	}
 
 
-	
-	
-	//METODOS DE LA INTERFACE USUARIO
 	@Override
-	public void addReserva() {
+	public Reserva buscarReserva(String id) {
 		// TODO Auto-generated method stub
-		
+		return null;
+	}
+
+
+	@Override
+	public void addCliente() {
+		// TODO Auto-generated method stub
+	
+	}
+
+
+	@Override
+	public boolean addReserva(Date dateIn, Date dateOut, Habitacion habitacion) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 
@@ -40,9 +50,9 @@ public class Recepcion extends Empleado   {
 
 
 	@Override
-	public void editReserva() {
+	public boolean editReserva(String id, Date dateIn, Date dateOut, Habitacion habitacion) {
 		// TODO Auto-generated method stub
-		
+		return false;
 	}
 
 
@@ -58,7 +68,11 @@ public class Recepcion extends Empleado   {
 		// TODO Auto-generated method stub
 		
 	}
+
+
 	
+	
+
 	
 	
 
