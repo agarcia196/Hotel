@@ -1,11 +1,14 @@
 package hotel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Cliente extends Persona implements Usuario{
 
-	public ArrayList <Reserva> reservasActivas;
+	private ArrayList <Reserva> reservasActivas;
+	
+	private SimpleDateFormat formatoFecha = new SimpleDateFormat ("dd/MM/yyyy-kk:mm");
 	
 	//Constructors
 	
@@ -29,21 +32,32 @@ public class Cliente extends Persona implements Usuario{
 
 
 	@Override
-	public void addReserva() {
-		// TODO Auto-generated method stub
+	public boolean addReserva (Date dateIn, Date dateOut, Habitacion habitacion) {
+
 		
 	}
 
 	@Override
-	public void cancelReserva() {
-		// TODO Auto-generated method stub
+	public void cancelReserva () {
+		
 		
 	}
 
 	@Override
-	public void editReserva() {
-		// TODO Auto-generated method stub
+	public boolean editReserva (String id, Date dateIn, Date dateOut, Habitacion habitacion) {
+
+		Reserva reserva = buscarReserva (id);
 		
+		if (reserva != null) {
+			
+			reserva.setLlegada (dateIn);
+			reserva.setSalida (dateOut);
+			reserva.setHabitacion (habitacion);
+			
+			return true;
+		}
+		
+		return false;
 	}
 
 	@Override
@@ -56,5 +70,15 @@ public class Cliente extends Persona implements Usuario{
 	public void deleteUser() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Reserva buscarReserva (String id) {
+		
+		int i = 0;
+		
+		while (i < reservasActivas.size() && !reservasActivas.get(i).getIdReserva ().equals(id)) { i++; }
+		
+		return (i >= reservasActivas.size ()) ? null : reservasActivas.get (i);
 	}
 }

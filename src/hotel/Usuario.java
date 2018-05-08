@@ -1,14 +1,21 @@
 /*
- * @author Alexis García Ramírez
+ * @author Alexis Garcï¿½a Ramï¿½rez
  */
 package hotel;
+
+import java.util.Date;
 
 public interface Usuario {
 	
 /**
- * Agregar reserva.
+ * Buscar una reserva.
  */
-public void addReserva();
+public Reserva buscarReserva (String id);
+
+/**
+* Agregar reserva.
+*/
+public boolean addReserva(Date dateIn, Date dateOut, Habitacion habitacion);
 /**
  * Cancelar reserva.
  */
@@ -16,7 +23,7 @@ public void cancelReserva();
 /**
  * Editar reserva.
  */
-public void editReserva();
+public boolean editReserva (String id, Date dateIn, Date dateOut, Habitacion habitacion);
 /**
  * Verificar reserva.
  */

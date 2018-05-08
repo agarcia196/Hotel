@@ -21,10 +21,12 @@ public class Hotel implements Serializable{
 	  System.out.println(h.getPersonal().get(0).getNombre() +" "+ h.getHabitaciones().get(0).getID() );
 	}
 	
-	public String getNombre() {
+	public String getNombre () {
+		
 		return nombre;
 	}
-	public void setNombre(String nombre) {
+	public void setNombre (String nombre) {
+		
 		this.nombre = nombre;
 	}
 	public Hotel() {
@@ -69,6 +71,4 @@ public class Hotel implements Serializable{
 	public void setPersonal(ArrayList<Empleado> personal) {
 		this.personal = personal;
 	}
-	
-	
 }

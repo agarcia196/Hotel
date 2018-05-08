@@ -1,7 +1,7 @@
 package hotel;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 public class Reserva implements Serializable{
 	private static final long serialVersionUID = 8428205740350054875L;
@@ -9,11 +9,18 @@ public class Reserva implements Serializable{
 	private Habitacion habitacion;
 	private double tarifa;
 	
-	public Reserva(Date in,Date out,Habitacion h,double T) {
+	// Para hacer la búsqueda de una reserva
+	private String idReserva;
+	// Este será el id (para garantizarlo único)
+	private static int numeroDeReservas = 0;
+	
+	public Reserva (Date in,Date out,Habitacion h) {
+		
 		date_in=in;
 		date_out=out;
 		habitacion=h;
-		tarifa=T;
+		
+		setIdReserva("" + numeroDeReservas++);
 	}
 	
 		
@@ -67,6 +74,16 @@ public class Reserva implements Serializable{
 
 	public void CalcularTarifa() {
 		
+	}
+
+
+	public String getIdReserva() {
+		return idReserva;
+	}
+
+
+	public void setIdReserva(String idReserva) {
+		this.idReserva = idReserva;
 	}
 
 }
