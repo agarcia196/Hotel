@@ -42,11 +42,9 @@ public class Cliente extends Persona implements Usuario{
 		return false;	
 	}
 
-	
-	public void cancelReserva (String id) {
+	@Override
+	public void cancelReserva () {
 		
-		Reserva r = buscarReserva(id);
-		reservasActivas.remove(r);
 		
 	}
 
@@ -73,16 +71,9 @@ public class Cliente extends Persona implements Usuario{
 		
 	}
 
-	public void deleteUser(Cliente cliente, ArrayList<Cliente> usuario) {
-	
-		
-		if (usuario.contains(cliente)==true) {
-			int i =0;
-			while(cliente.getId().compareTo(usuario.get(i).getId())!=0) {
-				i++;
-			}
-			usuario.remove(i);
-		}
+	@Override
+	public void deleteUser() {
+		// TODO Auto-generated method stub
 		
 	}
 
