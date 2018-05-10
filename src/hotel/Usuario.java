@@ -5,6 +5,11 @@ package hotel;
 
 import java.util.Date;
 
+import exception.ECamposVacios;
+import exception.EIgualdad;
+import exception.ELongitud;
+import exception.ETipoInconrrecto;
+
 public interface Usuario {
 	
 /**
@@ -32,7 +37,8 @@ public void checkReserva();
  * Borrar Usuario.
  */
 public void deleteUser();
-
+public void addUser(String nombre, String apellido, String genero, String correo, String id, String tipoId,
+		String pwd, String cpwd, String cargo , Hotel h)throws ELongitud, ECamposVacios, EIgualdad, ETipoInconrrecto ;
 public Reserva buscarReserva (String id);
 
 }

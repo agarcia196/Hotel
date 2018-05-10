@@ -4,6 +4,8 @@
 package hotel;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import exception.ECamposVacios;
 import exception.EIgualdad;
 import exception.ELongitud;
@@ -37,7 +39,7 @@ public class Administrador extends Empleado implements Serializable {
 	}
 	
 	/**
-	 * Agregar empleado.
+	 * Agregar Usuario al sistema.
 	 *
 	 * @param nombre El nombre
 	 * @param apellido El apellido
@@ -54,7 +56,8 @@ public class Administrador extends Empleado implements Serializable {
 	 * @throws EIgualdad the e igualdad
 	 * @throws ETipoInconrrecto the e tipo incorrecto
 	 */
-	public void addEmpleado(String nombre, String apellido, String genero, String correo, String id, String tipoId,
+	@Override
+	public void addUser(String nombre, String apellido, String genero, String correo, String id, String tipoId,
 			String pwd, String cpwd, String cargo , Hotel h) throws ELongitud, ECamposVacios, EIgualdad, ETipoInconrrecto {
 		if (nombre.compareTo("")==0 ||apellido.compareTo("")==0 || id.compareTo("")==0 || tipoId.compareTo("")==0 
 				|| pwd.compareTo("") == 0 ||cpwd.compareTo("") == 0) {
@@ -69,19 +72,16 @@ public class Administrador extends Empleado implements Serializable {
 				h.addEmpleado(new Administrador(nombre, apellido, genero, correo, id, tipoId, pwd));
 				break;
 			case "Recepcion":
-				
-				//h.addEmpleado(new Rece);
+				h.addEmpleado(new Recepcion(nombre, apellido, genero, correo, id, tipoId, cpwd));
 				break;
+			case "Cliente":
+				h.addUser(new Cliente(nombre, apellido, genero, correo, id, tipoId, cpwd));
 			default:
 				throw new ETipoInconrrecto();
 			}
 		}
 	}
-	@Override
-	public void addReserva() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
 	public void cancelReserva() {
@@ -89,11 +89,6 @@ public class Administrador extends Empleado implements Serializable {
 		
 	}
 
-	@Override
-	public void editReserva() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void checkReserva() {
@@ -105,6 +100,26 @@ public class Administrador extends Empleado implements Serializable {
 	public void deleteUser() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Reserva buscarReserva(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public boolean editReserva(String id, Date dateIn, Date dateOut, Habitacion habitacion) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean addReserva(Date dateIn, Date dateOut, Habitacion habitacion, Cliente usuario) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
