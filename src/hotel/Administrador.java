@@ -59,14 +59,9 @@ public class Administrador extends Empleado implements Serializable {
 	@Override
 	public void addUser(String nombre, String apellido, String genero, String correo, String id, String tipoId,
 			String pwd, String cpwd, String cargo , Hotel h) throws ELongitud, ECamposVacios, EIgualdad, ETipoInconrrecto {
-		if (nombre.compareTo("")==0 ||apellido.compareTo("")==0 || id.compareTo("")==0 || tipoId.compareTo("")==0 
-				|| pwd.compareTo("") == 0 ||cpwd.compareTo("") == 0) {
-			throw new ECamposVacios();
-		}else if(pwd.length()<8) {
-			throw new ELongitud();
-		}else if(pwd.compareTo(cpwd)!=0) {
-			throw new EIgualdad();
-		}else {
+			Recursos.validarCamposVaciosU(nombre, apellido, genero, correo, id, tipoId, pwd, cpwd, cargo);
+			Recursos.validarLongitudPwd(cpwd);
+			Recursos.validarIgualdadPwd(pwd, cpwd);
 			switch (cargo) {
 			case "Administrador":
 				h.addEmpleado(new Administrador(nombre, apellido, genero, correo, id, tipoId, pwd));
@@ -79,7 +74,6 @@ public class Administrador extends Empleado implements Serializable {
 			default:
 				throw new ETipoInconrrecto();
 			}
-		}
 	}
 	
 
