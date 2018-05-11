@@ -3,6 +3,7 @@
  */
 package hotel;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import exception.ECamposVacios;
@@ -45,5 +46,9 @@ public interface Usuario {
 	public void deleteUser();
 	public void addUser(String nombre, String apellido, String genero, String correo, String id, String tipoId,
 			String pwd, String cpwd, String cargo , Hotel h)throws ELongitud, ECamposVacios, EIgualdad, ETipoInconrrecto ;
+
+	void deleteUser(Cliente cliente, ArrayList<Cliente> usuario);
+
+	void cancelReserva(String id);
 
 }
