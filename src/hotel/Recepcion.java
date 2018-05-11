@@ -2,6 +2,11 @@ package hotel;
 
 import java.util.Date;
 
+import exception.ECamposVacios;
+import exception.EIgualdad;
+import exception.ELongitud;
+import exception.ETipoInconrrecto;
+
 public class Recepcion extends Empleado   {
 	
 
@@ -12,37 +17,19 @@ public class Recepcion extends Empleado   {
 	}
 	
 	
-	public void checkIn(String id, Hotel h,Date dateIn, Date dateOut, Habitacion habitacion) {
-		if (h.buscarReserva(id)==null) {
-			addCliente();
-			addReserva( dateIn,  dateOut,  habitacion,  usuario);
-			
-		}
+	public void checkIn (String cedula, Hotel hotel) {
 		
-		
-		
-		// preguntar si tiene reservaactiva sino addCLiente, addReserva (buscar habitacion disponible )
-		
-		
+		super (cedula, hotel);
 	}
 	
-	public void checkOut() {
+	public void checkOut () {
 		
-	}
-
-
-
-
-	@Override
-	public void addCliente() {
-		// TODO Auto-generated method stub
-	
 	}
 
 
 	@Override
-	public boolean addReserva(Date dateIn, Date dateOut, Habitacion habitacion, Cliente usuario) {
-		// TODO Auto-generated method stub
+	public boolean addReserva(Date dateIn, Date dateOut, String tipo, Hotel hotel) {
+
 		return false;
 	}
 
@@ -75,13 +62,18 @@ public class Recepcion extends Empleado   {
 	}
 
 
-	
-	
+	@Override
+	public Reserva buscarReserva(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	
-	
 
-	
-	
-	
+	@Override
+	public void addUser(String nombre, String apellido, String genero, String correo, String id, String tipoId,
+			String pwd, String cpwd, String cargo, Hotel h)
+			throws ELongitud, ECamposVacios, EIgualdad, ETipoInconrrecto {
+		// TODO Auto-generated method stub
+		
+	}	
 }

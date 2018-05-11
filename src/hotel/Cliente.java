@@ -4,24 +4,32 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Cliente extends Persona implements Usuario{
+import exception.ECamposVacios;
+import exception.EIgualdad;
+import exception.ELongitud;
+import exception.ETipoInconrrecto;
+
+public class Cliente extends Persona implements Usuario {
 
 	private ArrayList <Reserva> reservasActivas;
+	private ArrayList<Reserva> historialReservas;
 	
 	//Constructors
 	
-	public Cliente(String nombre, String apellido, String genero, String correo, String id, String tipoId, String pwd) {
-		super(nombre, apellido, genero, correo, id, tipoId, pwd); 
+	public Cliente (String nombre, String apellido, String genero, String correo, String id, String tipoId, String pwd) {
 		
+		super (nombre, apellido, genero, correo, id, tipoId, pwd);
 	}
 	
 	
 	//Gets y sets
-	public ArrayList<Reserva> getReservasActivas() {
+	public ArrayList<Reserva> getReservasActivas () {
+		
 		return reservasActivas;
 	}
 
-	public void setReservasActivas(ArrayList<Reserva> reservasActivas) {
+	public void setReservasActivas (ArrayList<Reserva> reservasActivas) {
+		
 		this.reservasActivas = reservasActivas;
 	}
 	
@@ -30,16 +38,24 @@ public class Cliente extends Persona implements Usuario{
 
 
 	@Override
-	public boolean addReserva (Date dateIn, Date dateOut, Habitacion habitacion, Cliente cliente) {
+	public boolean addReserva (Date dateIn, Date dateOut, String tipo, Hotel hotel) {
 
-		if (habitacion.verDisponibilidad(dateIn, dateOut)) {
+		int i = 0;
+		
+		while (i < hotel.getHabitaciones ().size () && (hotel.getHabitaciones().get(i).getTipo() != tipo || !hotel.getHabitaciones().get (i).isDisponible ())) {
 			
-			reservasActivas.add (new Reserva(dateIn, dateOut, habitacion, cliente));
+			i++;
+		}
+		
+		if (i >= hotel.getHabitaciones ().size ()) {
+			
+			return false;
+		} else {
+			
+			reservasActivas.add (new Reserva (dateIn, dateOut, hotel.getHabitaciones ().get(i)));
 			
 			return true;
-		} 
-		
-		return false;	
+		}
 	}
 
 	@Override
@@ -67,7 +83,7 @@ public class Cliente extends Persona implements Usuario{
 
 	@Override
 	public void checkReserva() {
-		// TODO Auto-generated method stub
+
 		
 	}
 
@@ -85,5 +101,48 @@ public class Cliente extends Persona implements Usuario{
 		while (i < reservasActivas.size() && !reservasActivas.get(i).getIdReserva ().equals(id)) { i++; }
 		
 		return (i >= reservasActivas.size ()) ? null : reservasActivas.get (i);
+	}
+
+	
+
+	@Override
+	public void addUser(String nombre, String apellido, String genero, String correo, String id, String tipoId,
+			String pwd, String cpwd, String cargo, Hotel h)
+			throws ELongitud, ECamposVacios, EIgualdad, ETipoInconrrecto {
+		
+		
+	}
+
+
+	public ArrayList<Reserva> getHistorialReservas() {
+		return historialReservas;
+	}
+
+
+	public void setHistorialReservas (ArrayList<Reserva> historialReservas) {
+		this.historialReservas = historialReservas;
+	}
+
+
+	@Override
+	public void addCliente() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public Reserva buscarReserva (Date dateIn) {
+		
+		int i = 0;
+		
+		while (i < reservasActivas.size () && dateIn.compareTo (reservasActivas.get (i).getLlegada ()) == 0) { i++; }
+		
+		if (i < reservasActivas.size ()) {
+			
+			return reservasActivas.get (i);
+		}
+		
+		return null;
 	}
 }

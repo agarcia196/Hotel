@@ -7,13 +7,20 @@ import java.util.ArrayList;
 public class Habitacion implements Serializable {
 
 	private static final long serialVersionUID = -1958359261029677855L;
-	private String ID,tipo;
+	private String ID, tipo;
 	private ArrayList<Reserva> disponibilidad;
+	private boolean disponible;
 	
-	public Habitacion(String id,String tipo) {
-		this.tipo=tipo;
-		ID=id;
+	public Habitacion (String id, String tipo) {
+		
+		this.tipo = tipo;
+		ID = id;
 		this.disponibilidad = new ArrayList<Reserva>();
+	}
+	
+	public boolean addReserva (Reserva reserva) {
+		
+		
 	}
 	
 	public String getID() {
@@ -36,7 +43,7 @@ public class Habitacion implements Serializable {
 		return disponibilidad;
 	}
 	
-	public void setDisponibilidad(ArrayList<Reserva> disponibilidad) {
+	public void setDisponibilidad (ArrayList<Reserva> disponibilidad) {
 		this.disponibilidad = disponibilidad;
 	}
 	
@@ -57,5 +64,24 @@ public class Habitacion implements Serializable {
 		}
 		
 		return disponible;
+	}
+	
+	public static void main (String[] args) {
+		
+		Habitacion habitacion = new Habitacion("310A", "VIP");
+		
+		ArrayList<Reserva> disponibilidad = new ArrayList<Reserva> ();
+		disponibilidad.add (new Reserva(new Date (), new Date(2018-1900, 4, 20), habitacion));
+		
+		habitacion.setDisponibilidad (disponibilidad);
+		System.out.println (habitacion.verDisponibilidad(new Date (), new Date(2018-1900, 5, 0)));
+	}
+
+	public boolean isDisponible() {
+		return disponible;
+	}
+
+	public void setDisponible (boolean disponible) {
+		this.disponible = disponible;
 	}
 }

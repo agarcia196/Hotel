@@ -1,6 +1,9 @@
 package hotel;
 
 import java.io.Serializable;
+import java.util.Date;
+
+import exception.ECliente;
 
 public abstract class Empleado extends Persona implements Usuario, Serializable {
 
@@ -11,9 +14,26 @@ public abstract class Empleado extends Persona implements Usuario, Serializable 
 		// TODO Auto-generated constructor stub
 	}
 
-	public void checkIn () {
+	public void checkIn (String cedula, Hotel hotel) throws ECliente {
 		
+		Cliente cliente = hotel.buscarCliente (cedula);
 		
+		if (cliente != null) {
+			
+			Date hoy = new Date ();
+			Reserva reserva = cliente.buscarReserva (hoy);
+			
+			if (reserva != null) {
+				
+				reserva.getHabitacion ().setDisponible (false);
+			} else {
+				
+				throw new ECliente ("No existe una reserva activa para el día actual: " + hoy.toString ());
+			}
+		} else {
+			
+			throw new ECliente ("No existe un cliente asociado a la cédula: " + cedula);
+		}
 	}
 	
 	public void checkOut () {

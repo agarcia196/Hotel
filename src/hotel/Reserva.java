@@ -8,19 +8,17 @@ public class Reserva implements Serializable {
 	private Date date_in,date_out;
 	private Habitacion habitacion;
 	private double tarifa;
-	private Cliente usuario;
 	
 	// Para hacer la búsqueda de una reserva
 	private String idReserva;
 	// Este será el id (para garantizarlo único)
 	private static int numeroDeReservas = 0;
 	
-	public Reserva (Date in,Date out,Habitacion h, Cliente u) {
+	public Reserva (Date in,Date out,Habitacion h) {
 		
 		date_in=in;
 		date_out=out;
 		habitacion=h;
-		usuario=u;
 		
 		setIdReserva("" + numeroDeReservas++);
 	}
@@ -86,15 +84,5 @@ public class Reserva implements Serializable {
 
 	public void setIdReserva(String idReserva) {
 		this.idReserva = idReserva;
-	}
-
-
-	public Cliente getUsuario() {
-		return usuario;
-	}
-
-
-	public void setUsuario(Cliente usuario) {
-		this.usuario = usuario;
 	}
 }
