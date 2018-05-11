@@ -1,5 +1,5 @@
 /*
- * @author Alexis García Ramírez
+ * @author Alexis Garcï¿½a Ramï¿½rez
  */
 package hotel;
 
@@ -22,12 +22,12 @@ public class Administrador extends Empleado implements Serializable {
 	}
 	
 	/**
-	 * Agregar habitación.
+	 * Agregar habitaciï¿½n.
 	 *
-	 * @param iD  número de la habitación
-	 * @param tipo Categoría de habitación;
+	 * @param iD  nï¿½mero de la habitaciï¿½n
+	 * @param tipo Categorï¿½a de habitaciï¿½n;
 	 * @param h El hotel
-	 * @throws ECamposVacios the e campos vacíos
+	 * @throws ECamposVacios the e campos vacï¿½os
 	 */
 	public void addHabitacion(String iD, String tipo,Hotel h) throws ECamposVacios {
 		if (iD.compareTo("")==0 ||tipo.compareTo("")==0) {
@@ -45,14 +45,14 @@ public class Administrador extends Empleado implements Serializable {
 	 * @param apellido El apellido
 	 * @param genero El genero
 	 * @param correo  El correo
-	 * @param id El número de cédula
-	 * @param tipoId El tipo de cédula
-	 * @param pwd La contraseña
-	 * @param cpwd La confirmación de contraseña
+	 * @param id El nï¿½mero de cï¿½dula
+	 * @param tipoId El tipo de cï¿½dula
+	 * @param pwd La contraseï¿½a
+	 * @param cpwd La confirmaciï¿½n de contraseï¿½a
 	 * @param cargo El cargo
 	 * @param h El hotel
 	 * @throws ELongitud the e longitud
-	 * @throws ECamposVacios the e campos vacíos
+	 * @throws ECamposVacios the e campos vacï¿½os
 	 * @throws EIgualdad the e igualdad
 	 * @throws ETipoInconrrecto the e tipo incorrecto
 	 */
@@ -111,7 +111,7 @@ public class Administrador extends Empleado implements Serializable {
 	}
 
 	@Override
-	public boolean addReserva(Date dateIn, Date dateOut, Habitacion habitacion, Cliente usuario) {
+	public boolean addReserva (Date dateIn, Date dateOut, Habitacion habitacion, Cliente usuario) {
 		// TODO Auto-generated method stub
 		return false;
 	}
