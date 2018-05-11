@@ -3,6 +3,7 @@ package hotel;
 import java.util.Date;
 
 import exception.ECamposVacios;
+import exception.ECliente;
 import exception.EIgualdad;
 import exception.ELongitud;
 import exception.ETipoInconrrecto;
@@ -16,10 +17,9 @@ public class Recepcion extends Empleado   {
 		super(nombre, apellido, genero, correo, id, tipoId, pwd);
 	}
 	
-	
-	public void checkIn (String cedula, Hotel hotel) {
+	public void checkIn (String cedula, Hotel hotel) throws ECliente {
 		
-		super (cedula, hotel);
+		super.checkIn (cedula, hotel);
 	}
 	
 	public void checkOut () {
@@ -75,5 +75,17 @@ public class Recepcion extends Empleado   {
 			throws ELongitud, ECamposVacios, EIgualdad, ETipoInconrrecto {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void addCliente() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Reserva buscarReserva(Date dateIn) {
+		// TODO Auto-generated method stub
+		return null;
 	}	
 }
