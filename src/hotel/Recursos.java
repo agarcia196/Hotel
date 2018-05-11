@@ -13,6 +13,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+
+import exception.ECamposVacios;
+import exception.EIgualdad;
+import exception.ELongitud;
 /**
  * The Class Recursos.
  */
@@ -95,4 +99,15 @@ public class Recursos {
 	 public static boolean isNumeric(String str) {
 	        return (str.matches("[+-]?\\d*(\\.\\d+)?") && str.equals("")==false);
 	    }
+	 public static void validarLongitudPwd(String pwd) throws ELongitud {
+		 if(pwd.length()<8)throw new ELongitud();
+	 }
+	 public static void validarIgualdadPwd(String pwd, String cpwd) throws EIgualdad {
+		 if(pwd.compareTo(cpwd)!=0)throw new EIgualdad();
+	 }
+	 public static void validarCamposVaciosU(String nombre, String apellido, String genero, String correo, String id, String tipoId,
+				String pwd, String cpwd, String cargo) throws ECamposVacios {
+		 if (nombre.compareTo("")==0 ||apellido.compareTo("")==0 || id.compareTo("")==0 || tipoId.compareTo("")==0 
+					|| pwd.compareTo("") == 0 ||cpwd.compareTo("") == 0|| cargo.compareTo("")==0)throw new ECamposVacios();
+	 }
 }
