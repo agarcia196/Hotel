@@ -1,5 +1,6 @@
 package hotel;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import exception.ECamposVacios;
@@ -87,5 +88,17 @@ public class Recepcion extends Empleado   {
 	public Reserva buscarReserva(Date dateIn) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void deleteUser(Cliente cliente, ArrayList<Cliente> usuario) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void cancelReserva(String id) {
+		// TODO Auto-generated method stub
+		
 	}	
 }
