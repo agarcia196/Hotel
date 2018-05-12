@@ -1,12 +1,13 @@
 package hotel;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.ArrayList;
 
 public class Hotel implements Serializable{
 	
 	private static final long serialVersionUID = -2223602071197796134L;
-	private ArrayList<Cliente> usuarios;
+	private ABB usuarios;
 	private ArrayList<Habitacion> habitaciones;
 	private ArrayList<Empleado> personal;
 	private String nombre;
@@ -31,14 +32,14 @@ public class Hotel implements Serializable{
 	}
 	public Hotel() {
 		super();
-		usuarios = new ArrayList<Cliente>();
+		usuarios = new ABB();
 		habitaciones = new ArrayList<Habitacion>();
 		personal = new ArrayList<Empleado>();
 	}
 	public Hotel(String nombre) {
 		super();
 		this.nombre= nombre;
-		usuarios = new ArrayList<Cliente>();
+		usuarios = new ABB();
 		habitaciones = new ArrayList<Habitacion>();
 		personal = new ArrayList<Empleado>();
 	}
@@ -51,25 +52,31 @@ public class Hotel implements Serializable{
 		personal.add(e);
 	}
 	
-	public void addUser(Cliente c) {
-		usuarios.add(c);
+	public void addUser(Cliente c) throws ExceptionNodo {
+		usuarios.insertNodo(c);
 	}
 	
 	// buscar reserva 
-	public Reserva buscarReserva (String id) {
-		return null;
-	}
-	
-	public Cliente buscarCliente (String cedula) {
+	public Reserva buscarReserva (String c,Date in) throws ExceptionNodo {
+		Cliente c1=buscarCliente(c);
+		if(c1.getReservasActivas().contains(in)) {
+			return c1.buscarReserva(in);
+		}else {
+			return null;
+		}
 		
-		return null;
 	}
 	
-	public ArrayList<Cliente> getUsuarios() {
+	public Cliente buscarCliente (String cedula) throws ExceptionNodo {
+		return (Cliente) usuarios.buscar(cedula).getLlave();
+	}
+	
+	
+	public ABB getUsuarios() {
 		return usuarios;
 	}
 	
-	public void setUsuarios (ArrayList<Cliente> usuarios) {
+	public void setUsuarios (ABB usuarios) {
 		this.usuarios = usuarios;
 	}
 	

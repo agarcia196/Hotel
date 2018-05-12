@@ -9,7 +9,7 @@ import exception.EIgualdad;
 import exception.ELongitud;
 import exception.ETipoInconrrecto;
 
-public class Cliente extends Persona implements Usuario {
+public class Cliente extends Persona implements Usuario,Comparable {
 
 	/**
 	 * 
@@ -172,5 +172,12 @@ public class Cliente extends Persona implements Usuario {
 	public void deleteUser() {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+	@Override
+	public int compareTo(Object arg0) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
