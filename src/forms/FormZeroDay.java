@@ -288,7 +288,6 @@ public class FormZeroDay extends JFrame {
 										String.valueOf(ccontraseña.getPassword()), txtHotel.getText());
 								Recursos.validarLongitudPwd(String.valueOf(contraseña.getPassword()));
 								Recursos.validarIgualdadPwd(String.valueOf(contraseña.getPassword()), String.valueOf(ccontraseña.getPassword()));
-		
 								Hotel h = new Hotel(txtHotel.getText());
 								Empleado e = new Administrador(txtUserName.getText(), txtapellido.getText(), 
 										cbgenero.getSelectedItem().toString(), txtemail.getText(),txtncedula.getText(), 
