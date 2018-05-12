@@ -40,11 +40,9 @@ public class FormZeroDay extends JFrame {
 	private static final long serialVersionUID = -7929026323831009718L;
 	private JPanel contentPane;
 	private JTextField txtUserName;
-	private final String color1= "#FFFFFF";
-	private final String color2= "#FFFFFF";
+	private final String color1= "#616161";
+	private final String color2= "#565656";
 	private final String color3= "#3a88db";
-	private final String backgroundcolor="#44b256";
-	private final int fontsize=20;
 	//private final String color4="#6f6f6f";
 	private final String color5="#FFFFFF";
 	private final int width_txt= 250;
@@ -68,6 +66,7 @@ public class FormZeroDay extends JFrame {
 	private JLabel tipoid;
 	private JLabel hotel;
 	private JSeparator separator_1;
+	private JLabel lblNewLabel;
 	private JLabel lblNombre;
 	private JLabel Genero;
 	private JLabel lblTipoDeDocumento;
@@ -106,17 +105,18 @@ public class FormZeroDay extends JFrame {
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		int xsize = (int) tk.getScreenSize().getWidth();
 		int ysize = (int) tk.getScreenSize().getHeight();
+		System.out.println(xsize +" "+ ysize);
 		//setSize(xsize, ysize);
 		contentPane = new JPanel();
-		contentPane.setBackground(Color.decode(backgroundcolor));
+		contentPane.setBackground(Color.LIGHT_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		txtUserName = new JTextField();
 		txtUserName.setToolTipText("");
-		txtUserName.setForeground(Color.BLACK);
-		txtUserName.setFont(new Font("Century Gothic", Font.PLAIN, fontsize));
+		txtUserName.setForeground(Color.WHITE);
+		txtUserName.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		txtUserName.setBounds(360, 300, width_txt, height_txt);
 		contentPane.add(txtUserName);
 		txtUserName.setColumns(100);
@@ -125,8 +125,8 @@ public class FormZeroDay extends JFrame {
 		
 		contraseña = new JPasswordField();
 		contraseña.setToolTipText("");
-		contraseña.setForeground(Color.BLACK);
-		contraseña.setFont(new Font("Century Gothic", Font.PLAIN, fontsize));
+		contraseña.setForeground(Color.WHITE);
+		contraseña.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		contraseña.setColumns(100);
 		contraseña.setBorder(new LineBorder(Color.decode(color2), 3, true));
 		contraseña.setBackground(Color.decode(color1));
@@ -135,8 +135,8 @@ public class FormZeroDay extends JFrame {
 		
 		txtapellido = new JTextField();
 		txtapellido.setToolTipText("");
-		txtapellido.setForeground(Color.BLACK);
-		txtapellido.setFont(new Font("Century Gothic", Font.PLAIN, fontsize));
+		txtapellido.setForeground(Color.WHITE);
+		txtapellido.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		txtapellido.setColumns(100);
 		txtapellido.setBorder(new LineBorder(Color.decode(color2), 3, true));
 		txtapellido.setBackground(Color.decode(color1));
@@ -145,8 +145,8 @@ public class FormZeroDay extends JFrame {
 		
 		txtncedula = new JTextField();
 		txtncedula.setToolTipText("");
-		txtncedula.setForeground(Color.BLACK);
-		txtncedula.setFont(new Font("Century Gothic", Font.PLAIN, fontsize));
+		txtncedula.setForeground(Color.WHITE);
+		txtncedula.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		txtncedula.setColumns(100);
 		txtncedula.setBorder(new LineBorder(Color.decode(color2), 3, true));
 		txtncedula.setBackground(Color.decode(color1));
@@ -155,8 +155,8 @@ public class FormZeroDay extends JFrame {
 		
 		txtemail = new JTextField();
 		txtemail.setToolTipText("");
-		txtemail.setForeground(Color.BLACK);
-		txtemail.setFont(new Font("Century Gothic", Font.PLAIN, fontsize));
+		txtemail.setForeground(Color.WHITE);
+		txtemail.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		txtemail.setColumns(100);
 		txtemail.setBorder(new LineBorder(Color.decode(color2), 3, true));
 		txtemail.setBackground(Color.decode(color1));
@@ -165,8 +165,8 @@ public class FormZeroDay extends JFrame {
 		
 		ccontraseña = new JPasswordField();
 		ccontraseña.setToolTipText("");
-		ccontraseña.setForeground(Color.BLACK);
-		ccontraseña.setFont(new Font("Century Gothic", Font.PLAIN, fontsize));
+		ccontraseña.setForeground(Color.WHITE);
+		ccontraseña.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		ccontraseña.setColumns(100);
 		ccontraseña.setBorder(new LineBorder(Color.decode(color2), 3, true));
 		ccontraseña.setBackground(Color.decode(color1));
@@ -175,8 +175,8 @@ public class FormZeroDay extends JFrame {
 		
 		txtHotel = new JTextField();
 		txtHotel.setToolTipText("");
-		txtHotel.setForeground(Color.BLACK);
-		txtHotel.setFont(new Font("Century Gothic", Font.PLAIN, fontsize));
+		txtHotel.setForeground(Color.WHITE);
+		txtHotel.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		txtHotel.setColumns(100);
 		txtHotel.setBorder(new LineBorder(Color.decode(color2), 3, true));
 		txtHotel.setBackground(Color.decode(color1));
@@ -186,18 +186,18 @@ public class FormZeroDay extends JFrame {
 		JComboBox<String> cbgenero = new JComboBox<String>();
 		cbgenero.setModel(new DefaultComboBoxModel<String>(new String[] {"Masculino", "Femenino", "Otro"}));
 		cbgenero.setBackground(Color.decode(color1));
-		cbgenero.setForeground(Color.BLACK);
-		cbgenero.setFont(new Font("Century Gothic", Font.PLAIN, fontsize));
+		cbgenero.setForeground(Color.WHITE);
+		cbgenero.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		cbgenero.setBounds(360, 379, width_txt, height_txt);
-		cbgenero.setBorder(null);
+		cbgenero.setBorder(new LineBorder(Color.decode(color2), 3, true));
 		contentPane.add(cbgenero);
 		
 		cbtipodedocumento = new JComboBox<String>();
 		cbtipodedocumento.setModel(new DefaultComboBoxModel<String>(new String[] {"C\u00E9dula", "Nit", "Pasaporte"}));
-		cbtipodedocumento.setForeground(Color.BLACK);
-		cbtipodedocumento.setFont(new Font("Century Gothic", Font.PLAIN, fontsize));
-		cbtipodedocumento.setBorder(null);
-		cbtipodedocumento.setBackground(Color.decode(color1));
+		cbtipodedocumento.setForeground(Color.WHITE);
+		cbtipodedocumento.setFont(new Font("Century Gothic", Font.PLAIN, 14));
+		cbtipodedocumento.setBorder(new LineBorder(Color.decode(color2), 3, true));
+		cbtipodedocumento.setBackground(new Color(97, 97, 97));
 		cbtipodedocumento.setBounds(360, 459, 250, 40);
 		contentPane.add(cbtipodedocumento);
 		
@@ -293,10 +293,8 @@ public class FormZeroDay extends JFrame {
 										cbgenero.getSelectedItem().toString(), txtemail.getText(),txtncedula.getText(), 
 										cbtipodedocumento.getSelectedItem().toString(), String.valueOf(contraseña.getPassword()));
 								h.addEmpleado(e);
-								dispose();
 								Recursos.WriteFileObjectEmpresa("hotel.dat", h);
-								FormLogin login = new FormLogin(h);
-								login.setVisible(true);
+								dispose();
 							} catch (ECamposVacios | EIgualdad | ELongitud e) {
 								// TODO Auto-generated catch block
 								JOptionPane.showMessageDialog(contentPane, e.getMessage());
@@ -373,6 +371,11 @@ public class FormZeroDay extends JFrame {
 		lblNombreDeHotel.setFont(new Font("Century Gothic", Font.BOLD | Font.ITALIC, 16));
 		lblNombreDeHotel.setBounds(365, 155, 240, 15);
 		contentPane.add(lblNombreDeHotel);
+		
+		lblNewLabel = new JLabel("Background");
+		lblNewLabel.setIcon(new ImageIcon("Icons\\background.jpg"));
+		lblNewLabel.setBounds(0, 0, xsize, ysize);
+		contentPane.add(lblNewLabel);
 	
 	}
 }

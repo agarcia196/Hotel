@@ -4,7 +4,6 @@
 package hotel;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 
 import exception.ECamposVacios;
@@ -111,35 +110,10 @@ public class Administrador extends Empleado implements Serializable {
 		return false;
 	}
 
-	
 	@Override
-	public void addCliente() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean addReserva(Date dateIn, Date dateOut, String tipo, Hotel hotel) {
+	public boolean addReserva (Date dateIn, Date dateOut, Habitacion habitacion, Cliente usuario) {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public Reserva buscarReserva(Date dateIn) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void deleteUser(Cliente cliente, ArrayList<Cliente> usuario) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void cancelReserva(String id) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

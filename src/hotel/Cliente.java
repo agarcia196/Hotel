@@ -11,10 +11,6 @@ import exception.ETipoInconrrecto;
 
 public class Cliente extends Persona implements Usuario {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7178957623346929138L;
 	private ArrayList <Reserva> reservasActivas;
 	private ArrayList<Reserva> historialReservas;
 	
@@ -158,19 +154,5 @@ public class Cliente extends Persona implements Usuario {
 		}
 		
 		return null;
-	}
-
-
-	@Override
-	public void cancelReserva() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void deleteUser() {
-		// TODO Auto-generated method stub
-		
 	}
 }
