@@ -1,4 +1,4 @@
-package hotel;
+package exception;
 
 public class ExceptionNodo extends Exception {
 

@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import exception.ExceptionNodo;
+
 public class Hotel implements Serializable{
 	
 	private static final long serialVersionUID = -2223602071197796134L;
-	private ABB usuarios;
+	private ABB<Cliente> usuarios;
 	private ArrayList<Habitacion> habitaciones;
 	private ArrayList<Empleado> personal;
 	private String nombre;
@@ -68,15 +70,15 @@ public class Hotel implements Serializable{
 	}
 	
 	public Cliente buscarCliente (String cedula) throws ExceptionNodo {
-		return (Cliente) usuarios.buscar(cedula).getLlave();
+		return  usuarios.buscar(cedula).getLlave();
 	}
 	
 	
-	public ABB getUsuarios() {
+	public ABB<Cliente> getUsuarios() {
 		return usuarios;
 	}
 	
-	public void setUsuarios (ABB usuarios) {
+	public void setUsuarios (ABB<Cliente> usuarios) {
 		this.usuarios = usuarios;
 	}
 	

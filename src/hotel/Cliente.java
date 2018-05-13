@@ -1,6 +1,6 @@
 package hotel;
 
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -9,7 +9,7 @@ import exception.EIgualdad;
 import exception.ELongitud;
 import exception.ETipoInconrrecto;
 
-public class Cliente extends Persona implements Usuario,Comparable {
+public class Cliente extends Persona implements Usuario,Comparable<Cliente> {
 
 	/**
 	 * 
@@ -174,8 +174,10 @@ public class Cliente extends Persona implements Usuario,Comparable {
 		
 	}
 
+
 	@Override
-	public int compareTo(Cliente a,Cliente b) {
-		return a.getId().compareTo(b.getId());
+	public int compareTo(Cliente a) {
+		// TODO Auto-generated method stub
+		return a.getId().compareTo(this.getId());
 	}
 }

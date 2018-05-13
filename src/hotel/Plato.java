@@ -52,6 +52,12 @@ public class Plato implements Comparable<Plato>, Serializable {
 	public void setValor(double valor) {
 		this.valor = valor;
 	}
+	
+	@Override
+	public String toString() {
+		return "Plato [nombre=" + nombre + ", duracion=" + duracion + ", disponibilidad=" + disponibilidad + ", valor="
+				+ valor + "]";
+	}
 
 	@Override
 	public int compareTo(Plato arg0) {

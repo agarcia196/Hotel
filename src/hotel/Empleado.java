@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import exception.ECliente;
+import exception.ExceptionNodo;
 
 public abstract class Empleado extends Persona implements Usuario, Serializable {
 
@@ -14,7 +15,7 @@ public abstract class Empleado extends Persona implements Usuario, Serializable 
 		// TODO Auto-generated constructor stub
 	}
 
-	public void checkIn (String cedula, Hotel hotel) throws ECliente {
+	public void checkIn (String cedula, Hotel hotel) throws ECliente, ExceptionNodo {
 		
 		Cliente cliente = hotel.buscarCliente (cedula);
 		

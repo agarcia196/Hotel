@@ -11,6 +11,7 @@ import javax.swing.border.LineBorder;
 import exception.ECamposVacios;
 import exception.EIgualdad;
 import exception.ELongitud;
+import exception.ExceptionNodo;
 import hotel.Cliente;
 import hotel.Hotel;
 import hotel.Recursos;
@@ -88,9 +89,9 @@ public class FormLogin extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1366, 768);	
 		lblLogin = new JLabel();
-		vistaPrincipal();
+		//vistaPrincipal();
 		// tipodeuser="Visitante";
-		//vistaLogin(); 
+		vistaLogin(); 
 	 
 		//vistaRegister();
 	}
@@ -323,6 +324,9 @@ public class FormLogin extends JFrame {
 							} catch (ECamposVacios | EIgualdad | ELongitud e) {
 								// TODO Auto-generated catch block
 								JOptionPane.showMessageDialog(contentPane2, e.getMessage());
+							} catch (ExceptionNodo e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
 							}
 						}						
 				}
@@ -475,6 +479,7 @@ public class FormLogin extends JFrame {
 		JButton btnSignIn = new JButton("Sign in");
 		btnSignIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+			//	hotel.login(tipodeuser);
 			}
 		});
 		btnSignIn.setBounds(665, 500, 150, 40);

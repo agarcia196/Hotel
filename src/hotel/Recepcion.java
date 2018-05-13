@@ -8,6 +8,7 @@ import exception.ECliente;
 import exception.EIgualdad;
 import exception.ELongitud;
 import exception.ETipoInconrrecto;
+import exception.ExceptionNodo;
 
 public class Recepcion extends Empleado   {
 	
@@ -18,7 +19,7 @@ public class Recepcion extends Empleado   {
 		super(nombre, apellido, genero, correo, id, tipoId, pwd);
 	}
 	
-	public void checkIn (String cedula, Hotel hotel) throws ECliente {
+	public void checkIn (String cedula, Hotel hotel) throws ECliente, ExceptionNodo {
 		
 		super.checkIn (cedula, hotel);
 	}

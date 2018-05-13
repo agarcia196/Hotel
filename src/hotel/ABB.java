@@ -1,5 +1,7 @@
 package hotel;
 
+import exception.ExceptionNodo;
+
 public class ABB<E extends Comparable<E>> extends ArbolB<E> {
 	
 	public ABB() {
@@ -72,7 +74,7 @@ public class ABB<E extends Comparable<E>> extends ArbolB<E> {
 			return buscarMax(k.getHijoDer());
 	}
 	public void insertNodo(E a) throws ExceptionNodo{
-		NodoB e= new NodoB(a);
+		NodoB<E> e= new NodoB<E>(a);
 		raiz = insertNodo(e,raiz);
 	}
 	private NodoB<E> insertNodo(NodoB<E> n, NodoB<E> r) throws ExceptionNodo{

@@ -18,11 +18,7 @@ public class Habitacion implements Serializable {
 		this.disponibilidad = new ArrayList<Reserva>();
 	}
 	
-	public boolean addReserva (Reserva reserva) {
-		
-		
-	}
-	
+
 	public String getID() {
 		return ID;
 	}
