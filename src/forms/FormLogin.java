@@ -1,3 +1,6 @@
+/*
+ * @author Alexis García Ramírez
+ */
 package forms;
 
 import java.awt.EventQueue;
@@ -87,7 +90,7 @@ public class FormLogin extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("Icons\\oficcial.png"));
 		setExtendedState(MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1366, 768);	
+		setBounds(0, 0, 1366, 768);	
 		lblLogin = new JLabel();
 		//vistaPrincipal();
 		// tipodeuser="Visitante";
