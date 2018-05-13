@@ -62,7 +62,7 @@ public class Plato implements Comparable<Plato>, Serializable {
 	@Override
 	public int compareTo(Plato arg0) {
 		// TODO Auto-generated method stub
-		return duracion.compareTo(arg0.getDuracion());
+		return (duracion.compareTo(arg0.getDuracion())>0)?-1:(duracion.compareTo(arg0.getDuracion())<0)? 1:0;
 	}
 
 }
