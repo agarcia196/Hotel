@@ -8,6 +8,7 @@ import exception.ECamposVacios;
 import exception.EIgualdad;
 import exception.ELongitud;
 import exception.ETipoInconrrecto;
+import exception.ExceptionNodo;
 
 public class Cliente extends Persona implements Usuario,Comparable<Cliente> {
 
@@ -94,15 +95,17 @@ public class Cliente extends Persona implements Usuario,Comparable<Cliente> {
 	}
 
 	@Override
-	public void deleteUser(Cliente cliente, ArrayList<Cliente> usuario) {
+	public void deleteUser(Cliente cliente, Hotel h ) throws ExceptionNodo {
 	
-		
-		if (usuario.contains(cliente)==true) {
-			int i =0;
-			while(cliente.getId().compareTo(usuario.get(i).getId())!=0) {
-				i++;
-			}
-			usuario.remove(i);
+		NodoB<Cliente> c= h.getUsuarios().buscar(cliente) ;
+		if (c !=null) {
+//			int i =0;
+//			while(cliente.getId().compareTo(usuarios.get(i).getId())!=0) {
+//				i++;
+//			}
+//			usuarios.remove(i);
+			h.getUsuarios().eliminar(cliente);
+			
 		}
 		
 	}
@@ -150,7 +153,7 @@ public class Cliente extends Persona implements Usuario,Comparable<Cliente> {
 		
 		int i = 0;
 		
-		while (i < reservasActivas.size () && dateIn.compareTo (reservasActivas.get (i).getLlegada ()) == 0) { i++; }
+		while (i < reservasActivas.size () && dateIn.compareTo (reservasActivas.get (i).getLlegada ()) != 0) { i++; }
 		
 		if (i < reservasActivas.size ()) {
 			
@@ -168,11 +171,7 @@ public class Cliente extends Persona implements Usuario,Comparable<Cliente> {
 	}
 
 
-	@Override
-	public void deleteUser() {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 
 	@Override

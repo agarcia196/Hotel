@@ -21,6 +21,14 @@ public class Hotel implements Serializable{
 		Administrador e = new Administrador("Lopez", "Daniel", "Sin especificar", "DD", "123", "CC", "123");
 		h.addHabitacion(h1);
 		h.addEmpleado(e);
+		Cliente c= new Cliente ("Juan", "Carlos", "Mas", "juan@", "01", "cedula", "2");
+		
+		try {
+			h.buscarCliente(c);
+		} catch (ExceptionNodo e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	  System.out.println(h.getPersonal().get(0).getNombre() +" "+ h.getHabitaciones().get(0).getID() );
 	}*/
 	
