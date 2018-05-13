@@ -63,13 +63,7 @@ public class Cliente extends Persona implements Usuario,Comparable<Cliente> {
 		}
 	}
 
-	@Override
-	public void cancelReserva (String id) {
-		
-		Reserva r = buscarReserva(id);
-		reservasActivas.remove(r);
-		
-	}
+
 
 	@Override
 	public boolean editReserva (String id, Date dateIn, Date dateOut, Habitacion habitacion) {
@@ -141,12 +135,6 @@ public class Cliente extends Persona implements Usuario,Comparable<Cliente> {
 	}
 
 
-	@Override
-	public void addCliente() {
-		
-		
-	}
-
 
 	@Override
 	public Reserva buscarReserva (Date dateIn) {
@@ -167,6 +155,10 @@ public class Cliente extends Persona implements Usuario,Comparable<Cliente> {
 	@Override
 	public void cancelReserva() {
 		// TODO Auto-generated method stub
+		
+		Reserva r = buscarReserva(id);
+		reservasActivas.remove(r);
+		
 		
 	}
 

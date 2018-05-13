@@ -16,8 +16,18 @@ public interface Usuario {
 
 	/**
 	 * Agregar un cliente
+	 * 
+	 * 
 	 */
-	public void addCliente ();
+	
+	public void addUser(String nombre, String apellido, String genero, String correo, String id, String tipoId,
+			String pwd, String cpwd, String cargo , Hotel h)throws ELongitud, ECamposVacios, EIgualdad, ETipoInconrrecto, ExceptionNodo ;
+	
+	
+	// borrar un cliente 
+	
+	void deleteUser(Cliente cliente, Hotel h) throws ExceptionNodo;
+	
 	
 	/**
 	* Agregar reserva.
@@ -42,16 +52,14 @@ public interface Usuario {
 	public Reserva buscarReserva (String id);
 	public Reserva buscarReserva (Date dateIn);
 	/**
-	 * Borrar Usuario.
+	 
 	 */
 	
-	public void addUser(String nombre, String apellido, String genero, String correo, String id, String tipoId,
-			String pwd, String cpwd, String cargo , Hotel h)throws ELongitud, ECamposVacios, EIgualdad, ETipoInconrrecto, ExceptionNodo ;
+	
+	
 
 	
 
-	void cancelReserva(String id);
-
-	void deleteUser(Cliente cliente, Hotel h) throws ExceptionNodo;
+	
 
 }

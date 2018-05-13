@@ -93,11 +93,7 @@ public class Administrador extends Empleado implements Serializable {
 		
 	}
 
-	@Override
-	public void deleteUser() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
 	public Reserva buscarReserva(String id) {
@@ -114,11 +110,7 @@ public class Administrador extends Empleado implements Serializable {
 	}
 
 	
-	@Override
-	public void addCliente() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
 	public boolean addReserva(Date dateIn, Date dateOut, String tipo, Hotel hotel) {
@@ -132,14 +124,10 @@ public class Administrador extends Empleado implements Serializable {
 		return null;
 	}
 
-	@Override
-	public void deleteUser(Cliente cliente, ArrayList<Cliente> usuario) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	@Override
-	public void cancelReserva(String id) {
+	public void deleteUser(Cliente cliente, Hotel h) throws ExceptionNodo {
 		// TODO Auto-generated method stub
 		
 	}

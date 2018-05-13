@@ -57,11 +57,7 @@ public class Recepcion extends Empleado   {
 	}
 
 
-	@Override
-	public void deleteUser() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 
 	@Override
@@ -79,11 +75,7 @@ public class Recepcion extends Empleado   {
 		
 	}
 
-	@Override
-	public void addCliente() {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	@Override
 	public Reserva buscarReserva(Date dateIn) {
@@ -91,14 +83,11 @@ public class Recepcion extends Empleado   {
 		return null;
 	}
 
-	@Override
-	public void deleteUser(Cliente cliente, ArrayList<Cliente> usuario) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
+	
 	@Override
-	public void cancelReserva(String id) {
+	public void deleteUser(Cliente cliente, Hotel h) throws ExceptionNodo {
 		// TODO Auto-generated method stub
 		
 	}	
