@@ -51,4 +51,8 @@ public interface Usuario {
 
 	void cancelReserva(String id);
 
+	int compareTo(Cliente a);
+
+	int compareTo(Cliente a, Cliente b);
+
 }
