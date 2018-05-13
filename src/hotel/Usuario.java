@@ -48,7 +48,7 @@ public interface Usuario {
 	public void addUser(String nombre, String apellido, String genero, String correo, String id, String tipoId,
 			String pwd, String cpwd, String cargo , Hotel h)throws ELongitud, ECamposVacios, EIgualdad, ETipoInconrrecto, ExceptionNodo ;
 
-	void deleteUser(Cliente cliente, ArrayList<Cliente> usuario);
+	void deleteUser(Persona persona, Hotel hotel);
 
 	void cancelReserva(String id);
 
