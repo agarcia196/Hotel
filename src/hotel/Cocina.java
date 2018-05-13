@@ -21,12 +21,12 @@ public class Cocina implements Serializable {
 		Cocina c = new Cocina();
 		try {
 			c.addPlato("Bandeja paisa", true, "80", "80.50");
-			c.addPlato("Ajiaco", true, "80", "80");
+			c.addPlato("Ajiaco", true, "90", "80");
 			System.out.println(c.getMenu());
-			c.removePlato("Bandeja paisa");
-			System.out.println(c.getMenu());
-			c.removePlato("Ajiaco");
-			System.out.println(c.getMenu());
+			c.addCola("Bandeja paisa");
+			c.addCola("Bandeja paisa");
+			c.addCola("Ajiaco");
+			System.out.println("Cola "+c.getCola_servicios());
 		} catch (ECamposVacios | ELetrasEnCampoN | ECocina e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
