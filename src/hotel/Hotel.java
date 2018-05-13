@@ -59,7 +59,7 @@ public class Hotel implements Serializable{
 	}
 	
 	// buscar reserva 
-	public Reserva buscarReserva (String c,Date in) throws ExceptionNodo {
+	public Reserva buscarReserva (Cliente c,Date in) throws ExceptionNodo {
 		Cliente c1=buscarCliente(c);
 		if(c1.getReservasActivas().contains(in)) {
 			return c1.buscarReserva(in);
@@ -69,8 +69,8 @@ public class Hotel implements Serializable{
 		
 	}
 	
-	public Cliente buscarCliente (String cedula) throws ExceptionNodo {
-		return  usuarios.buscar(cedula).getLlave();
+	public Cliente buscarCliente (Cliente c) throws ExceptionNodo {
+		return  usuarios.buscar(c).getLlave();
 	}
 	
 	
