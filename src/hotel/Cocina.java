@@ -89,8 +89,9 @@ public class Cocina implements Serializable {
 	public boolean addCola(String nombredeplato) throws ECocina {
 		return cola_servicios.add(buscarPlato(nombredeplato));
 	}
-	public void despacharPlato() {
+	public Plato despacharPlato() {
 		
+		return cola_servicios.poll();
 	}
 	
 }
