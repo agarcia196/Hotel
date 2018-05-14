@@ -7,6 +7,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
+import javax.swing.table.DefaultTableModel;
+
+import exception.EArrayVacio;
 import exception.ECamposVacios;
 import exception.ECocina;
 import exception.ELetrasEnCampoN;
@@ -78,10 +81,34 @@ public class Cocina implements Serializable {
 			p.setValor(Double.parseDouble(valor));
 		}
 	}
-	public boolean removePlato(String nombredeplato) throws ECocina {
-			return menu.remove(buscarPlato(nombredeplato));
+	public boolean removePlato(Plato nombredeplato) throws ECocina {
+			return menu.remove(nombredeplato);
 	}
 	
+	public DefaultTableModel printMenu(DefaultTableModel modeloTable) throws EArrayVacio {
+		if(menu.size()>0) {
+		int i=0;
+		while (i<menu.size()) {
+			String [] model = {menu.get(i).getNombre(),Boolean.toString(menu.get(i).isDisponibilidad()),
+					Double.toString(menu.get(i).getDuracion()),Double.toString(menu.get(i).getValor())};
+			modeloTable.addRow(model);	
+			i++;
+		}
+		return modeloTable;}
+		else {
+			throw new EArrayVacio("No hay platos disponibles en el menú");
+		}
+	}
+	
+	public String [] printMenu(int i) throws EArrayVacio {
+		if(menu.size()>0) {
+		String [] model = {menu.get(i).getNombre(),Boolean.toString(menu.get(i).isDisponibilidad()),
+				Double.toString(menu.get(i).getDuracion()),Double.toString(menu.get(i).getValor())};
+		return model;
+		}else {
+			throw new EArrayVacio("No hay platos disponibles en el menu");
+		}
+	}
 	public Plato buscarPlato(String nombredeplato) throws ECocina {
 		int i=0;
 		while (i<menu.size()&&menu.get(i).getNombre().compareTo(nombredeplato)!=0)

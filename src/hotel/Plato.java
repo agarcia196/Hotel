@@ -20,7 +20,7 @@ public class Plato implements Comparable<Plato>, Serializable {
 		this.duracion = duracion;
 		this.valor = valor;
 	}
-
+	
 	public String getNombre() {
 		return nombre;
 	}

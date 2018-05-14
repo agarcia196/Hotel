@@ -15,15 +15,16 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import exception.EArrayVacio;
 import exception.ECamposVacios;
 import exception.ECocina;
 import exception.ELetrasEnCampoN;
 import hotel.Hotel;
 import hotel.Plato;
-import hotel.Cliente;
+/*import hotel.Cliente;
 import hotel.Habitacion;
 import hotel.Pedido;
-import hotel.Reserva;
+import hotel.Reserva;*/
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
@@ -39,9 +40,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Date;
-
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -60,9 +58,6 @@ public class FormCocina extends JFrame {
 	private final String backgroundcolor="#44b256";
 	private final String btncolor1= "#3a88db";
 	private final String txtcolor1= "#FFFFFF";
-	private final String btncolor2= "#F22613";
-	private final int width_txt = 300;
-	private final int height_txt= 40;
 	private final int btnwidth= 250;
 	private final int btnheight= 40;
 	private final int btnsize= 30;
@@ -70,7 +65,7 @@ public class FormCocina extends JFrame {
 	private final int fontsize=20;
 	private JLabel lblCocina ;
 	private JTable table_1;
-
+	private Plato p;
 	/**
 	 * Launch the application.
 	 */
@@ -111,12 +106,12 @@ public class FormCocina extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("Icons\\oficcial.png"));
 		setBounds(0, 0, 1366, 768);
 		lblCocina = new JLabel();
-	//	vistaPrincipal();
+		vistaPrincipal();
 	//	vistaServicios();
 	//	vistaPedido();
 	//	vistaConsulta();
 	//	vistaMenu();
-		vistaCrearPlato();
+	//	vistaCrearPlato();
 	//	vistaEliminar();
 	//	vistaCMenu();
 	}
@@ -190,6 +185,12 @@ public class FormCocina extends JFrame {
 		DefaultTableModel modeloTable= new DefaultTableModel(titulos,0); //crear modelo con el vector de titulos
 		table_1 = new JTable(modeloTable);							//cargar modelo en la tabla
 		scrollPane.setViewportView(table_1);
+		try {
+			hotel.getCocina().printMenu(modeloTable);
+		} catch (EArrayVacio e1) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(contentCmenu, e1.getMessage());
+		}
 	}
 
 	private void vistaEliminar() {
@@ -260,7 +261,30 @@ public class FormCocina extends JFrame {
 		String [] titulos = {"Nombre","Disponibilidad", "Duración","Precio"};	//crear vector con titulos de la tabla
 		DefaultTableModel modeloTable= new DefaultTableModel(titulos,0); //crear modelo con el vector de titulos
 		table_1 = new JTable(modeloTable);							//cargar modelo en la tabla
+		try {
+			hotel.getCocina().printMenu(modeloTable);
+		} catch (EArrayVacio e2) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(contentEliminar, e2.getMessage());
+		}
 		scrollPane.setViewportView(table_1);
+		table_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				try {
+					if(table_1.getSelectedRow()!=-1) {
+					p = hotel.getCocina().buscarPlato((String)table_1.getValueAt(table_1.getSelectedRow(),0));
+					}else {
+						JOptionPane.showMessageDialog(contentEliminar, "Porfavor seleccione un producto plato para continuar");
+					}
+					
+				} catch (ECocina e1) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(contentEliminar, e1.getMessage());
+				}
+			}
+		});
 		JButton btnpedido = new JButton("Eliminar");
 		btnpedido.addMouseListener(new MouseAdapter() {
 			@Override
@@ -276,7 +300,18 @@ public class FormCocina extends JFrame {
 		});
 		btnpedido.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-	
+				try {
+					int validar = JOptionPane.showConfirmDialog(contentEliminar, "¿Esta seguro de eliminar "+p.getNombre()+" del menú?");
+					if(validar==0) {
+					hotel.getCocina().removePlato(p);
+					hotel.limpiarMenu(modeloTable);
+					hotel.getCocina().printMenu(modeloTable);
+					}
+				} catch (ECocina | EArrayVacio e) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(contentEliminar, e.getMessage());
+					
+				}
 			}
 		});
 		btnpedido.setBounds(760, 578, btnwidth+50, btnheight);
@@ -335,7 +370,7 @@ public class FormCocina extends JFrame {
 			}
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-				textMensaje.setText("Volver a servicio");
+				textMensaje.setText("Volver a Menú");
 				lblInfo.setVisible(true);
 			}
 			@Override		
@@ -347,18 +382,6 @@ public class FormCocina extends JFrame {
 		contentPlato.add(lblBack);
 		
 		txtPlatoName = new JTextField();
-		txtPlatoName.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				textMensaje.setText("Click para buscar usuario.");
-				lblInfo.setVisible(true);
-			}
-			@Override		
-			public void mouseExited(MouseEvent arg0) {
-				textMensaje.setText("");
-				lblInfo.setVisible(false);
-			}
-		});
 		txtPlatoName.setToolTipText("");
 		txtPlatoName.setForeground(Color.BLACK);
 		txtPlatoName.setFont(new Font(font, Font.PLAIN, fontsize));
@@ -427,9 +450,9 @@ public class FormCocina extends JFrame {
 		txtPrecio.setBounds(720, 261, 300, 40);
 		contentPlato.add(txtPrecio);
 		
-		
+	
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setVisible(false);
+		scrollPane.setVisible(false);	
 		scrollPane.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		scrollPane.setAutoscrolls(true);
 		scrollPane.setViewportBorder(null);
@@ -438,7 +461,27 @@ public class FormCocina extends JFrame {
 		DefaultTableModel modeloTable= new DefaultTableModel(titulos,0); //crear modelo con el vector de titulos
 		table_1 = new JTable(modeloTable);							//cargar modelo en la tabla
 		scrollPane.setViewportView(table_1);
-		
+		table_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				try {
+					if(table_1.getSelectedRow()!=-1) {
+					p = hotel.getCocina().buscarPlato((String)table_1.getValueAt(table_1.getSelectedRow(),0));
+					txtPlatoName.setText(p.getNombre());
+					txtPlatoName.setEditable(false);
+					txtDuracion.setText(Double.toString(p.getDuracion()));
+					txtPrecio.setText(Double.toString(p.getValor()));
+					}else {
+						JOptionPane.showMessageDialog(contentPlato, "Porfavor seleccione un producto plato para continuar");
+					}
+					
+				} catch (ECocina e1) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(contentPlato, e1.getMessage());
+				}
+			}
+		});
 		JButton btnCrear = new JButton("Crear");
 		btnCrear.addMouseListener(new MouseAdapter() {
 			@Override
@@ -470,7 +513,6 @@ public class FormCocina extends JFrame {
 						vistaCrearPlato();
 					}
 				}else {
-					Plato p=new Plato("Bandeja paisa", true, 80.0, 80.50);
 					hotel.getCocina().editPlato(cbPlato.getSelectedItem().toString(), txtDuracion.getText() , txtPrecio.getText(),p);
 					int validar = JOptionPane.showConfirmDialog(contentPlato,
 							"Plato editado correctamente ¿Desea editar otro?");
@@ -512,14 +554,25 @@ public class FormCocina extends JFrame {
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(!scrollPane.isVisible()) {
-					btnEditar.setText("Crear Nuevo");
-					contentPlato.add(scrollPane);
-					scrollPane.setVisible(true);
-					btnCrear.setText("Terminar");
+					try {						
+						hotel.getCocina().printMenu(modeloTable);
+						btnEditar.setText("Crear Nuevo");
+						contentPlato.add(scrollPane);
+						scrollPane.setVisible(true);
+						btnCrear.setText("Terminar");
+					} catch (EArrayVacio e) {
+						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(contentPlato, e.getMessage());
+					}
 				}else {
 					btnEditar.setText("Editar");
 					scrollPane.setVisible(false);
+					txtPlatoName.setEditable(true);
+					txtPlatoName.setText("");
+					txtDuracion.setText("");
+					txtPrecio.setText("");
 					btnCrear.setText("Crear");
+					hotel.limpiarMenu(modeloTable);
 				}
 			}
 		});

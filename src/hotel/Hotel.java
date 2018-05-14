@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import javax.swing.table.DefaultTableModel;
+
 import exception.ExceptionNodo;
 
 public class Hotel implements Serializable{
@@ -110,5 +112,11 @@ public class Hotel implements Serializable{
 	public void setPersonal(ArrayList<Empleado> personal) {
 		this.personal = personal;
 	}
-	
+	public DefaultTableModel limpiarMenu(DefaultTableModel modeloTable){
+		int numFilas = modeloTable.getRowCount();
+		for (int i=numFilas-1; i>=0; i--) {				//eliminar los datos de la tabla
+			modeloTable.removeRow(i);
+		}
+		return modeloTable;
+	}
 }
