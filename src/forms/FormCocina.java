@@ -238,7 +238,7 @@ public class FormCocina extends JFrame {
 			}
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-				textMensaje.setText("Volver a servicio");
+				textMensaje.setText("Volver a Menú");
 				lblInfo.setVisible(true);
 			}
 			@Override		
