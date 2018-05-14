@@ -99,6 +99,7 @@ public class Recursos {
 	 public static boolean isNumeric(String str) {
 	        return (str.matches("[+-]?\\d*(\\.\\d+)?") && str.equals("")==false);
 	    }
+	
 	 public static boolean validarLongitudPwd(String pwd) throws ELongitud {
 		 if(pwd.length()<8)throw new ELongitud();
 		 else return true;

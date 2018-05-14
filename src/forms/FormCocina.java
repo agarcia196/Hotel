@@ -25,6 +25,7 @@ import hotel.Plato;
 import hotel.Habitacion;
 import hotel.Pedido;
 import hotel.Reserva;*/
+import hotel.Recursos;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
@@ -66,6 +67,7 @@ public class FormCocina extends JFrame {
 	private JLabel lblCocina ;
 	private JTable table_1;
 	private Plato p;
+	private JTextField txtplato;
 	/**
 	 * Launch the application.
 	 */
@@ -113,10 +115,10 @@ public class FormCocina extends JFrame {
 	//	vistaMenu();
 	//	vistaCrearPlato();
 	//	vistaEliminar();
-	//	vistaCMenu();
+	//	vistaCMenu("Pedido",null);
 	}
 	
-	private void vistaCMenu() {
+	private void vistaCMenu(String ventana,JTextField txtpedido) {
 		// TODO Auto-generated method stub
 		JPanel contentCmenu = new JPanel();
 		contentCmenu.setBackground(Color.decode(backgroundcolor));
@@ -157,7 +159,10 @@ public class FormCocina extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				getContentPane().setVisible(false);
-				vistaMenu();
+				if(ventana=="Pedido")
+					vistaPedido();
+				else
+					vistaMenu();
 			}
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
@@ -191,6 +196,37 @@ public class FormCocina extends JFrame {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(contentCmenu, e1.getMessage());
 		}
+		if(ventana=="Pedido") {
+		JButton btnpedido = new JButton("Seleccionar");
+		btnpedido.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				textMensaje.setText("Generar pedido con producto seleccionado.");
+				lblInfo.setVisible(true);
+			}
+			@Override		
+			public void mouseExited(MouseEvent arg0) {
+				textMensaje.setText("");
+				lblInfo.setVisible(false);
+			}
+		});
+		btnpedido.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(table_1.getSelectedRow()==-1) {	
+					JOptionPane.showMessageDialog(contentCmenu, "Porfavor seleccione un producto para continuar");
+				}else {
+					getContentPane().setVisible(false);
+					txtpedido.setText(table_1.getValueAt(table_1.getSelectedRow(), 0).toString());
+					setContentPane(contentPedido);
+					contentPedido.setVisible(true);
+				}
+			}
+		});
+		btnpedido.setBounds(760, 569, btnwidth+50, btnheight);
+		btnpedido.setBackground(Color.decode(btncolor1));
+		btnpedido.setForeground(Color.WHITE);
+		btnpedido.setFont(new Font(font, Font.BOLD, btnsize));
+		contentCmenu.add(btnpedido);}
 	}
 
 	private void vistaEliminar() {
@@ -306,6 +342,7 @@ public class FormCocina extends JFrame {
 					hotel.getCocina().removePlato(p);
 					hotel.limpiarMenu(modeloTable);
 					hotel.getCocina().printMenu(modeloTable);
+					Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
 					}
 				} catch (ECocina | EArrayVacio e) {
 					// TODO Auto-generated catch block
@@ -467,7 +504,7 @@ public class FormCocina extends JFrame {
 				
 				try {
 					if(table_1.getSelectedRow()!=-1) {
-					p = hotel.getCocina().buscarPlato((String)table_1.getValueAt(table_1.getSelectedRow(),0));
+					p = hotel.getCocina().buscarPlato(table_1.getValueAt(table_1.getSelectedRow(),0).toString());
 					txtPlatoName.setText(p.getNombre());
 					txtPlatoName.setEditable(false);
 					txtDuracion.setText(Double.toString(p.getDuracion()));
@@ -524,6 +561,7 @@ public class FormCocina extends JFrame {
 						vistaCrearPlato();
 					}
 				}
+				Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
 			} catch (ECamposVacios | ELetrasEnCampoN | ECocina e) {
 				// TODO Auto-generated catch block
 				JOptionPane.showMessageDialog(contentPlato, e.getMessage());
@@ -702,7 +740,7 @@ public class FormCocina extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				getContentPane().setVisible(false);
-				vistaCMenu();
+				vistaCMenu("",null);
 			}
 			public void mouseEntered(MouseEvent arg0) {
 				textMensaje.setText("Ver menú.");
@@ -957,7 +995,7 @@ public class FormCocina extends JFrame {
 		contentServicios.add(lblDespachar_1);
 	}
 	private void vistaPedido() {
-		JTextField txtplato,txtUserName;
+		JTextField txtUserName;
 		JLabel lblNombre,Plato;
 		
 		contentPedido = new JPanel();
@@ -1041,6 +1079,11 @@ public class FormCocina extends JFrame {
 		txtplato.setEditable(false);
 		txtplato.addMouseListener(new MouseAdapter() {
 			@Override
+			public void mouseClicked(MouseEvent e) {
+				getContentPane().setVisible(false);
+				vistaCMenu("Pedido",txtplato);
+			}
+			@Override
 			public void mouseEntered(MouseEvent arg0) {
 				textMensaje.setText("Click para buscar plato.");
 				lblInfo.setVisible(true);
@@ -1050,6 +1093,7 @@ public class FormCocina extends JFrame {
 				textMensaje.setText("");
 				lblInfo.setVisible(false);
 			}
+			
 		});
 		txtplato.setToolTipText("");
 		txtplato.setForeground(Color.BLACK);
