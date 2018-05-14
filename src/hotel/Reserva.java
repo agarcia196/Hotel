@@ -7,6 +7,7 @@ public class Reserva implements Serializable {
 	private static final long serialVersionUID = 8428205740350054875L;
 	private Date date_in,date_out;
 	private Habitacion habitacion;
+	private String id;
 	private double tarifa;
 	
 	// Para hacer la búsqueda de una reserva
@@ -14,6 +15,49 @@ public class Reserva implements Serializable {
 	// Este será el id (para garantizarlo único)
 	private static int numeroDeReservas = 0;
 	
+	
+	public Date getDate_in() {
+		return date_in;
+	}
+
+
+	public void setDate_in(Date date_in) {
+		this.date_in = date_in;
+	}
+
+
+	public Date getDate_out() {
+		return date_out;
+	}
+
+
+	public void setDate_out(Date date_out) {
+		this.date_out = date_out;
+	}
+
+
+	
+	public String getId() {
+		return id;
+	}
+
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
+	public Reserva(Date date_in, Date date_out, Habitacion habitacion, String id) {
+		super();
+		this.date_in = date_in;
+		this.date_out = date_out;
+		this.habitacion = habitacion;
+		this.id = id;
+		++numeroDeReservas;
+		this.idReserva = "ABC"+numeroDeReservas;
+	}
+
+
 	public Reserva (Date in,Date out,Habitacion h) {
 		
 		date_in=in;
@@ -55,7 +99,7 @@ public class Reserva implements Serializable {
 
 
 	public void setHabitacion(Habitacion habitacion) {
-		habitacion = habitacion;
+		this.habitacion = habitacion;
 	}
 
 
@@ -67,7 +111,7 @@ public class Reserva implements Serializable {
 
 
 	public void setTarifa(double tarifa) {
-		tarifa = tarifa;
+		this.tarifa = tarifa;
 	}
 
 

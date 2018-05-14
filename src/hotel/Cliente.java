@@ -24,6 +24,8 @@ public class Cliente extends Persona implements Usuario,Comparable<Cliente> {
 	public Cliente (String nombre, String apellido, String genero, String correo, String id, String tipoId, String pwd) {
 		
 		super (nombre, apellido, genero, correo, id, tipoId, pwd);
+		reservasActivas = new ArrayList<Reserva>();
+		historialReservas = new ArrayList<Reserva>();
 	}
 	
 	

@@ -13,7 +13,7 @@ public class Hotel implements Serializable{
 	private ArrayList<Habitacion> habitaciones;
 	private ArrayList<Empleado> personal;
 	private String nombre;
-	
+	private Cocina cocina;
 	//Prueba
 	/*public static void main(String[] args) {
 		Hotel h = new Hotel("Trivago");
@@ -45,6 +45,7 @@ public class Hotel implements Serializable{
 		usuarios = new ABB();
 		habitaciones = new ArrayList<Habitacion>();
 		personal = new ArrayList<Empleado>();
+		cocina= new Cocina();
 	}
 	public Hotel(String nombre) {
 		super();
@@ -52,8 +53,12 @@ public class Hotel implements Serializable{
 		usuarios = new ABB();
 		habitaciones = new ArrayList<Habitacion>();
 		personal = new ArrayList<Empleado>();
+		cocina= new Cocina();
 	}
 	
+	public Cocina getCocina() {
+		return cocina;
+	}
 	public void addHabitacion(Habitacion h) {
 		habitaciones.add(h);
 	}

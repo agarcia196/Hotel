@@ -8,7 +8,6 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
@@ -16,25 +15,33 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import exception.ECamposVacios;
+import exception.ECocina;
+import exception.ELetrasEnCampoN;
 import hotel.Hotel;
-import javax.swing.BoxLayout;
+import hotel.Plato;
+import hotel.Cliente;
+import hotel.Habitacion;
+import hotel.Pedido;
+import hotel.Reserva;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
-
-import java.awt.BorderLayout;
 import java.awt.Font;
-import java.awt.Window.Type;
 import javax.swing.JLabel;
-import java.awt.Frame;
-import java.awt.Image;
+import javax.swing.JOptionPane;
 
+import java.awt.Image;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.ImageIcon;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Date;
+
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -73,6 +80,16 @@ public class FormCocina extends JFrame {
 				try {
 					Hotel h = new Hotel();
 					FormCocina frame = new FormCocina(h);
+					/*Date d1 = new Date("08/05/18") ;
+					Date d2 = new Date("08/07/18") ;
+					Habitacion hab = new Habitacion("302", "Vip");
+					Cliente c1= new  Cliente("nombre"," apellido", "genero", "correo", "id", "tipoId", "pwd");
+					c1.addReserva(d1, d2, "VIp", h);
+					ArrayList<Plato> pla= new ArrayList<Plato>();
+					pla.add(new Plato("Bandeja paisa", true, 80.0, 80.50));
+					pla.add(new Plato("Ajiaco", true, 90.0, 80.50));
+					System.out.println(c1.getReservasActivas().size());
+					Pedido p1= new Pedido(c1.getReservasActivas().get(0), pla);*/
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -100,10 +117,419 @@ public class FormCocina extends JFrame {
 	//	vistaConsulta();
 	//	vistaMenu();
 		vistaCrearPlato();
+	//	vistaEliminar();
+	//	vistaCMenu();
 	}
 	
+	private void vistaCMenu() {
+		// TODO Auto-generated method stub
+		JPanel contentCmenu = new JPanel();
+		contentCmenu.setBackground(Color.decode(backgroundcolor));
+		contentCmenu.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentCmenu);
+		contentCmenu.setLayout(null);
+		
+		lblCocina.setText("Menú : Consultar menú");
+		lblCocina.setForeground(Color.WHITE);
+		lblCocina.setFont(new Font(font, Font.BOLD, 40));
+		lblCocina.setBounds(472, 66, 460, 50);
+		contentCmenu.add(lblCocina);		
+		
+		
+		JLabel lblInfo = new JLabel("Info");
+		lblInfo.setBounds(235, 578, 100, 100);
+		ImageIcon iconinfo =new ImageIcon("Icons\\information.png");
+		Icon iconoinfo  = new ImageIcon(iconinfo.getImage().getScaledInstance(lblInfo.getWidth(),lblInfo.getHeight(), Image.SCALE_DEFAULT));
+		lblInfo.setIcon(iconoinfo);
+		lblInfo.setVisible(false);
+		contentCmenu.add(lblInfo);
+		
+		JTextArea textMensaje = new JTextArea();
+		textMensaje.setWrapStyleWord(true);
+		textMensaje.setLineWrap(true);
+		textMensaje.setTabSize(4);
+		textMensaje.setEditable(false);
+		textMensaje.setRows(3);
+		textMensaje.setBounds(337, 578, 360, 100);
+		textMensaje.setBackground(Color.decode(backgroundcolor));
+		textMensaje.setForeground(Color.WHITE);
+		textMensaje.setFont(new Font(font, Font.PLAIN | Font.ITALIC, fontsize));
+		contentCmenu.add(textMensaje);
+		JLabel lblBack = new JLabel("Back");
+		lblBack.setBounds(185, 296, 64, 64);
+		lblBack.setIcon(new ImageIcon("Icons\\back1.png"));
+		lblBack.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				getContentPane().setVisible(false);
+				vistaMenu();
+			}
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				textMensaje.setText("Volver a Menú");
+				lblInfo.setVisible(true);
+			}
+			@Override		
+			public void mouseExited(MouseEvent arg0) {
+				textMensaje.setText("");
+				lblInfo.setVisible(false);
+			}
+		});
+		contentCmenu.add(lblBack);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBackground(Color.decode("#c4c4c4"));
+		separator.setBounds(313, 141, 763, 20);
+		contentCmenu.add(separator);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setViewportBorder(null);
+		scrollPane.setBounds(337, 155, 723, 393);
+		contentCmenu.add(scrollPane);
+		String [] titulos = {"Nombre","Disponibilidad", "Duración","Precio"};	//crear vector con titulos de la tabla
+		DefaultTableModel modeloTable= new DefaultTableModel(titulos,0); //crear modelo con el vector de titulos
+		table_1 = new JTable(modeloTable);							//cargar modelo en la tabla
+		scrollPane.setViewportView(table_1);
+	}
+
+	private void vistaEliminar() {
+		// TODO Auto-generated method stub
+		JPanel contentEliminar = new JPanel();
+		contentEliminar.setBackground(Color.decode(backgroundcolor));
+		contentEliminar.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentEliminar);
+		contentEliminar.setLayout(null);
+		
+		lblCocina.setText("Menú : Eliminar plato");
+		lblCocina.setForeground(Color.WHITE);
+		lblCocina.setFont(new Font(font, Font.BOLD, 40));
+		lblCocina.setBounds(490, 66, 412, 50);
+		contentEliminar.add(lblCocina);		
+		
+		
+		JLabel lblInfo = new JLabel("Info");
+		lblInfo.setBounds(235, 578, 100, 100);
+		ImageIcon iconinfo =new ImageIcon("Icons\\information.png");
+		Icon iconoinfo  = new ImageIcon(iconinfo.getImage().getScaledInstance(lblInfo.getWidth(),lblInfo.getHeight(), Image.SCALE_DEFAULT));
+		lblInfo.setIcon(iconoinfo);
+		lblInfo.setVisible(false);
+		contentEliminar.add(lblInfo);
+		
+		JTextArea textMensaje = new JTextArea();
+		textMensaje.setWrapStyleWord(true);
+		textMensaje.setLineWrap(true);
+		textMensaje.setTabSize(4);
+		textMensaje.setEditable(false);
+		textMensaje.setRows(3);
+		textMensaje.setBounds(337, 578, 360, 100);
+		textMensaje.setBackground(Color.decode(backgroundcolor));
+		textMensaje.setForeground(Color.WHITE);
+		textMensaje.setFont(new Font(font, Font.PLAIN | Font.ITALIC, fontsize));
+		contentEliminar.add(textMensaje);
+		JLabel lblBack = new JLabel("Back");
+		lblBack.setBounds(185, 296, 64, 64);
+		lblBack.setIcon(new ImageIcon("Icons\\back1.png"));
+		lblBack.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				getContentPane().setVisible(false);
+				vistaMenu();
+			}
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				textMensaje.setText("Volver a servicio");
+				lblInfo.setVisible(true);
+			}
+			@Override		
+			public void mouseExited(MouseEvent arg0) {
+				textMensaje.setText("");
+				lblInfo.setVisible(false);
+			}
+		});
+		contentEliminar.add(lblBack);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBackground(Color.decode("#c4c4c4"));
+		separator.setBounds(313, 141, 763, 20);
+		contentEliminar.add(separator);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setViewportBorder(null);
+		scrollPane.setBounds(337, 155, 723, 393);
+		contentEliminar.add(scrollPane);
+		String [] titulos = {"Nombre","Disponibilidad", "Duración","Precio"};	//crear vector con titulos de la tabla
+		DefaultTableModel modeloTable= new DefaultTableModel(titulos,0); //crear modelo con el vector de titulos
+		table_1 = new JTable(modeloTable);							//cargar modelo en la tabla
+		scrollPane.setViewportView(table_1);
+		JButton btnpedido = new JButton("Eliminar");
+		btnpedido.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				textMensaje.setText("Eliminar producto");
+				lblInfo.setVisible(true);
+			}
+			@Override		
+			public void mouseExited(MouseEvent arg0) {
+				textMensaje.setText("");
+				lblInfo.setVisible(false);
+			}
+		});
+		btnpedido.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+	
+			}
+		});
+		btnpedido.setBounds(760, 578, btnwidth+50, btnheight);
+		btnpedido.setBackground(Color.decode(btncolor1));
+		btnpedido.setForeground(Color.WHITE);
+		btnpedido.setFont(new Font(font, Font.BOLD, btnsize));
+		contentEliminar.add(btnpedido);
+		
+	}
+
 	private void vistaCrearPlato() {
 		// TODO Auto-generated method stub
+		JTextField txtPlatoName, txtDuracion,txtPrecio;
+		JLabel lblNombre,Disponibilidad;
+		
+		JPanel contentPlato = new JPanel();
+		contentPlato.setBackground(Color.decode(backgroundcolor));
+		contentPlato.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPlato);
+		contentPlato.setLayout(null);
+		
+		lblCocina.setText("Menú : Crear plato");
+		lblCocina.setForeground(Color.WHITE);
+		lblCocina.setFont(new Font(font, Font.BOLD, 40));
+		lblCocina.setBounds(507, 66, 363, 50);
+		contentPlato.add(lblCocina);		
+		
+		
+		JLabel lblInfo = new JLabel("Info");
+		lblInfo.setBounds(245, 578, 100, 100);
+		ImageIcon iconinfo =new ImageIcon("Icons\\information.png");
+		Icon iconoinfo  = new ImageIcon(iconinfo.getImage().getScaledInstance(lblInfo.getWidth(),lblInfo.getHeight(), Image.SCALE_DEFAULT));
+		lblInfo.setIcon(iconoinfo);
+		lblInfo.setVisible(false);
+		contentPlato.add(lblInfo);
+		
+		JTextArea textMensaje = new JTextArea();
+		textMensaje.setWrapStyleWord(true);
+		textMensaje.setLineWrap(true);
+		textMensaje.setTabSize(4);
+		textMensaje.setEditable(false);
+		textMensaje.setRows(3);
+		textMensaje.setBounds(355, 578, 665, 100);
+		textMensaje.setBackground(Color.decode(backgroundcolor));
+		textMensaje.setForeground(Color.WHITE);
+		textMensaje.setFont(new Font(font, Font.PLAIN | Font.ITALIC, fontsize));
+		contentPlato.add(textMensaje);
+		JLabel lblBack = new JLabel("Back");
+		lblBack.setBounds(185, 296, 64, 64);
+		lblBack.setIcon(new ImageIcon("Icons\\back1.png"));
+		lblBack.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				getContentPane().setVisible(false);
+				vistaMenu();
+			}
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				textMensaje.setText("Volver a servicio");
+				lblInfo.setVisible(true);
+			}
+			@Override		
+			public void mouseExited(MouseEvent arg0) {
+				textMensaje.setText("");
+				lblInfo.setVisible(false);
+			}
+		});
+		contentPlato.add(lblBack);
+		
+		txtPlatoName = new JTextField();
+		txtPlatoName.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				textMensaje.setText("Click para buscar usuario.");
+				lblInfo.setVisible(true);
+			}
+			@Override		
+			public void mouseExited(MouseEvent arg0) {
+				textMensaje.setText("");
+				lblInfo.setVisible(false);
+			}
+		});
+		txtPlatoName.setToolTipText("");
+		txtPlatoName.setForeground(Color.BLACK);
+		txtPlatoName.setFont(new Font(font, Font.PLAIN, fontsize));
+		txtPlatoName.setBounds(355, 190, 300, 40);
+		contentPlato.add(txtPlatoName);
+		txtPlatoName.setColumns(100);
+		txtPlatoName.setBackground(Color.decode(txtcolor1));
+		txtPlatoName.setBorder(new LineBorder(Color.decode(txtcolor1), 3, true));
+		
+		
+		JComboBox<String> cbPlato = new JComboBox<String>();
+		cbPlato.setModel(new DefaultComboBoxModel<String>(new String[] {"Sí", "No"}));
+		cbPlato.setBackground(Color.WHITE);
+		cbPlato.setForeground(Color.BLACK);
+		cbPlato.setFont(new Font(font, Font.PLAIN, fontsize));
+		cbPlato.setBounds(720, 190, 300, 40);
+		cbPlato.setBorder(null);
+		contentPlato.add(cbPlato);	
+		
+		JSeparator separator = new JSeparator();
+		separator.setBackground(Color.decode("#c4c4c4"));
+		separator.setBounds(313, 141, 763, 20);
+		contentPlato.add(separator);
+		
+		lblNombre = new JLabel("Nombre");
+		lblNombre.setForeground(Color.decode(txtcolor1));
+		lblNombre.setFont(new Font("Century Gothic", Font.BOLD | Font.ITALIC, 16));
+		lblNombre.setBounds(355, 170, 240, 15);
+		contentPlato.add(lblNombre);
+		
+		Disponibilidad = new JLabel("Disponibilidad");
+		Disponibilidad.setForeground(Color.decode(txtcolor1));
+		Disponibilidad.setFont(new Font("Century Gothic", Font.BOLD | Font.ITALIC, 16));
+		Disponibilidad.setBounds(720, 170, 240, 15);
+		contentPlato.add(Disponibilidad);
+			
+		JLabel lblDuracin = new JLabel("Duraci\u00F3n");
+		lblDuracin.setForeground(Color.WHITE);
+		lblDuracin.setFont(new Font("Century Gothic", Font.BOLD | Font.ITALIC, 16));
+		lblDuracin.setBounds(355, 241, 240, 15);
+		contentPlato.add(lblDuracin);
+		
+		txtDuracion = new JTextField();
+		txtDuracion.setToolTipText("");
+		txtDuracion.setForeground(Color.BLACK);
+		txtDuracion.setFont(new Font("Century Gothic", Font.PLAIN, 20));
+		txtDuracion.setColumns(100);
+		txtDuracion.setBorder(new LineBorder(Color.decode(txtcolor1), 3, true));
+		txtDuracion.setBackground(Color.WHITE);
+		txtDuracion.setBounds(355, 261, 300, 40);
+		contentPlato.add(txtDuracion);
+		
+		JLabel lblPrecio = new JLabel("Precio");
+		lblPrecio.setForeground(Color.WHITE);
+		lblPrecio.setFont(new Font("Century Gothic", Font.BOLD | Font.ITALIC, 16));
+		lblPrecio.setBounds(720, 241, 240, 15);
+		contentPlato.add(lblPrecio);
+		
+		txtPrecio = new JTextField();
+		txtPrecio.setToolTipText("");
+		txtPrecio.setForeground(Color.BLACK);
+		txtPrecio.setFont(new Font("Century Gothic", Font.PLAIN, 20));
+		txtPrecio.setColumns(100);
+		txtPrecio.setBorder(new LineBorder(Color.decode(txtcolor1), 3, true));
+		txtPrecio.setBackground(Color.WHITE);
+		txtPrecio.setBounds(720, 261, 300, 40);
+		contentPlato.add(txtPrecio);
+		
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setVisible(false);
+		scrollPane.setFont(new Font("Century Gothic", Font.PLAIN, 14));
+		scrollPane.setAutoscrolls(true);
+		scrollPane.setViewportBorder(null);
+		scrollPane.setBounds(353, 377, 665, 188);
+		String [] titulos = {"Nombre ", "Disponibilidad","Duración", "Precio"};	//crear vector con titulos de la tabla
+		DefaultTableModel modeloTable= new DefaultTableModel(titulos,0); //crear modelo con el vector de titulos
+		table_1 = new JTable(modeloTable);							//cargar modelo en la tabla
+		scrollPane.setViewportView(table_1);
+		
+		JButton btnCrear = new JButton("Crear");
+		btnCrear.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				if(btnCrear.getText()=="Terminar") 
+					textMensaje.setText("Finalizar la edición.");
+				else 
+					textMensaje.setText("Terminar el plato.");
+				lblInfo.setVisible(true);	
+			}
+			@Override		
+			public void mouseExited(MouseEvent arg0) {
+				textMensaje.setText("");
+				lblInfo.setVisible(false);
+			}
+		});
+		btnCrear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			try {
+				if(btnCrear.getText()=="Crear") {
+					hotel.getCocina().addPlato(txtPlatoName.getText(), cbPlato.getSelectedItem().toString(), txtDuracion.getText() , txtPrecio.getText());
+					int validar = JOptionPane.showConfirmDialog(contentPlato,
+							"Plato creado correctamente ¿Desea crear otro?");
+					if (validar == 1) {
+						getContentPane().setVisible(false);
+						vistaMenu();
+					}else if(validar==0||validar==2) {
+						getContentPane().setVisible(false);
+						vistaCrearPlato();
+					}
+				}else {
+					Plato p=new Plato("Bandeja paisa", true, 80.0, 80.50);
+					hotel.getCocina().editPlato(cbPlato.getSelectedItem().toString(), txtDuracion.getText() , txtPrecio.getText(),p);
+					int validar = JOptionPane.showConfirmDialog(contentPlato,
+							"Plato editado correctamente ¿Desea editar otro?");
+					if (validar == 1) {
+						getContentPane().setVisible(false);
+						vistaMenu();
+					}else if(validar==0||validar==2) {
+						getContentPane().setVisible(false);
+						vistaCrearPlato();
+					}
+				}
+			} catch (ECamposVacios | ELetrasEnCampoN | ECocina e) {
+				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(contentPlato, e.getMessage());
+			}
+			}
+		});
+		btnCrear.setBounds(720, 326, btnwidth+50, btnheight);
+		btnCrear.setBackground(Color.decode(btncolor1));
+		btnCrear.setForeground(Color.WHITE);
+		btnCrear.setFont(new Font(font, Font.BOLD, btnsize));
+		contentPlato.add(btnCrear);
+		JButton btnEditar = new JButton("Editar");
+		btnEditar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				if(btnEditar.getText()=="Editar") 
+					textMensaje.setText("Cargar lista de platos para editar.");
+				else 
+					textMensaje.setText("Crear nuevo plato.");
+				lblInfo.setVisible(true);
+			}
+			@Override		
+			public void mouseExited(MouseEvent arg0) {
+				textMensaje.setText("");
+				lblInfo.setVisible(false);
+			}
+		});
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(!scrollPane.isVisible()) {
+					btnEditar.setText("Crear Nuevo");
+					contentPlato.add(scrollPane);
+					scrollPane.setVisible(true);
+					btnCrear.setText("Terminar");
+				}else {
+					btnEditar.setText("Editar");
+					scrollPane.setVisible(false);
+					btnCrear.setText("Crear");
+				}
+			}
+		});
+		btnEditar.setForeground(Color.WHITE);
+		btnEditar.setFont(new Font("Century Gothic", Font.BOLD, 30));
+		btnEditar.setBackground(new Color(58, 136, 219));
+		btnEditar.setBounds(355, 326, 300, 40);
+		contentPlato.add(btnEditar);
+		
+	
 		
 	}
 
@@ -141,13 +567,13 @@ public class FormCocina extends JFrame {
 		textMensaje.setFont(new Font(font, Font.PLAIN | Font.ITALIC, fontsize));
 		contentMenu.add(textMensaje);
 			
-		JLabel lblCrearPlato_1 = new JLabel("CrearPlato");
+		JLabel lblCrearPlato_1 = new JLabel("Crear Plato");
 		lblCrearPlato_1.setBounds(310, 200, 256, 256);
 		lblCrearPlato_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				getContentPane().setVisible(false);
-				vistaPedido();
+				vistaCrearPlato();
 			}
 			public void mouseEntered(MouseEvent arg0) {
 				textMensaje.setText("Agregar un nuevo plato al menú.");
@@ -168,7 +594,7 @@ public class FormCocina extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				getContentPane().setVisible(false);
-				vistaConsulta();
+				vistaEliminar();
 			}
 			public void mouseEntered(MouseEvent arg0) {
 				textMensaje.setText("Eliminar plato del menú.");
@@ -222,7 +648,8 @@ public class FormCocina extends JFrame {
 		lblConsultar_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				contentServicios.setVisible(false);
+				getContentPane().setVisible(false);
+				vistaCMenu();
 			}
 			public void mouseEntered(MouseEvent arg0) {
 				textMensaje.setText("Ver menú.");
