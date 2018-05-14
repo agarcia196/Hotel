@@ -24,8 +24,8 @@ public class Recepcion extends Empleado   {
 		super.checkIn (cedula, hotel);
 	}
 	
-	public void checkOut () {
-		
+	public void checkOut (String cedula, Hotel hotel) throws ECliente {
+		super.checkOut(cedula, hotel);
 	}
 
 

@@ -1,6 +1,8 @@
 package hotel;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Date;
 
 import exception.ECliente;
@@ -40,7 +42,26 @@ public abstract class Empleado extends Persona implements Usuario, Serializable 
 	
 	
 	
-	public void checkOut () {
+	public void checkOut (String cedula, Hotel hotel) throws ECliente{
+		
+		Cliente cliente = hotel.buscarCliente(cedula);
+		
+		if (cliente != null) {
+			
+			LocalDate hoy = LocalDate.now();
+			
+			Reserva reserva = cliente.buscarReserva(hoy.toString());
+			LocalDate out = LocalDate.parse(reserva.getSalida().toString());
+			
+			if (hoy.compareTo(out)<=0 ) {
+				reserva.getHabitacion().setDisponible(true);
+			} else {
+				Period period = Period.between(out,hoy);
+				throw new ECliente("El cliente se pasó de la fecha establecida por "+ period + "días" );
+			}
+		}else {
+			throw new ECliente ("No existe un cliente asociado a la cÃ©dula: " + cedula);
+		}
 		
 		
 	}
