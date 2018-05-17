@@ -1,4 +1,4 @@
-package hotel;
+package arbol;
 
 import exception.ExceptionNodo;
 
