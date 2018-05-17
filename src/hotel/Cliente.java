@@ -21,6 +21,12 @@ public class Cliente extends Persona implements Usuario,Comparable<Cliente> {
 	
 	//Constructors
 	
+	public Cliente(String cedula) {
+		super(cedula);
+		reservasActivas=null;
+		historialReservas=null;
+	}
+	
 	public Cliente (String nombre, String apellido, String genero, String correo, String id, String tipoId, String pwd) {
 		
 		super (nombre, apellido, genero, correo, id, tipoId, pwd);

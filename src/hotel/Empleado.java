@@ -42,7 +42,7 @@ public abstract class Empleado extends Persona implements Usuario, Serializable 
 	
 	
 	
-	public void checkOut (String cedula, Hotel hotel) throws ECliente{
+	public void checkOut (String cedula, Hotel hotel) throws ECliente, ExceptionNodo{
 		
 		Cliente cliente = hotel.buscarCliente(cedula);
 		
