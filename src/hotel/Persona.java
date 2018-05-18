@@ -24,6 +24,11 @@ public abstract class Persona implements Serializable{
 		this.tipoId = tipoId;
 		this.pwd = pwd;
 	}
+	
+	public String[] imprimirPersonaTabla() {
+		String[] a= {this.getNombre(),this.getApellido(),this.getCorreo(),this.getGenero(),this.getId()};
+		return a;
+	}
 	public Persona(String cedula) {
 		id=cedula;
 		// TODO Auto-generated constructor stub
