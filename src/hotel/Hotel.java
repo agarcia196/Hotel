@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javax.swing.table.DefaultTableModel;
 
+import arbol.ABB;
 import exception.ExceptionNodo;
 
 public class Hotel implements Serializable{

@@ -1,4 +1,4 @@
-package hotel;
+package arbol;
 
 public class NodoB <E extends Comparable<E>>{
 	protected E llave;

@@ -49,11 +49,11 @@ public class FormZeroDay extends JFrame {
 	private final String color5="#FFFFFF";
 	private final int width_txt= 250;
 	private final int height_txt= 40;
-	private JPasswordField contraseña;
+	private JPasswordField contraseÃ±a;
 	private JTextField txtapellido;
-	private JTextField txtncedula;
-	private JTextField txtemail;
-	private JPasswordField ccontraseña;
+	private JTextField txtncedula; 
+	private JTextField txtemail;   
+	private JPasswordField ccontraseÃ±a;
 	private JTextField txtHotel;
 	private JComboBox<String> cbtipodedocumento;
 	private JLabel lblSignUp;
@@ -123,15 +123,15 @@ public class FormZeroDay extends JFrame {
 		txtUserName.setBackground(Color.decode(color1));
 		txtUserName.setBorder(new LineBorder(Color.decode(color2), 3, true));
 		
-		contraseña = new JPasswordField();
-		contraseña.setToolTipText("");
-		contraseña.setForeground(Color.BLACK);
-		contraseña.setFont(new Font("Century Gothic", Font.PLAIN, fontsize));
-		contraseña.setColumns(100);
-		contraseña.setBorder(new LineBorder(Color.decode(color2), 3, true));
-		contraseña.setBackground(Color.decode(color1));
-		contraseña.setBounds(360, 540,width_txt, height_txt);
-		contentPane.add(contraseña);
+		contraseÃ±a = new JPasswordField();
+		contraseÃ±a.setToolTipText("");
+		contraseÃ±a.setForeground(Color.BLACK);
+		contraseÃ±a.setFont(new Font("Century Gothic", Font.PLAIN, fontsize));
+		contraseÃ±a.setColumns(100);
+		contraseÃ±a.setBorder(new LineBorder(Color.decode(color2), 3, true));
+		contraseÃ±a.setBackground(Color.decode(color1));
+		contraseÃ±a.setBounds(360, 540,width_txt, height_txt);
+		contentPane.add(contraseÃ±a);
 		
 		txtapellido = new JTextField();
 		txtapellido.setToolTipText("");
@@ -163,15 +163,15 @@ public class FormZeroDay extends JFrame {
 		txtemail.setBounds(692, 380, width_txt, height_txt);
 		contentPane.add(txtemail);
 		
-		ccontraseña = new JPasswordField();
-		ccontraseña.setToolTipText("");
-		ccontraseña.setForeground(Color.BLACK);
-		ccontraseña.setFont(new Font("Century Gothic", Font.PLAIN, fontsize));
-		ccontraseña.setColumns(100);
-		ccontraseña.setBorder(new LineBorder(Color.decode(color2), 3, true));
-		ccontraseña.setBackground(Color.decode(color1));
-		ccontraseña.setBounds(692, 540, width_txt, height_txt);
-		contentPane.add(ccontraseña);
+		ccontraseÃ±a = new JPasswordField();
+		ccontraseÃ±a.setToolTipText("");
+		ccontraseÃ±a.setForeground(Color.BLACK);
+		ccontraseÃ±a.setFont(new Font("Century Gothic", Font.PLAIN, fontsize));
+		ccontraseÃ±a.setColumns(100);
+		ccontraseÃ±a.setBorder(new LineBorder(Color.decode(color2), 3, true));
+		ccontraseÃ±a.setBackground(Color.decode(color1));
+		ccontraseÃ±a.setBounds(692, 540, width_txt, height_txt);
+		contentPane.add(ccontraseÃ±a);
 		
 		txtHotel = new JTextField();
 		txtHotel.setToolTipText("");
@@ -279,19 +279,19 @@ public class FormZeroDay extends JFrame {
 		signup.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int validar = JOptionPane.showConfirmDialog(contentPane,
-						"¿Está seguro de que la información es correcta?");
+						"ï¿½Estï¿½ seguro de que la informaciï¿½n es correcta?");
 				if (validar == 0) {
 							try {
 								Recursos.validarCamposVaciosU(txtUserName.getText(), txtapellido.getText(), 
 										cbgenero.getSelectedItem().toString(), txtemail.getText(),txtncedula.getText(), 
-										cbtipodedocumento.getSelectedItem().toString(), String.valueOf(contraseña.getPassword()), 
-										String.valueOf(ccontraseña.getPassword()), txtHotel.getText());
-								Recursos.validarLongitudPwd(String.valueOf(contraseña.getPassword()));
-								Recursos.validarIgualdadPwd(String.valueOf(contraseña.getPassword()), String.valueOf(ccontraseña.getPassword()));
+										cbtipodedocumento.getSelectedItem().toString(), String.valueOf(contraseÃ±a.getPassword()), 
+										String.valueOf(ccontraseÃ±a.getPassword()), txtHotel.getText());
+								Recursos.validarLongitudPwd(String.valueOf(contraseÃ±a.getPassword()));
+								Recursos.validarIgualdadPwd(String.valueOf(contraseÃ±a.getPassword()), String.valueOf(ccontraseÃ±a.getPassword()));
 								Hotel h = new Hotel(txtHotel.getText());
 								Empleado e = new Administrador(txtUserName.getText(), txtapellido.getText(), 
 										cbgenero.getSelectedItem().toString(), txtemail.getText(),txtncedula.getText(), 
-										cbtipodedocumento.getSelectedItem().toString(), String.valueOf(contraseña.getPassword()));
+										cbtipodedocumento.getSelectedItem().toString(), String.valueOf(contraseÃ±a.getPassword()));
 								h.addEmpleado(e);
 								dispose();
 								Recursos.WriteFileObjectEmpresa("hotel.dat", h);

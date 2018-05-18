@@ -4,6 +4,7 @@ package hotel;
 import java.util.ArrayList;
 import java.util.Date;
 
+import arbol.NodoB;
 import exception.ECamposVacios;
 import exception.EIgualdad;
 import exception.ELongitud;
@@ -173,6 +174,11 @@ public class Cliente extends Persona implements Usuario,Comparable<Cliente> {
 
 
 
+
+	@Override
+	public String toString() {
+		return "Cliente " + super.toString();
+	}
 
 	@Override
 	public int compareTo(Cliente a) {
