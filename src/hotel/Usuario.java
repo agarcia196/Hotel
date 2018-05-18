@@ -48,6 +48,7 @@ public interface Usuario {
 	
 	/**
 	 * Métodos de búsqueda
+	 * 
 	 */
 	public Reserva buscarReserva (String id);
 	public Reserva buscarReserva (Date dateIn);

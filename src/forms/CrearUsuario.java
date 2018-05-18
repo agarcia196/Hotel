@@ -1,68 +1,63 @@
-/*
- * @author Alexis García Ramírez
- */
 package forms;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JSeparator;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import exception.ECamposVacios;
 import exception.EIgualdad;
 import exception.ELongitud;
-import exception.ExceptionNodo;
+import hotel.Administrador;
 import hotel.Cliente;
+import hotel.Empleado;
 import hotel.Hotel;
 import hotel.Recursos;
-
-import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import java.awt.Image;
-
+import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JPasswordField;
-import javax.swing.JSeparator;
 import javax.swing.JTextField;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
-public class FormLogin extends JFrame {
+public class CrearUsuario extends JFrame {
+	
+	public CrearUsuario(Hotel h,Empleado persona) {
+		
+		hotel=h;
+		this.p=persona;
+		setTitle("Sign in");
+		setIconImage(Toolkit.getDefaultToolkit().getImage("Icons\\oficcial.png"));
+		setExtendedState(MAXIMIZED_BOTH);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(0, 0, 1366, 768);	
+		lblLogin = new JLabel();
+		vistaCrearUsuario();
+	}
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1858820207514553474L;
-	private JPanel contentPane;
-	private JPanel contentPane1;
 	private JPanel contentPane2;
 	private final String backgroundcolor="#44b256";
 	private final String btncolor1= "#3a88db";
 	private final String txtcolor1= "#FFFFFF";
-	private final String btncolor2= "#F22613";
-	private final int width_txt = 305;
-	private final int height_txt= 40;
-	private final int btnwidth= 250;
-	private final int btnheight= 40;
-	private final int btnsize= 30;
 	private final String font= "Century Gothic";
 	private final int fontsize=20;
-	private JPasswordField passwordField;
-	private JTextField textField;
 	private JLabel lblLogin;
-	private String tipodeuser;
 	private Hotel hotel;
-	
+	private Empleado p;
+
 	/**
 	 * Launch the application.
 	 */
@@ -70,10 +65,10 @@ public class FormLogin extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Hotel h = new Hotel();
-					//Persona p= new Administrador("nombre"," apellido", "genero", "correo", "id", "tipoId", "pwd");
-					FormLogin frame = new FormLogin(h);
-					frame.setVisible(true);
+					Hotel h= new Hotel();
+					Administrador fabio= new Administrador("Fabio","Anaya","Masculino","fabeac", "1212","Cedula","123");
+					CrearUsuario f= new CrearUsuario(h,fabio);
+					f.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -84,77 +79,7 @@ public class FormLogin extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FormLogin(Hotel h) {
-		hotel=h;
-		setTitle("Sign in");
-		setIconImage(Toolkit.getDefaultToolkit().getImage("Icons\\oficcial.png"));
-		setExtendedState(MAXIMIZED_BOTH);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, 1366, 768);	
-		lblLogin = new JLabel();
-		//vistaPrincipal();
-		// tipodeuser="Visitante";
-		//vistaLogin(); 
-	 
-		//vistaRegister();
-	}
-	
-	private void vistaPrincipal() { 
-		contentPane = new JPanel();
-		contentPane.setBackground(Color.decode(backgroundcolor));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-
-		lblLogin.setBounds(600, 68, 300, 50);
-		lblLogin.setFont(new Font(font, Font.BOLD, 40));
-		lblLogin.setForeground(Color.WHITE);
-		lblLogin.setText("Login as");
-		contentPane.add(lblLogin);
-		JButton btnVisitante = new JButton("Visitante");
-		btnVisitante.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tipodeuser="Visitante";
-				contentPane.setVisible(false);
-				vistaLogin();
-			}
-		});
-		btnVisitante.setBounds(250, 500, btnwidth, btnheight);
-		btnVisitante.setBackground(Color.decode(btncolor1));
-		btnVisitante.setForeground(Color.WHITE);
-		btnVisitante.setFont(new Font(font, Font.BOLD, btnsize));
-		contentPane.add(btnVisitante);
-		
-		JButton btnEmpleado = new JButton("Empleado");
-		btnEmpleado.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				tipodeuser="Empleado";
-				contentPane.setVisible(false);
-				vistaLogin();
-			}
-		});
-		btnEmpleado.setBounds(850, 500, btnwidth, btnheight);
-		btnEmpleado.setBackground(Color.decode(btncolor1));
-		btnEmpleado.setForeground(Color.WHITE);
-		btnEmpleado.setFont(new Font(font, Font.BOLD, btnsize));
-		contentPane.add(btnEmpleado);
-		
-		JLabel lblVisitante = new JLabel("Visitante");
-		lblVisitante.setBounds(250, 200, 250, 250);
-		ImageIcon iconvisitante =new ImageIcon("Icons\\user.png");
-		Icon iconovisitante = new ImageIcon(iconvisitante.getImage().getScaledInstance(lblVisitante.getWidth(),lblVisitante.getHeight(), Image.SCALE_DEFAULT));
-		lblVisitante.setIcon(iconovisitante);
-		contentPane.add(lblVisitante);
-		
-		JLabel lblEmpreado = new JLabel("Empleado");
-		lblEmpreado.setBounds(850, 200, 250, 250);
-		ImageIcon iconempleado =new ImageIcon("Icons\\empleado.png");
-		Icon iconoempleado = new ImageIcon(iconempleado.getImage().getScaledInstance(lblEmpreado.getWidth(),lblEmpreado.getHeight(), Image.SCALE_DEFAULT));
-		lblEmpreado.setIcon(iconoempleado);
-		contentPane.add(lblEmpreado);		
-		
-	}
-	private void vistaRegister() {
+	private void vistaCrearUsuario() {
 		JPasswordField contraseña,ccontraseña;
 		JTextField txtapellido,txtncedula,txtemail,txtUserName;
 		JComboBox<String> cbtipodedocumento;
@@ -167,10 +92,10 @@ public class FormLogin extends JFrame {
 		setContentPane(contentPane2);
 		contentPane2.setLayout(null);
 		
-		lblLogin.setBounds(600, 68, 300, 50);
+		lblLogin.setBounds(355, 78, 300, 50);
 		lblLogin.setFont(new Font(font, Font.BOLD, 40));
 		lblLogin.setForeground(Color.WHITE);
-		lblLogin.setText("Register");
+		lblLogin.setText("Crear usuario\r\n");
 		contentPane2.add(lblLogin);
 		
 		txtUserName = new JTextField();
@@ -251,6 +176,12 @@ public class FormLogin extends JFrame {
 		cbtipodedocumento.setBounds(355, 350, 300, 40);
 		contentPane2.add(cbtipodedocumento);
 		
+		JComboBox<String> TipoDeUsuario = new JComboBox<String>();
+		TipoDeUsuario.setModel(new DefaultComboBoxModel<String>(new String[] {"Cliente", "Empleado", "Administrador"}));
+		TipoDeUsuario.setFont(new Font("Century Gothic", Font.PLAIN, 40));
+		TipoDeUsuario.setBounds(695, 83, 294, 40);
+		contentPane2.add(TipoDeUsuario);
+		
 		username = new JLabel("");
 		username.setBounds(310, 190, 40, 40);
 		ImageIcon iconusername =new ImageIcon("Icons\\username.png");
@@ -308,6 +239,7 @@ public class FormLogin extends JFrame {
 				int validar = JOptionPane.showConfirmDialog(contentPane2,
 						"¿Está seguro de que la información es correcta?");
 				if (validar == 0) {
+					if(TipoDeUsuario.getSelectedItem().toString()=="Usuario") {
 							try {
 								Recursos.validarCamposVaciosU(txtUserName.getText(), txtapellido.getText(), 
 										cbgenero.getSelectedItem().toString(), txtemail.getText(),txtncedula.getText(), 
@@ -319,20 +251,64 @@ public class FormLogin extends JFrame {
 								Cliente c = new Cliente(txtUserName.getText(), txtapellido.getText(), 
 										cbgenero.getSelectedItem().toString(), txtemail.getText(),txtncedula.getText(), 
 										cbtipodedocumento.getSelectedItem().toString(), String.valueOf(contraseña.getPassword()));
-								hotel.addUser(c);
+								p.addUser(c);
 								Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
 								JOptionPane.showMessageDialog(contentPane2, "Registro realizado");
-								contentPane2.setVisible(false);
-								vistaLogin();
+								//contentPane2.setVisible(false);
+								//vistaLogin();
 							} catch (ECamposVacios | EIgualdad | ELongitud e) {
 								// TODO Auto-generated catch block
 								JOptionPane.showMessageDialog(contentPane2, e.getMessage());
-							} catch (ExceptionNodo e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
 							}
-						}						
+						}else{
+							if(TipoDeUsuario.getSelectedItem().toString()=="Empleado") {
+								try {
+									Recursos.validarCamposVaciosU(txtUserName.getText(), txtapellido.getText(), 
+											cbgenero.getSelectedItem().toString(), txtemail.getText(),txtncedula.getText(), 
+											cbtipodedocumento.getSelectedItem().toString(), String.valueOf(contraseña.getPassword()), 
+											String.valueOf(ccontraseña.getPassword()), "Visitante");
+									Recursos.validarLongitudPwd(String.valueOf(contraseña.getPassword()));
+									Recursos.validarIgualdadPwd(String.valueOf(contraseña.getPassword()), String.valueOf(ccontraseña.getPassword()));
+						
+									Administrador c = new Administrador(txtUserName.getText(), txtapellido.getText(), 
+											cbgenero.getSelectedItem().toString(), txtemail.getText(),txtncedula.getText(), 
+											cbtipodedocumento.getSelectedItem().toString(), String.valueOf(contraseña.getPassword()));
+									p.addEmpleado(c);
+									Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
+									JOptionPane.showMessageDialog(contentPane2, "Registro realizado");
+									//contentPane2.setVisible(false);
+									//vistaLogin();
+								} catch (ECamposVacios | EIgualdad | ELongitud e) {
+									// TODO Auto-generated catch block
+									JOptionPane.showMessageDialog(contentPane2, e.getMessage());
+								}
+							}else {
+								if(TipoDeUsuario.getSelectedItem().toString()=="Administrador") {
+									try {
+										Recursos.validarCamposVaciosU(txtUserName.getText(), txtapellido.getText(), 
+												cbgenero.getSelectedItem().toString(), txtemail.getText(),txtncedula.getText(), 
+												cbtipodedocumento.getSelectedItem().toString(), String.valueOf(contraseña.getPassword()), 
+												String.valueOf(ccontraseña.getPassword()), "Visitante");
+										Recursos.validarLongitudPwd(String.valueOf(contraseña.getPassword()));
+										Recursos.validarIgualdadPwd(String.valueOf(contraseña.getPassword()), String.valueOf(ccontraseña.getPassword()));
+							
+										//Administrador c = new Administrador(txtUserName.getText(), txtapellido.getText(), 
+										//		cbgenero.getSelectedItem().toString(), txtemail.getText(),txtncedula.getText(), 
+										//		cbtipodedocumento.getSelectedItem().toString(), String.valueOf(contraseña.getPassword()));
+										//AGREGAR ADMINISTRADOR
+										Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
+										JOptionPane.showMessageDialog(contentPane2, "Registro realizado");
+										//contentPane2.setVisible(false);
+										//vistaLogin();
+									} catch (ECamposVacios | EIgualdad | ELongitud e) {
+										// TODO Auto-generated catch block
+										JOptionPane.showMessageDialog(contentPane2, e.getMessage());
+									}
+								}
+							}
+						}
 				}
+			}
 			
 		});
 		signup.setBounds(720, 484, 300, 40);
@@ -384,6 +360,7 @@ public class FormLogin extends JFrame {
 		lblNmeroDeDocumento.setFont(new Font("Century Gothic", Font.BOLD | Font.ITALIC, 16));
 		lblNmeroDeDocumento.setBounds(720, 325, 240, 15);
 		contentPane2.add(lblNmeroDeDocumento);
+	
 		
 		lblConfirmarContrasea = new JLabel("Confirm Password");
 		lblConfirmarContrasea.setForeground(Color.decode(txtcolor1));
@@ -393,9 +370,11 @@ public class FormLogin extends JFrame {
 		JButton btnback = new JButton("back");
 		btnback.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				contentPane2.setVisible(false);
-				vistaLogin();
+				JOptionPane.showMessageDialog(contentPane2,"Aqui iria hacia donde regresa");
+				//contentPane2.setVisible(false);
+				//vistaLogin();
 			}
+			
 		});
 		btnback.setForeground(Color.decode(txtcolor1));
 		btnback.setFont(new Font(font, Font.PLAIN, 11));
@@ -409,103 +388,5 @@ public class FormLogin extends JFrame {
 		
 		
 	}
-	
-	private void vistaLogin() {
-		contentPane1 = new JPanel();
-		contentPane1.setBackground(Color.decode(backgroundcolor));
-		contentPane1.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane1);
-		contentPane1.setLayout(null);		
-		//hotel.addEmpleado(e);
-		lblLogin.setText("Login as "+tipodeuser);
-		lblLogin.setBounds(490, 68, 400, 50);
-		contentPane1.add(lblLogin);
-	
-		
-		passwordField = new JPasswordField();
-		passwordField.setToolTipText("");
-		passwordField.setForeground(Color.BLACK);
-		passwordField.setFont(new Font(font, Font.BOLD, fontsize));
-		passwordField.setBounds(510, 402, width_txt, height_txt);
-		passwordField.setColumns(100);
-		passwordField.setBackground(Color.decode(txtcolor1));
-		passwordField.setBorder(new LineBorder(Color.decode(txtcolor1), 3, true));
-		contentPane1.add(passwordField);
-		
-		textField = new JTextField();
-		textField.setToolTipText("");
-		textField.setForeground(Color.BLACK);
-		textField.setFont(new Font(font, Font.BOLD, fontsize));
-		textField.setBounds(510, 321, width_txt, height_txt);
-		textField.setColumns(100);
-		textField.setBackground(Color.decode(txtcolor1));
-		textField.setBorder(new LineBorder(Color.decode(txtcolor1), 3, true));
-		contentPane1.add(textField);
-		
-		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setForeground(Color.decode(txtcolor1));
-		lblPassword.setFont(new Font(font, Font.BOLD | Font.ITALIC, 20));
-		lblPassword.setBounds(510, 378, 264, 20);
-		contentPane1.add(lblPassword);
-		
-		JLabel lblUser = new JLabel("User");
-		lblUser.setForeground(Color.decode(txtcolor1));
-		lblUser.setFont(new Font(font, Font.BOLD | Font.ITALIC, 20));
-		lblUser.setBounds(510, 296, 305, 20);
-		contentPane1.add(lblUser);
-		
-		JLabel lblUserIcon = new JLabel("UserIcon");
-		lblUserIcon.setBounds(580, 129, 150, 150);
-		ImageIcon iconusericon =new ImageIcon("Icons\\userlogin.png");
-		Icon iconousericon = new ImageIcon(iconusericon.getImage().getScaledInstance(lblUserIcon.getWidth(),lblUserIcon.getHeight(), Image.SCALE_DEFAULT));
-		lblUserIcon.setIcon(iconousericon);
-		contentPane1.add(lblUserIcon);
-
-		
-		JButton btnback = new JButton("back");
-		btnback.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				contentPane1.setVisible(false);
-				vistaPrincipal();
-			}
-		});
-		btnback.setForeground(Color.decode(txtcolor1));
-		btnback.setFont(new Font(font, Font.PLAIN, 11));
-		btnback.setBackground(Color.decode(backgroundcolor));
-		btnback.setBounds(222, 50, 80, 80);
-		btnback.setBorderPainted(false);
-		ImageIcon iconback =new ImageIcon("Icons\\back.png");
-		Icon iconoback = new ImageIcon(iconback.getImage().getScaledInstance(btnback.getWidth(),btnback.getHeight(), Image.SCALE_DEFAULT));
-		btnback.setIcon(iconoback);
-		contentPane1.add(btnback);
-		
-		JButton btnSignIn = new JButton("Sign in");
-		btnSignIn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			//	hotel.login(tipodeuser);
-			}
-		});
-		btnSignIn.setBounds(665, 500, 150, 40);
-		btnSignIn.setBackground(Color.decode(btncolor1));
-		btnSignIn.setForeground(Color.WHITE);
-		btnSignIn.setFont(new Font(font, Font.BOLD, btnsize));
-		contentPane1.add(btnSignIn);
-		
-		JButton btnRegister = new JButton("Register");
-		btnRegister.setForeground(Color.WHITE);
-		btnRegister.setFont(new Font(font, Font.BOLD, 30));
-		btnRegister.setBackground(Color.decode(btncolor2));
-		btnRegister.setBounds(510, 500, 150, 40);
-		btnRegister.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				contentPane1.setVisible(false);
-				vistaRegister();
-			}
-		});
-		if(tipodeuser=="Empleado")
-			btnSignIn.setBounds(510, 500, width_txt, height_txt);
-		else
-		contentPane1.add(btnRegister);
-		
-	}
 }
+	

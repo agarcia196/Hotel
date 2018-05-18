@@ -65,4 +65,14 @@ public abstract class Empleado extends Persona implements Usuario, Serializable 
 		
 		
 	}
+
+	public void addEmpleado(Persona c) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void addUser(Cliente c) {
+		// TODO Auto-generated method stub
+		
+	}
 }

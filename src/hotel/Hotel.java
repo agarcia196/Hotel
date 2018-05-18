@@ -57,10 +57,11 @@ public class Hotel implements Serializable{
 		personal = new ArrayList<Empleado>();
 		cocina= new Cocina();
 	}
-	
+	//AAGREGAR USUARIO CON COMBO BOX,EMPLEADO,ADMINISTRADOR Y CLIENTE.ELIMINAR USUARIO Y EDITAR USUARIO, 
 	public Cocina getCocina() {
 		return cocina;
 	}
+	
 	public void addHabitacion(Habitacion h) {
 		habitaciones.add(h);
 	}
