@@ -1,6 +1,5 @@
 package forms;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -23,18 +22,11 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-
-import exception.ECamposVacios;
-import exception.EIgualdad;
-import exception.ELongitud;
 import exception.ExceptionNodo;
 import hotel.Administrador;
 import hotel.Cliente;
 import hotel.Empleado;
 import hotel.Hotel;
-import hotel.Recursos;
-import hotel.Usuario;
-
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseAdapter;
@@ -44,8 +36,28 @@ import java.util.ArrayList;
 import javax.swing.SwingConstants;
 import javax.swing.JScrollBar;
 
-public class EditarUsuario extends JFrame {
-	public EditarUsuario(Hotel h,Empleado persona) {
+public class FormEditUser extends JFrame {
+	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Hotel hotel= new Hotel();
+					Cliente Fabox= new Cliente("Fabio","Anaya","Masculino","fabeac", "1212","Cedula","123");
+					Administrador fabio= new Administrador("Fabio","Anaya","Masculino","fabeac", "1212","Cedula","123");
+					FormEditUser frame = new FormEditUser(hotel, Fabox);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	public FormEditUser(Hotel h,Cliente persona) {
 
 		hotel=h;
 		this.p=persona;
@@ -55,12 +67,11 @@ public class EditarUsuario extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1366, 768);	
 		lblLogin = new JLabel();
-		Cliente Fabox= new Cliente("Fabio","Anaya","Masculino","fabeac", "1212","Cedula","123");
-		Editar(Fabox);
+	
+		Editar(p);
+		EditarUsuario();
 		//EditarUsuario();
 	}
-
-	private JPanel contentPane;
 	private static final long serialVersionUID = 1858820207514553474L;
 	private JPanel contentPane2;
 	private final String backgroundcolor="#44b256";
@@ -70,27 +81,9 @@ public class EditarUsuario extends JFrame {
 	private final int fontsize=20;
 	private JLabel lblLogin;
 	private Hotel hotel;
-	private Empleado p;
-	private JTable table;
+	private Cliente p;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Hotel hotel= new Hotel();
-					Administrador fabio= new Administrador("Fabio","Anaya","Masculino","fabeac", "1212","Cedula","123");
-					EditarUsuario frame = new EditarUsuario(hotel, fabio);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	
 	/**
 	 * Create the frame.
 	 * @param CEC 
@@ -117,7 +110,6 @@ public class EditarUsuario extends JFrame {
 		contentPane2.add(lblLogin);
 		
 		Nombre = new JTextField();
-		Nombre.setText(CEC.getNombre());
 		Nombre.setToolTipText("");
 		Nombre.setForeground(Color.BLACK);
 		Nombre.setFont(new Font(font, Font.PLAIN, fontsize));
@@ -128,7 +120,6 @@ public class EditarUsuario extends JFrame {
 		Nombre.setBorder(new LineBorder(Color.decode(txtcolor1), 3, true));
 		
 		contraseña = new JPasswordField();
-		contraseña.setText(CEC.getPwd());
 		contraseña.setToolTipText("");
 		contraseña.setForeground(Color.BLACK);
 		contraseña.setFont(new Font(font, Font.PLAIN, fontsize));
@@ -139,7 +130,6 @@ public class EditarUsuario extends JFrame {
 		contentPane2.add(contraseña);
 		
 		txtapellido = new JTextField();
-		txtapellido.setText(CEC.getApellido());
 		txtapellido.setToolTipText("");
 		txtapellido.setForeground(Color.BLACK);
 		txtapellido.setFont(new Font(font, Font.PLAIN, fontsize));
@@ -150,7 +140,6 @@ public class EditarUsuario extends JFrame {
 		contentPane2.add(txtapellido);
 		
 		txtncedula = new JTextField();
-		txtncedula.setText(CEC.getId());
 		txtncedula.setEditable(false);
 		txtncedula.setEnabled(false);
 		txtncedula.setToolTipText("");
@@ -163,7 +152,6 @@ public class EditarUsuario extends JFrame {
 		contentPane2.add(txtncedula);
 		
 		txtemail = new JTextField();
-		txtemail.setText(CEC.getCorreo());
 		txtemail.setToolTipText("");
 		txtemail.setForeground(Color.BLACK);
 		txtemail.setFont(new Font(font, Font.PLAIN, fontsize));
@@ -174,7 +162,6 @@ public class EditarUsuario extends JFrame {
 		contentPane2.add(txtemail);
 		
 		ccontraseña = new JPasswordField();
-		ccontraseña.setText(CEC.getPwd());
 		ccontraseña.setToolTipText("");
 		ccontraseña.setForeground(Color.BLACK);
 		ccontraseña.setFont(new Font(font, Font.PLAIN, fontsize));
@@ -379,11 +366,7 @@ public class EditarUsuario extends JFrame {
 		Icon iconousername = new ImageIcon(iconusername.getImage().getScaledInstance(username.getWidth(),username.getHeight(), Image.SCALE_DEFAULT));
 		username.setIcon(iconousername);
 		contentPane2.add(username);
-		ImageIcon iconpwd =new ImageIcon("Icons\\pwd.png");
-		ImageIcon iconemail =new ImageIcon("Icons\\email.png");
-		ImageIcon iconnumber =new ImageIcon("Icons\\number.png");
-		ImageIcon icongenero =new ImageIcon("Icons\\genero.png");
-		ImageIcon icontipoid =new ImageIcon("Icons\\tipoid.png");
+	
 		
 		JSeparator separator = new JSeparator();
 		separator.setBackground(Color.decode("#c4c4c4"));
@@ -498,8 +481,8 @@ public class EditarUsuario extends JFrame {
 				}
 			}
 		});
-		button_1.setIcon(new ImageIcon("C:\\Users\\MSI-PC\\Desktop\\Proyecto\\Hotel\\Icons\\LapizPeque\u00F1o.png"));
-		button_1.setSelectedIcon(new ImageIcon("C:\\Users\\MSI-PC\\Desktop\\Proyecto\\Hotel\\Icons\\LapizPeque\u00F1o.png"));
+		button_1.setIcon(new ImageIcon("Icons\\LapizPeque\u00F1o.png"));
+		button_1.setSelectedIcon(new ImageIcon("Icons\\LapizPeque\u00F1o.png"));
 		button_1.setBounds(622, 189, 51, 41);
 		contentPane2.add(button_1);
 		

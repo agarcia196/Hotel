@@ -305,7 +305,7 @@ public class FormLogin extends JFrame {
 		signup.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int validar = JOptionPane.showConfirmDialog(contentPane2,
-						"�Est� seguro de que la informaci�n es correcta?");
+						"Est\u00e1 seguro de que la informaci\u00f3n es correcta?");
 				if (validar == 0) {
 							try {
 								Recursos.validarCamposVaciosU(txtUserName.getText(), txtapellido.getText(), 

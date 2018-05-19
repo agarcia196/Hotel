@@ -32,9 +32,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
-public class CrearUsuario extends JFrame {
+public class FormAddUser extends JFrame {
 	
-	public CrearUsuario(Hotel h,Empleado persona) {
+	public FormAddUser(Hotel h,Empleado persona) {
 		
 		hotel=h;
 		this.p=persona;
@@ -67,7 +67,7 @@ public class CrearUsuario extends JFrame {
 				try {
 					Hotel h= new Hotel();
 					Administrador fabio= new Administrador("Fabio","Anaya","Masculino","fabeac", "1212","Cedula","123");
-					CrearUsuario f= new CrearUsuario(h,fabio);
+					FormAddUser f= new FormAddUser(h,fabio);
 					f.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
