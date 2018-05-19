@@ -49,11 +49,11 @@ public class FormZeroDay extends JFrame {
 	private final String color5="#FFFFFF";
 	private final int width_txt= 250;
 	private final int height_txt= 40;
-	private JPasswordField contraseña;
+	private JPasswordField contrasena;
 	private JTextField txtapellido;
 	private JTextField txtncedula; 
 	private JTextField txtemail;   
-	private JPasswordField ccontraseña;
+	private JPasswordField ccontrasena;
 	private JTextField txtHotel;
 	private JComboBox<String> cbtipodedocumento;
 	private JLabel lblSignUp;
@@ -103,9 +103,9 @@ public class FormZeroDay extends JFrame {
 		setExtendedState(MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1366, 768); 
-		Toolkit tk = Toolkit.getDefaultToolkit();
-		int xsize = (int) tk.getScreenSize().getWidth();
-		int ysize = (int) tk.getScreenSize().getHeight();
+	//	Toolkit tk = Toolkit.getDefaultToolkit();
+	//	int xsize = (int) tk.getScreenSize().getWidth();
+	//s	int ysize = (int) tk.getScreenSize().getHeight();
 		//setSize(xsize, ysize);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.decode(backgroundcolor));
@@ -123,15 +123,15 @@ public class FormZeroDay extends JFrame {
 		txtUserName.setBackground(Color.decode(color1));
 		txtUserName.setBorder(new LineBorder(Color.decode(color2), 3, true));
 		
-		contraseña = new JPasswordField();
-		contraseña.setToolTipText("");
-		contraseña.setForeground(Color.BLACK);
-		contraseña.setFont(new Font("Century Gothic", Font.PLAIN, fontsize));
-		contraseña.setColumns(100);
-		contraseña.setBorder(new LineBorder(Color.decode(color2), 3, true));
-		contraseña.setBackground(Color.decode(color1));
-		contraseña.setBounds(360, 540,width_txt, height_txt);
-		contentPane.add(contraseña);
+		contrasena = new JPasswordField();
+		contrasena.setToolTipText("");
+		contrasena.setForeground(Color.BLACK);
+		contrasena.setFont(new Font("Century Gothic", Font.PLAIN, fontsize));
+		contrasena.setColumns(100);
+		contrasena.setBorder(new LineBorder(Color.decode(color2), 3, true));
+		contrasena.setBackground(Color.decode(color1));
+		contrasena.setBounds(360, 540,width_txt, height_txt);
+		contentPane.add(contrasena);
 		
 		txtapellido = new JTextField();
 		txtapellido.setToolTipText("");
@@ -163,15 +163,15 @@ public class FormZeroDay extends JFrame {
 		txtemail.setBounds(692, 380, width_txt, height_txt);
 		contentPane.add(txtemail);
 		
-		ccontraseña = new JPasswordField();
-		ccontraseña.setToolTipText("");
-		ccontraseña.setForeground(Color.BLACK);
-		ccontraseña.setFont(new Font("Century Gothic", Font.PLAIN, fontsize));
-		ccontraseña.setColumns(100);
-		ccontraseña.setBorder(new LineBorder(Color.decode(color2), 3, true));
-		ccontraseña.setBackground(Color.decode(color1));
-		ccontraseña.setBounds(692, 540, width_txt, height_txt);
-		contentPane.add(ccontraseña);
+		ccontrasena = new JPasswordField();
+		ccontrasena.setToolTipText("");
+		ccontrasena.setForeground(Color.BLACK);
+		ccontrasena.setFont(new Font("Century Gothic", Font.PLAIN, fontsize));
+		ccontrasena.setColumns(100);
+		ccontrasena.setBorder(new LineBorder(Color.decode(color2), 3, true));
+		ccontrasena.setBackground(Color.decode(color1));
+		ccontrasena.setBounds(692, 540, width_txt, height_txt);
+		contentPane.add(ccontrasena);
 		
 		txtHotel = new JTextField();
 		txtHotel.setToolTipText("");
@@ -284,14 +284,14 @@ public class FormZeroDay extends JFrame {
 							try {
 								Recursos.validarCamposVaciosU(txtUserName.getText(), txtapellido.getText(), 
 										cbgenero.getSelectedItem().toString(), txtemail.getText(),txtncedula.getText(), 
-										cbtipodedocumento.getSelectedItem().toString(), String.valueOf(contraseña.getPassword()), 
-										String.valueOf(ccontraseña.getPassword()), txtHotel.getText());
-								Recursos.validarLongitudPwd(String.valueOf(contraseña.getPassword()));
-								Recursos.validarIgualdadPwd(String.valueOf(contraseña.getPassword()), String.valueOf(ccontraseña.getPassword()));
+										cbtipodedocumento.getSelectedItem().toString(), String.valueOf(contrasena.getPassword()), 
+										String.valueOf(ccontrasena.getPassword()), txtHotel.getText());
+								Recursos.validarLongitudPwd(String.valueOf(contrasena.getPassword()));
+								Recursos.validarIgualdadPwd(String.valueOf(contrasena.getPassword()), String.valueOf(ccontrasena.getPassword()));
 								Hotel h = new Hotel(txtHotel.getText());
 								Empleado e = new Administrador(txtUserName.getText(), txtapellido.getText(), 
 										cbgenero.getSelectedItem().toString(), txtemail.getText(),txtncedula.getText(), 
-										cbtipodedocumento.getSelectedItem().toString(), String.valueOf(contraseña.getPassword()));
+										cbtipodedocumento.getSelectedItem().toString(), String.valueOf(contrasena.getPassword()));
 								h.addEmpleado(e);
 								dispose();
 								Recursos.WriteFileObjectEmpresa("hotel.dat", h);

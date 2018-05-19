@@ -92,10 +92,9 @@ public class FormLogin extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1366, 768);	
 		lblLogin = new JLabel();
-		//vistaPrincipal();
+		vistaPrincipal();
 		// tipodeuser="Visitante";
 		//vistaLogin(); 
-	 
 		//vistaRegister();
 	}
 	
@@ -111,10 +110,10 @@ public class FormLogin extends JFrame {
 		lblLogin.setForeground(Color.WHITE);
 		lblLogin.setText("Login as");
 		contentPane.add(lblLogin);
-		JButton btnVisitante = new JButton("Visitante");
+		JButton btnVisitante = new JButton("Visitor");
 		btnVisitante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tipodeuser="Visitante";
+				tipodeuser="Visitor";
 				contentPane.setVisible(false);
 				vistaLogin();
 			}
@@ -125,10 +124,10 @@ public class FormLogin extends JFrame {
 		btnVisitante.setFont(new Font(font, Font.BOLD, btnsize));
 		contentPane.add(btnVisitante);
 		
-		JButton btnEmpleado = new JButton("Empleado");
+		JButton btnEmpleado = new JButton("Employee");
 		btnEmpleado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				tipodeuser="Empleado";
+				tipodeuser="Employee";
 				contentPane.setVisible(false);
 				vistaLogin();
 			}
@@ -155,7 +154,7 @@ public class FormLogin extends JFrame {
 		
 	}
 	private void vistaRegister() {
-		JPasswordField contraseña,ccontraseña;
+		JPasswordField contrasena,ccontrasena;
 		JTextField txtapellido,txtncedula,txtemail,txtUserName;
 		JComboBox<String> cbtipodedocumento;
 		JLabel username,pwd, email,number,cpwd,genero,tipoid;
@@ -183,15 +182,15 @@ public class FormLogin extends JFrame {
 		txtUserName.setBackground(Color.decode(txtcolor1));
 		txtUserName.setBorder(new LineBorder(Color.decode(txtcolor1), 3, true));
 		
-		contraseña = new JPasswordField();
-		contraseña.setToolTipText("");
-		contraseña.setForeground(Color.BLACK);
-		contraseña.setFont(new Font(font, Font.PLAIN, fontsize));
-		contraseña.setColumns(100);
-		contraseña.setBorder(new LineBorder(Color.decode(txtcolor1), 3, true));
-		contraseña.setBackground(Color.decode(txtcolor1));
-		contraseña.setBounds(355, 418,300, 40);
-		contentPane2.add(contraseña);
+		contrasena = new JPasswordField();
+		contrasena.setToolTipText("");
+		contrasena.setForeground(Color.BLACK);
+		contrasena.setFont(new Font(font, Font.PLAIN, fontsize));
+		contrasena.setColumns(100);
+		contrasena.setBorder(new LineBorder(Color.decode(txtcolor1), 3, true));
+		contrasena.setBackground(Color.decode(txtcolor1));
+		contrasena.setBounds(355, 418,300, 40);
+		contentPane2.add(contrasena);
 		
 		txtapellido = new JTextField();
 		txtapellido.setToolTipText("");
@@ -223,15 +222,15 @@ public class FormLogin extends JFrame {
 		txtemail.setBounds(720, 270, 300, 40);
 		contentPane2.add(txtemail);
 		
-		ccontraseña = new JPasswordField();
-		ccontraseña.setToolTipText("");
-		ccontraseña.setForeground(Color.BLACK);
-		ccontraseña.setFont(new Font(font, Font.PLAIN, fontsize));
-		ccontraseña.setColumns(100);
-		ccontraseña.setBorder(new LineBorder(Color.decode(txtcolor1), 3, true));
-		ccontraseña.setBackground(Color.decode(txtcolor1));
-		ccontraseña.setBounds(720, 418, 300, 40);
-		contentPane2.add(ccontraseña);
+		ccontrasena = new JPasswordField();
+		ccontrasena.setToolTipText("");
+		ccontrasena.setForeground(Color.BLACK);
+		ccontrasena.setFont(new Font(font, Font.PLAIN, fontsize));
+		ccontrasena.setColumns(100);
+		ccontrasena.setBorder(new LineBorder(Color.decode(txtcolor1), 3, true));
+		ccontrasena.setBackground(Color.decode(txtcolor1));
+		ccontrasena.setBounds(720, 418, 300, 40);
+		contentPane2.add(ccontrasena);
 		
 		JComboBox<String> cbgenero = new JComboBox<String>();
 		cbgenero.setModel(new DefaultComboBoxModel<String>(new String[] {"Masculino", "Femenino", "Otro"}));
@@ -311,14 +310,14 @@ public class FormLogin extends JFrame {
 							try {
 								Recursos.validarCamposVaciosU(txtUserName.getText(), txtapellido.getText(), 
 										cbgenero.getSelectedItem().toString(), txtemail.getText(),txtncedula.getText(), 
-										cbtipodedocumento.getSelectedItem().toString(), String.valueOf(contraseña.getPassword()), 
-										String.valueOf(ccontraseña.getPassword()), "Visitante");
-								Recursos.validarLongitudPwd(String.valueOf(contraseña.getPassword()));
-								Recursos.validarIgualdadPwd(String.valueOf(contraseña.getPassword()), String.valueOf(ccontraseña.getPassword()));
+										cbtipodedocumento.getSelectedItem().toString(), String.valueOf(contrasena.getPassword()), 
+										String.valueOf(ccontrasena.getPassword()), "Visitante");
+								Recursos.validarLongitudPwd(String.valueOf(contrasena.getPassword()));
+								Recursos.validarIgualdadPwd(String.valueOf(contrasena.getPassword()), String.valueOf(ccontrasena.getPassword()));
 					
 								Cliente c = new Cliente(txtUserName.getText(), txtapellido.getText(), 
 										cbgenero.getSelectedItem().toString(), txtemail.getText(),txtncedula.getText(), 
-										cbtipodedocumento.getSelectedItem().toString(), String.valueOf(contraseña.getPassword()));
+										cbtipodedocumento.getSelectedItem().toString(), String.valueOf(contrasena.getPassword()));
 								hotel.addUser(c);
 								Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
 								JOptionPane.showMessageDialog(contentPane2, "Registro realizado");
@@ -502,7 +501,7 @@ public class FormLogin extends JFrame {
 				vistaRegister();
 			}
 		});
-		if(tipodeuser=="Empleado")
+		if(tipodeuser=="Employee")
 			btnSignIn.setBounds(510, 500, width_txt, height_txt);
 		else
 		contentPane1.add(btnRegister);
