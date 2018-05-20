@@ -41,6 +41,7 @@ public class FormMenuPrincipal extends JFrame {
 	private	JTextArea textArea;
 	private JLabel lblInfo;
 	JLabel lblLogin;
+
 	/**
 	 * Launch the application.
 	 */
@@ -72,7 +73,6 @@ public class FormMenuPrincipal extends JFrame {
 		setBounds(0, 0, 1366, 768);	
 
 		lblLogin = new JLabel();
-		lblLogin.setBounds(600, 67, 470, 50);
 		lblLogin.setFont(new Font(font, Font.BOLD, fontsize));
 		lblLogin.setForeground(Color.WHITE);
 		lblInfo = new JLabel("Info");
@@ -102,6 +102,7 @@ public class FormMenuPrincipal extends JFrame {
 		Menu.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(Menu);
 		Menu.setLayout(null);
+		lblLogin.setBounds(600, 67, 470, 50);
 		lblLogin.setText("Men\u00fa Hotel");
 		Menu.add(lblLogin);
 		Menu.add(lblInfo);
@@ -135,6 +136,12 @@ public class FormMenuPrincipal extends JFrame {
 			}
 		});
 		Menu.add(lblRecepcion);
+
+		JLabel lblRecepcion_1 = new JLabel("Recepci\u00F3n");
+		lblRecepcion_1.setForeground(Color.WHITE);
+		lblRecepcion_1.setFont(new Font(font, Font.BOLD | Font.ITALIC, fontsize));
+		lblRecepcion_1.setBounds(600, 467, 256, 60);
+		Menu.add(lblRecepcion_1);
 		if(p instanceof Empleado) {
 		JLabel lblCheckin = new JLabel("Checkin");
 		lblCheckin.setBounds(295, 200, lbtnwidth, lbtnheight);
@@ -154,9 +161,7 @@ public class FormMenuPrincipal extends JFrame {
 			}
 		});
 		Menu.add(lblCheckin);
-		
-
-		
+	
 		JLabel lblCheckout = new JLabel("Checkout");
 		lblCheckout.setBounds(905, 200, lbtnwidth, lbtnheight);
 		lblCheckout.setIcon(new ImageIcon("Icons\\stairs.png"));
@@ -175,6 +180,18 @@ public class FormMenuPrincipal extends JFrame {
 			}
 		});
 		Menu.add(lblCheckout);
+		
+		JLabel lblCheckOut = new JLabel("Check Out");
+		lblCheckOut.setForeground(Color.WHITE);
+		lblCheckOut.setFont(new Font(font, Font.BOLD | Font.ITALIC, fontsize));
+		lblCheckOut.setBounds(905, 467, 256, 60);
+		Menu.add(lblCheckOut);
+		
+		JLabel lblCheckIn = new JLabel("Check In");
+		lblCheckIn.setForeground(Color.WHITE);
+		lblCheckIn.setFont(new Font(font, Font.BOLD | Font.ITALIC, fontsize));
+		lblCheckIn.setBounds(295, 467, 256, 60);
+		Menu.add(lblCheckIn);
 		}
 	}
 	
@@ -184,6 +201,7 @@ public class FormMenuPrincipal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		lblLogin.setBounds(520, 67, 550, 50);
 		lblLogin.setText("Bienvenido a "+h.getNombre());
 		contentPane.add(lblLogin);
 		contentPane.add(lblInfo);
