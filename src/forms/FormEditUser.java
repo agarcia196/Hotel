@@ -28,6 +28,7 @@ import hotel.Cliente;
 import hotel.Empleado;
 import hotel.Hotel;
 import hotel.Persona;
+import hotel.Recursos;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -68,12 +69,16 @@ public class FormEditUser extends JFrame {
 		setExtendedState(MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 1366, 768);	
+		EditarUsuario();
+		
+		/*
 		lblLogin = new JLabel();
 		if(p instanceof Cliente) {
 		Editar(p);}
 		else{
 		EditarUsuario();}
 		//EditarUsuario();
+		 * */
 	}
 	private static final long serialVersionUID = 1858820207514553474L;
 	private JPanel contentPane2;
@@ -254,14 +259,14 @@ public class FormEditUser extends JFrame {
 					if(contraseña.equals(ccontraseña)) {
 					Cliente c;
 					try {
-						c = hotel.buscarCliente(CEC.getId());
+						hotel.getUsuarios().buscarS(CEC.getId()).setLlave(new Cliente(Nombre.getText().toString(),txtapellido.getText().toString(),CEC.getGenero(),txtemail.getText().toString(),txtncedula.getText().toString(),
+							cbtipodedocumento.getSelectedItem().toString(),contraseña.toString()));
+							Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
 					} catch (ExceptionNodo e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					 c=new Cliente(Nombre.getText().toString(),txtapellido.getText().toString(),CEC.getGenero(),txtemail.getText().toString(),txtncedula.getText().toString(),
-							cbtipodedocumento.getSelectedItem().toString(),contraseña.toString());
-					}else {
+				}else {
 						JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden");
 					}
 				}
@@ -324,6 +329,18 @@ public class FormEditUser extends JFrame {
 		lblConfirmarContrasea.setFont(new Font("Century Gothic", Font.BOLD | Font.ITALIC, 16));
 		lblConfirmarContrasea.setBounds(720, 401, 240, 15);
 		contentPane2.add(lblConfirmarContrasea);
+		
+		JButton btnEliminarUsuario = new JButton("Eliminar usuario\r\n");
+		btnEliminarUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnEliminarUsuario.setForeground(Color.WHITE);
+		btnEliminarUsuario.setFont(new Font("Century Gothic", Font.BOLD, 25));
+		btnEliminarUsuario.setBackground(new Color(58, 136, 219));
+		btnEliminarUsuario.setBounds(355, 482, 300, 40);
+		contentPane2.add(btnEliminarUsuario);
 		JButton btnback = new JButton("back");
 		btnback.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -401,26 +418,21 @@ public class FormEditUser extends JFrame {
 		btnback.setIcon(iconoback);
 		contentPane2.add(btnback);
 		
-		DefaultTableModel modelo= new DefaultTableModel();
-		JTable table= new JTable(modelo);
-		table.setEnabled(false);
-	
-		table.setFont(new Font("Century Gothic", Font.PLAIN, 13));
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"NOMBRE", "APELLIDOS", "CORREO", "GENERO", "DOCUMENTO"},
-			},
-			new String[] {
-				"NOMBRE", "APELLIDOS", "CORREO", "GENERO", "DOCUMENTO"
-			}
-		));
-		table.setBounds(310, 277, 820, 361);
-		contentPane2.add(table);
+		DefaultTableModel printUsers= new DefaultTableModel();
 		
-		ArrayList<Cliente> us=hotel.getUsuarios().inOrdenA();
-		for(int i=0;i<us.size();i++) {
-			String[] fila=us.get(i).imprimirPersonaTabla();
-			((DefaultTableModel) table.getModel()).addRow(fila);
+		public printUsers (DefaultTableModel tabla) throws EArrayVacio {
+			if(menu.size()>0) {
+			int i=0;
+			while (i<menu.size()) {
+				String [] model = {menu.get(i).getNombre(),Boolean.toString(menu.get(i).isDisponibilidad()),
+						Double.toString(menu.get(i).getDuracion()),Double.toString(menu.get(i).getValor())};
+				modeloTable.addRow(model);	
+				i++;
+			}
+			return modeloTable;}
+			else {
+				throw new EArrayVacio("No hay usuarios en el sistema");
+			}
 		}
 		
 		for(int i=0;i<hotel.getPersonal().size();i++) {
@@ -452,6 +464,7 @@ public class FormEditUser extends JFrame {
 				}
 			}
 		});
+		
 		button.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
@@ -477,6 +490,8 @@ public class FormEditUser extends JFrame {
 					Cliente CEC=hotel.buscarCliente(DocMod.getText().toString());
 					if(CEC!=null) {
 						Editar(CEC);
+					}else {
+						JOptionPane.showConfirmDialog(null,"La ID ingresada no coincide con ningun usuario");
 					}
 				} catch (ExceptionNodo e) {
 					// TODO Auto-generated catch block

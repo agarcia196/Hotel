@@ -92,7 +92,7 @@ public class Hotel implements Serializable{
 	}
 	
 	
-	public ABB<Cliente> getUsuarios() {
+	public ACliente getUsuarios() {
 		return usuarios;
 	}
 	

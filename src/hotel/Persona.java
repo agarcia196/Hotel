@@ -12,6 +12,7 @@ public abstract class Persona implements Serializable{
 	protected String id;
 	protected String tipoId;
 	protected String pwd;
+	protected boolean activo;
 	
 	
 	public Persona(String nombre, String apellido, String genero, String correo, String id, String tipoId, String pwd) {
@@ -23,6 +24,7 @@ public abstract class Persona implements Serializable{
 		this.id = id;
 		this.tipoId = tipoId;
 		this.pwd = pwd;
+		this.activo=true;
 	}
 	
 	public String[] imprimirPersonaTabla() {
@@ -74,6 +76,19 @@ public abstract class Persona implements Serializable{
 	}
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
+	}
+	
+
+	public boolean isActivo() {
+		return activo;
+	}
+
+	public void setActivo(boolean activo) {
+		activo = activo;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	@Override
