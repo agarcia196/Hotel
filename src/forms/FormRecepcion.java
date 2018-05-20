@@ -34,6 +34,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -752,7 +754,7 @@ public class FormRecepcion extends JFrame {
 		
 		JLabel lblInfo = new JLabel("Info");
 		lblInfo.setBounds(278, 578, 100, 100);
-		ImageIcon iconinfo =new ImageIcon("Icons/information.png");
+		ImageIcon iconinfo =new ImageIcon("Icons" + File.separator + "information.png");
 		Icon iconoinfo  = new ImageIcon(iconinfo.getImage().getScaledInstance(lblInfo.getWidth(),lblInfo.getHeight(), Image.SCALE_DEFAULT));
 		lblInfo.setIcon(iconoinfo);
 		lblInfo.setVisible(false);
@@ -789,7 +791,7 @@ public class FormRecepcion extends JFrame {
 				lblInfo.setVisible(false);
 			}
 		});
-		ImageIcon imageIconAgregar = new ImageIcon("Icons/stairs.png");
+		ImageIcon imageIconAgregar = new ImageIcon("Icons" + File.separator + "stairs.png");
 		Icon iconoAgregar = new ImageIcon (imageIconAgregar.getImage ().getScaledInstance(lblAgregar.getWidth (), lblAgregar.getHeight (), Image.SCALE_DEFAULT));
 		lblAgregar.setIcon (iconoAgregar);	
 		contentPane.add(lblAgregar);
@@ -812,7 +814,7 @@ public class FormRecepcion extends JFrame {
 				lblInfo.setVisible(false);
 			}
 		});
-		ImageIcon imageIconCancelar = new ImageIcon("Icons/stair.png");
+		ImageIcon imageIconCancelar = new ImageIcon("Icons" + File.separator + "stair.png");
 		Icon iconoCancelar = new ImageIcon (imageIconCancelar.getImage ().getScaledInstance(lblCancelar.getWidth (), lblCancelar.getHeight (), Image.SCALE_DEFAULT));
 		lblCancelar.setIcon(iconoCancelar);	
 		contentPane.add(lblCancelar);
@@ -854,11 +856,12 @@ public class FormRecepcion extends JFrame {
 				lblInfo.setVisible(false);
 			}
 		});
-		ImageIcon imageIconEditar = new ImageIcon("Icons/clipboard.png");
+		ImageIcon imageIconEditar = new ImageIcon("Icons" + File.separator + "clipboard.png");
 		Icon iconoEditar = new ImageIcon (imageIconEditar.getImage ().getScaledInstance(lblEditar.getWidth (), lblEditar.getHeight (), Image.SCALE_DEFAULT));
 		lblEditar.setIcon(iconoEditar);	
 		contentPane.add(lblEditar);
 	}
+	
 	private void vistaServicios() {
 		contentServicios = new JPanel();
 		contentServicios.setBackground(Color.decode(backgroundcolor));
