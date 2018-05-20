@@ -770,7 +770,7 @@ public class FormRecepcion extends JFrame {
 		textMensaje.setFont(new Font(font, Font.PLAIN | Font.ITALIC, fontsize));
 		contentPane.add(textMensaje);
 			
-		JLabel lblAgregar = new JLabel("Agregar reserva");
+		JLabel lblAgregar = new JLabel("Ckeck-in");
 		lblAgregar.setLabelFor(lblAgregar);
 		lblAgregar.setBounds(141, 287, 185, 169);
 		lblAgregar.setForeground (Color.decode(txtcolor1));
@@ -781,7 +781,7 @@ public class FormRecepcion extends JFrame {
 				vistaServicios();
 			}
 			public void mouseEntered(MouseEvent arg0) {
-				textMensaje.setText("Agrega una nueva reserva a un usuario específico");
+				textMensaje.setText("Hacer check-in a un usuario sobre una reserva.");
 				lblInfo.setVisible(true);
 			}			
 			public void mouseExited(MouseEvent arg0) {
@@ -789,12 +789,12 @@ public class FormRecepcion extends JFrame {
 				lblInfo.setVisible(false);
 			}
 		});
-		ImageIcon imageIconAgregar = new ImageIcon("Icons/calendar1.png");
+		ImageIcon imageIconAgregar = new ImageIcon("Icons/stairs.png");
 		Icon iconoAgregar = new ImageIcon (imageIconAgregar.getImage ().getScaledInstance(lblAgregar.getWidth (), lblAgregar.getHeight (), Image.SCALE_DEFAULT));
 		lblAgregar.setIcon (iconoAgregar);	
 		contentPane.add(lblAgregar);
 		
-		JLabel lblCancelar = new JLabel("Cancelar reserva");
+		JLabel lblCancelar = new JLabel("Check-out");
 		lblCancelar.setForeground (Color.decode(txtcolor1));
 		lblCancelar.setBounds(559, 296, 185, 160);
 		lblCancelar.addMouseListener(new MouseAdapter() {
@@ -804,7 +804,7 @@ public class FormRecepcion extends JFrame {
 				vistaMenu();
 			}
 			public void mouseEntered(MouseEvent arg0) {
-				textMensaje.setText("Cancela un reserva anteriormente creada");
+				textMensaje.setText("Check-out de un usuario sobre una reserva");
 				lblInfo.setVisible(true);
 			}			
 			public void mouseExited(MouseEvent arg0) {
@@ -812,31 +812,31 @@ public class FormRecepcion extends JFrame {
 				lblInfo.setVisible(false);
 			}
 		});
-		ImageIcon imageIconCancelar = new ImageIcon("Icons/chef.png");
+		ImageIcon imageIconCancelar = new ImageIcon("Icons/stair.png");
 		Icon iconoCancelar = new ImageIcon (imageIconCancelar.getImage ().getScaledInstance(lblCancelar.getWidth (), lblCancelar.getHeight (), Image.SCALE_DEFAULT));
 		lblCancelar.setIcon(iconoCancelar);	
 		contentPane.add(lblCancelar);
 		
-		JLabel lblAgregar_1 = new JLabel("Agregar");
+		JLabel lblAgregar_1 = new JLabel("Check-in");
 		lblAgregar_1.setForeground(Color.decode(txtcolor1));
 		lblAgregar_1.setFont(new Font(font, Font.BOLD | Font.ITALIC, fontsize+20));
 		lblAgregar_1.setBounds(141, 468, 199, 60);
 		contentPane.add(lblAgregar_1);
 		
-		JLabel lblCancelar_1 = new JLabel("Cancelar");
+		JLabel lblCancelar_1 = new JLabel("Check-out");
 		lblCancelar_1.setForeground (Color.decode(txtcolor1));
 		lblCancelar_1.setFont(new Font(font, Font.BOLD | Font.ITALIC, fontsize+20));
-		lblCancelar_1.setBounds(559, 468, 211, 60);
+		lblCancelar_1.setBounds(539, 468, 242, 60);
 		contentPane.add(lblCancelar_1);
 		
-		JLabel lblEditar = new JLabel("Editar");
+		JLabel lblEditar = new JLabel("Reservas");
 		lblEditar.setBounds(977, 291, 185, 160);
 		contentPane.add(lblEditar);
 		
-		JLabel label_1 = new JLabel("Editar");
+		JLabel label_1 = new JLabel("Reservas");
 		label_1.setForeground(Color.decode(txtcolor1));
 		label_1.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 40));
-		label_1.setBounds(1013, 468, 211, 60);
+		label_1.setBounds(964, 468, 211, 60);
 		contentPane.add(label_1);
 
 		lblEditar.addMouseListener(new MouseAdapter() {
@@ -846,7 +846,7 @@ public class FormRecepcion extends JFrame {
 				vistaMenu();
 			}
 			public void mouseEntered (MouseEvent arg0) {
-				textMensaje.setText("Editar una reserva");
+				textMensaje.setText("Busca una reserva para editarla o cancelarla");
 				lblInfo.setVisible(true);
 			}			
 			public void mouseExited(MouseEvent arg0) {
@@ -866,7 +866,7 @@ public class FormRecepcion extends JFrame {
 		setContentPane(contentServicios);
 		contentServicios.setLayout(null);
 		
-		lblRecepcion.setText("Servicio");
+		lblRecepcion.setText("Check-in");
 		lblRecepcion.setForeground(Color.WHITE);
 		lblRecepcion.setFont(new Font(font, Font.BOLD, 40));
 		lblRecepcion.setBounds(644, 65, 200, 50);
