@@ -172,17 +172,18 @@ public class Cliente extends Persona implements Usuario,Comparable<Cliente> {
 	}
 
 
-
-
+	
 
 	@Override
 	public String toString() {
 		return "Cliente " + super.toString();
 	}
 
+	
+
 	@Override
 	public int compareTo(Cliente a) {
 		// TODO Auto-generated method stub
-		return a.getId().compareTo(this.getId());
+		return this.getId().compareTo(a.getId());
 	}
 }

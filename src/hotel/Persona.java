@@ -75,4 +75,11 @@ public abstract class Persona implements Serializable{
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
+
+	@Override
+	public String toString() {
+		return "Persona [nombre=" + nombre + ", apellido=" + apellido +  "]";//", genero=" + genero + ", correo=" + correo+ ", id=" + id + ", tipoId=" + tipoId + ", pwd=" + pwd + "]";
+	}
+	
+	
 }
