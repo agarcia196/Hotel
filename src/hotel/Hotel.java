@@ -3,11 +3,13 @@ package hotel;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.ListIterator;
 
 import javax.swing.table.DefaultTableModel;
-
 import arbol.ABB;
 import arbol.ACliente;
+import exception.ECliente;
 import exception.ExceptionNodo;
 
 public class Hotel implements Serializable{
@@ -19,22 +21,22 @@ public class Hotel implements Serializable{
 	private String nombre;
 	private Cocina cocina;
 	//Prueba
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		Hotel h = new Hotel("Trivago");
 		Habitacion h1 = new Habitacion("301A", "VIP");
 		Administrador e = new Administrador("Lopez", "Daniel", "Sin especificar", "DD", "123", "CC", "123");
+		Empleado c= new Recepcion("Juan", "Carlos", "Mas", "juan@", "01", "cedula", "2");
 		h.addHabitacion(h1);
 		h.addEmpleado(e);
-		Cliente c= new Cliente ("Juan", "Carlos", "Mas", "juan@", "01", "cedula", "2");
+		h.addEmpleado(c);
+	try {
+		System.out.println(h.buscarEmpleado("12345"));
+	} catch (ECliente e1) {
+		// TODO Auto-generated catch block
+		System.out.println(e1.getMessage());
+	}
 		
-		try {
-			h.buscarCliente(c);
-		} catch (ExceptionNodo e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	  System.out.println(h.getPersonal().get(0).getNombre() +" "+ h.getHabitaciones().get(0).getID() );
-	}*/
+	}
 	
 	public String getNombre () {
 		
@@ -116,11 +118,37 @@ public class Hotel implements Serializable{
 	public void setPersonal(ArrayList<Empleado> personal) {
 		this.personal = personal;
 	}
+	public Empleado buscarEmpleado(String cedula ) throws ECliente {
+		int i =0;
+		while(i<personal.size()&&personal.get(i).getId().compareTo(cedula)!=0)
+			i++;
+		if(i==personal.size())
+			throw new ECliente("Usuario no encontrado");
+		else
+			return personal.get(i);
+	}
 	public DefaultTableModel limpiarMenu(DefaultTableModel modeloTable){
 		int numFilas = modeloTable.getRowCount();
-		for (int i=numFilas-1; i>=0; i--) {				//eliminar los datos de la tabla
+		for (int i=numFilas-1; i>=0; i--) {				//Eliminar los datos de la tabla
 			modeloTable.removeRow(i);
 		}
 		return modeloTable;
+	}
+	public Persona login(String typeUser,String id,String pwd) throws ExceptionNodo, ECliente {
+		Persona persona =null;
+		switch (typeUser) {
+		case "Visitor":
+			persona= buscarCliente(id);
+			break;
+		case "Employee":
+			persona= buscarEmpleado(id);
+			break;
+		default:
+			break;
+		}
+		if (pwd.compareTo(persona.getPwd())==0)
+			return persona;
+		else
+			throw new ECliente("Contraseña Inconrrecta");
 	}
 }

@@ -12,11 +12,13 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import exception.ECamposVacios;
+import exception.ECliente;
 import exception.EIgualdad;
 import exception.ELongitud;
 import exception.ExceptionNodo;
 import hotel.Cliente;
 import hotel.Hotel;
+import hotel.Persona;
 import hotel.Recursos;
 
 import java.awt.Color;
@@ -481,7 +483,15 @@ public class FormLogin extends JFrame {
 		JButton btnSignIn = new JButton("Sign in");
 		btnSignIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			//	hotel.login(tipodeuser);
+				try {
+					Persona p = hotel.login(tipodeuser,textField.getText(),String.valueOf(passwordField.getPassword()));
+					dispose();
+					FormMenuPrincipal menu = new FormMenuPrincipal(hotel, p);
+					menu.setVisible(true);
+				} catch (ExceptionNodo | ECliente e) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(contentPane1, e.getMessage());
+				}
 			}
 		});
 		btnSignIn.setBounds(665, 500, 150, 40);

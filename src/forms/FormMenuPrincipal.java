@@ -51,7 +51,8 @@ public class FormMenuPrincipal extends JFrame {
 				try {
 					Hotel h = new Hotel("Trivago");
 					Persona Fabox= new Cliente("Fabio","Anaya","Masculino","fabeac", "1212","Cedula","123");
-					FormMenuPrincipal frame = new FormMenuPrincipal(h, Fabox);
+					Persona Fabox1= new Administrador("Fabio","Anaya","Masculino","fabeac", "1212","Cedula","123");
+					FormMenuPrincipal frame = new FormMenuPrincipal(h, Fabox1);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
