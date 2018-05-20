@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 
 import hotel.Administrador;
 import hotel.Cliente;
+import hotel.Empleado;
 import hotel.Hotel;
 import hotel.Persona;
 import hotel.Recepcion;
@@ -37,6 +38,9 @@ public class FormMenuPrincipal extends JFrame {
 	private final int lbtnheight=256;
 	private Hotel h;
 	private Persona p;
+	private	JTextArea textArea;
+	private JLabel lblInfo;
+	JLabel lblLogin;
 	/**
 	 * Launch the application.
 	 */
@@ -66,28 +70,18 @@ public class FormMenuPrincipal extends JFrame {
 		setExtendedState(MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1366, 768);	
-		
-		JLabel lblLogin = new JLabel();
-		contentPane = new JPanel();
-		contentPane.setBackground(Color.decode(backgroundcolor));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		lblLogin.setBounds(500, 67, 570, 50);
+
+		lblLogin = new JLabel();
+		lblLogin.setBounds(600, 67, 470, 50);
 		lblLogin.setFont(new Font(font, Font.BOLD, fontsize));
 		lblLogin.setForeground(Color.WHITE);
-		lblLogin.setText("Bienvenido a "+h.getNombre());
-		contentPane.add(lblLogin);
-		
-		JLabel lblInfo = new JLabel("Info");
+		lblInfo = new JLabel("Info");
 		lblInfo.setBounds(200, 578, 100, 100);
 		ImageIcon iconinfo =new ImageIcon("Icons\\information.png");
 		Icon iconoinfo  = new ImageIcon(iconinfo.getImage().getScaledInstance(lblInfo.getWidth(),lblInfo.getHeight(), Image.SCALE_DEFAULT));
 		lblInfo.setIcon(iconoinfo);
 		lblInfo.setVisible(false);
-		contentPane.add(lblInfo);
-
-		JTextArea textArea = new JTextArea();
+		textArea = new JTextArea();
 		textArea.setWrapStyleWord(true);
 		textArea.setTabSize(4);
 		textArea.setRows(3);
@@ -97,15 +91,111 @@ public class FormMenuPrincipal extends JFrame {
 		textArea.setEditable(false);
 		textArea.setBackground(new Color(68, 178, 86));
 		textArea.setBounds(310, 578, 766, 100);
-		contentPane.add(textArea);
+		//vistaPrincipal();
+		vistaHotel();
 		
+		
+	}
+	private void vistaHotel() {
+		JPanel Menu = new JPanel();
+		Menu.setBackground(Color.decode(backgroundcolor));
+		Menu.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(Menu);
+		Menu.setLayout(null);
+		lblLogin.setText("Men\u00fa Hotel");
+		Menu.add(lblLogin);
+		Menu.add(lblInfo);
+		Menu.add(textArea);
+		JLabel lblBack = new JLabel("back");
+		lblBack.setBounds(185, 296, 64, 64);
+		lblBack.setIcon(new ImageIcon("Icons\\back1.png"));
+		lblBack.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				getContentPane().setVisible(false);
+				vistaPrincipal();
+			}
+		});
+		Menu.add(lblBack);
+		JLabel lblRecepcion = new JLabel("Recepcion");
+		lblRecepcion.setBounds(600, 200, lbtnwidth, lbtnheight);
+		lblRecepcion.setIcon(new ImageIcon("Icons\\reception.png"));
+		lblRecepcion.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+			}
+			public void mouseEntered(MouseEvent arg0) {
+				textArea.setText("TEXTPPPPP");
+				lblInfo.setVisible(true);
+			}			
+			public void mouseExited(MouseEvent arg0) {
+				textArea.setText("");
+				lblInfo.setVisible(false);
+			}
+		});
+		Menu.add(lblRecepcion);
+		if(p instanceof Empleado) {
+		JLabel lblCheckin = new JLabel("Checkin");
+		lblCheckin.setBounds(295, 200, lbtnwidth, lbtnheight);
+		lblCheckin.setIcon(new ImageIcon("Icons\\stair.png"));
+		lblCheckin.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+			}
+			public void mouseEntered(MouseEvent arg0) {
+				textArea.setText("TEXTPPPPP");
+				lblInfo.setVisible(true);
+			}			
+			public void mouseExited(MouseEvent arg0) {
+				textArea.setText("");
+				lblInfo.setVisible(false);
+			}
+		});
+		Menu.add(lblCheckin);
+		
+
+		
+		JLabel lblCheckout = new JLabel("Checkout");
+		lblCheckout.setBounds(905, 200, lbtnwidth, lbtnheight);
+		lblCheckout.setIcon(new ImageIcon("Icons\\stairs.png"));
+		lblCheckout.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+			}
+			public void mouseEntered(MouseEvent arg0) {
+				textArea.setText("TEXTPPPPP");
+				lblInfo.setVisible(true);
+			}			
+			public void mouseExited(MouseEvent arg0) {
+				textArea.setText("");
+				lblInfo.setVisible(false);
+			}
+		});
+		Menu.add(lblCheckout);
+		}
+	}
+	
+	private void vistaPrincipal() {
+		contentPane = new JPanel();
+		contentPane.setBackground(Color.decode(backgroundcolor));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		lblLogin.setText("Bienvenido a "+h.getNombre());
+		contentPane.add(lblLogin);
+		contentPane.add(lblInfo);
+		contentPane.add(textArea);
 		JLabel lblHotel = new JLabel("Hotel");
 		lblHotel.setBounds(310, 200, lbtnwidth, lbtnheight);
 		lblHotel.setIcon(new ImageIcon("Icons\\hotel.png"));	
 		lblHotel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				
+				getContentPane().setVisible(false);
+				vistaHotel();
 			}
 			public void mouseEntered(MouseEvent arg0) {
 				if(p instanceof Cliente)
@@ -131,7 +221,7 @@ public class FormMenuPrincipal extends JFrame {
 		lblUsuario.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				FormEditUser editar = new FormEditUser(hotel, persona);
+				FormEditUser editar = new FormEditUser(h, p);
 				editar.setVisible(true);
 			}
 			public void mouseEntered(MouseEvent arg0) {
@@ -159,6 +249,5 @@ public class FormMenuPrincipal extends JFrame {
 		lblUsuario_1.setFont(new Font(font, Font.BOLD | Font.ITALIC, fontsize));
 		lblUsuario_1.setBounds(881, 450, 189, 60);
 		contentPane.add(lblUsuario_1);
-		
 	}
 }
