@@ -10,11 +10,10 @@ import exception.ELongitud;
 import exception.ETipoInconrrecto;
 import exception.ExceptionNodo;
 
-public class Recepcion extends Empleado   {
-	
-
+public class Recepcion extends Empleado {
 	
 	private static final long serialVersionUID = 3300864296393909387L;
+	
 	public Recepcion (String nombre, String apellido, String genero, String correo, String id, String tipoId,String pwd) {
 		super(nombre, apellido, genero, correo, id, tipoId, pwd);
 	}
@@ -26,7 +25,7 @@ public class Recepcion extends Empleado   {
 	
 	public void checkOut (String cedula, Hotel hotel) throws ECliente, ExceptionNodo {
 		
-		super.checkOut(cedula, hotel);
+		super.checkOut (cedula, hotel);
 	}
 
 
@@ -56,10 +55,6 @@ public class Recepcion extends Empleado   {
 		// TODO Auto-generated method stub
 		
 	}
-
-
-	
-
 
 	@Override
 	public Reserva buscarReserva(String id) {
