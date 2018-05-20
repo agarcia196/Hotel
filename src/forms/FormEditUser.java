@@ -27,6 +27,8 @@ import hotel.Administrador;
 import hotel.Cliente;
 import hotel.Empleado;
 import hotel.Hotel;
+import hotel.Persona;
+
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseAdapter;
@@ -46,9 +48,9 @@ public class FormEditUser extends JFrame {
 			public void run() {
 				try {
 					Hotel hotel= new Hotel();
-					Cliente Fabox= new Cliente("Fabio","Anaya","Masculino","fabeac", "1212","Cedula","123");
-					Administrador fabio= new Administrador("Fabio","Anaya","Masculino","fabeac", "1212","Cedula","123");
-					FormEditUser frame = new FormEditUser(hotel, Fabox);
+					Persona Fabox= new Cliente("Fabio","Anaya","Masculino","fabeac", "1212","Cedula","123");
+					Persona fabio= new Administrador("Fabio","Anaya","Masculino","fabeac", "1212","Cedula","123");
+					FormEditUser frame = new FormEditUser(hotel, fabio);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -57,19 +59,20 @@ public class FormEditUser extends JFrame {
 		});
 	}
 
-	public FormEditUser(Hotel h,Cliente persona) {
+	public FormEditUser(Hotel h,Persona persona) {
 
 		hotel=h;
 		this.p=persona;
 		setTitle("Sign in");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("Icons\\oficcial.png"));
 		setExtendedState(MAXIMIZED_BOTH);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 1366, 768);	
 		lblLogin = new JLabel();
-	
-		Editar(p);
-		EditarUsuario();
+		if(p instanceof Cliente) {
+		Editar(p);}
+		else{
+		EditarUsuario();}
 		//EditarUsuario();
 	}
 	private static final long serialVersionUID = 1858820207514553474L;
@@ -81,7 +84,7 @@ public class FormEditUser extends JFrame {
 	private final int fontsize=20;
 	private JLabel lblLogin;
 	private Hotel hotel;
-	private Cliente p;
+	private Persona p;
 
 	
 	/**
@@ -89,7 +92,7 @@ public class FormEditUser extends JFrame {
 	 * @param CEC 
 	 */
 	
-	private void Editar(Cliente CEC) {
+	private void Editar(Persona CEC) {
 		
 		JPasswordField contraseña,ccontraseña;
 		JTextField txtapellido,txtncedula,txtemail,Nombre;
