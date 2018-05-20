@@ -7,12 +7,13 @@ import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 import arbol.ABB;
+import arbol.ACliente;
 import exception.ExceptionNodo;
 
 public class Hotel implements Serializable{
 	
 	private static final long serialVersionUID = -2223602071197796134L;
-	private ABB<Cliente> usuarios;
+	private ACliente usuarios;
 	private ArrayList<Habitacion> habitaciones;
 	private ArrayList<Empleado> personal;
 	private String nombre;
@@ -45,7 +46,7 @@ public class Hotel implements Serializable{
 	}
 	public Hotel() {
 		super();
-		usuarios = new ABB();
+		usuarios = new ACliente();
 		habitaciones = new ArrayList<Habitacion>();
 		personal = new ArrayList<Empleado>();
 		cocina= new Cocina();
@@ -53,7 +54,7 @@ public class Hotel implements Serializable{
 	public Hotel(String nombre) {
 		super();
 		this.nombre= nombre;
-		usuarios = new ABB();
+		usuarios = new ACliente();
 		habitaciones = new ArrayList<Habitacion>();
 		personal = new ArrayList<Empleado>();
 		cocina= new Cocina();
@@ -87,8 +88,8 @@ public class Hotel implements Serializable{
 	}
 	
 	public Cliente buscarCliente (String cedula) throws ExceptionNodo {
-		Cliente c= new Cliente(cedula);
-		return  usuarios.buscar(c).getLlave();
+		
+		return  usuarios.buscarS(cedula).getLlave();
 	}
 	
 	
@@ -96,7 +97,7 @@ public class Hotel implements Serializable{
 		return usuarios;
 	}
 	
-	public void setUsuarios (ABB<Cliente> usuarios) {
+	public void setUsuarios (ACliente usuarios) {
 		this.usuarios = usuarios;
 	}
 	

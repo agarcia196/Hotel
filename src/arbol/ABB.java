@@ -42,6 +42,8 @@ public class ABB<E extends Comparable<E>> extends ArbolB<E> {
 				}
 				return nodo;
 			}
+	
+	
 	public NodoB<E> buscar(E elemento) throws ExceptionNodo {
 		return buscar(raiz, elemento);
 	}
