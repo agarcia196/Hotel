@@ -27,6 +27,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.awt.event.ActionEvent;
 import javax.swing.JSeparator;
 import java.awt.Toolkit;
@@ -98,7 +99,7 @@ public class FormZeroDay extends JFrame {
 	 */
 	public FormZeroDay() {
 		setTitle("Registro");
-		setIconImage(Toolkit.getDefaultToolkit().getImage("Icons\\oficcial.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("Icons"+File.separator+"oficcial.png"));
 		//setAlwaysOnTop(true);
 		setExtendedState(MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -215,14 +216,14 @@ public class FormZeroDay extends JFrame {
 		
 		username = new JLabel("");
 		username.setBounds(310, 300, 40, 40);
-		ImageIcon iconusername =new ImageIcon("Icons\\username.png");
+		ImageIcon iconusername =new ImageIcon("Icons"+File.separator+"username.png");
 		Icon iconousername = new ImageIcon(iconusername.getImage().getScaledInstance(username.getWidth(),username.getHeight(), Image.SCALE_DEFAULT));
 		username.setIcon(iconousername);
 		contentPane.add(username);
 		
 		pwd = new JLabel("");
 		pwd.setBounds(310, 540, 40, 40);
-		ImageIcon iconpwd =new ImageIcon("Icons\\pwd.png");
+		ImageIcon iconpwd =new ImageIcon("Icons"+File.separator+"pwd.png");
 		Icon iconopwd = new ImageIcon(iconpwd.getImage().getScaledInstance(pwd.getWidth(),pwd.getHeight(), Image.SCALE_DEFAULT));
 		pwd.setIcon(iconopwd);
 		
@@ -234,14 +235,14 @@ public class FormZeroDay extends JFrame {
 		
 		email = new JLabel("");
 		email.setBounds(642, 380, 40, 40);
-		ImageIcon iconemail =new ImageIcon("Icons\\email.png");
+		ImageIcon iconemail =new ImageIcon("Icons"+File.separator+"email.png");
 		Icon iconoemail = new ImageIcon(iconemail.getImage().getScaledInstance(email.getWidth(),email.getHeight(), Image.SCALE_DEFAULT));
 		email.setIcon(iconoemail);
 		contentPane.add(email);
 		
 		number = new JLabel("");
 		number.setBounds(642, 460, 40, 40);
-		ImageIcon iconnumber =new ImageIcon("Icons\\number.png");
+		ImageIcon iconnumber =new ImageIcon("Icons"+File.separator+"number.png");
 		Icon icononumber = new ImageIcon(iconnumber.getImage().getScaledInstance(number.getWidth(),number.getHeight(), Image.SCALE_DEFAULT));
 		number.setIcon(icononumber);
 		contentPane.add(number);
@@ -253,14 +254,14 @@ public class FormZeroDay extends JFrame {
 		
 		genero = new JLabel("");
 		genero.setBounds(310, 380, 40, 40);
-		ImageIcon icongenero =new ImageIcon("Icons\\genero.png");
+		ImageIcon icongenero =new ImageIcon("Icons"+File.separator+"genero.png");
 		Icon iconogenero = new ImageIcon(icongenero.getImage().getScaledInstance(genero.getWidth(),genero.getHeight(), Image.SCALE_DEFAULT));
 		genero.setIcon(iconogenero);
 		contentPane.add(genero);
 		
 		tipoid = new JLabel("");
 		tipoid.setBounds(310, 460, 40, 40);
-		ImageIcon icontipoid =new ImageIcon("Icons\\tipoid.png");
+		ImageIcon icontipoid =new ImageIcon("Icons"+File.separator+"tipoid.png");
 		Icon iconotipoid = new ImageIcon(icontipoid.getImage().getScaledInstance(tipoid.getWidth(),tipoid.getHeight(), Image.SCALE_DEFAULT));
 		tipoid.setIcon(iconotipoid);
 		contentPane.add(tipoid);
@@ -268,7 +269,7 @@ public class FormZeroDay extends JFrame {
 		hotel = new JLabel("");
 		hotel.setBounds(310, 172, 40, 40);
 		contentPane.add(hotel);
-		ImageIcon iconhotel =new ImageIcon("Icons\\hotel_icon1.png");
+		ImageIcon iconhotel =new ImageIcon("Icons"+File.separator+"hotel_icon1.png");
 		Icon iconohotel = new ImageIcon(iconhotel.getImage().getScaledInstance(hotel.getWidth(),hotel.getHeight(), Image.SCALE_DEFAULT));
 		hotel.setIcon(iconohotel);
 		
@@ -279,7 +280,7 @@ public class FormZeroDay extends JFrame {
 		signup.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int validar = JOptionPane.showConfirmDialog(contentPane,
-						"�Est� seguro de que la informaci�n es correcta?");
+						"Esta seguro de que la informacion es correcta?");
 				if (validar == 0) {
 							try {
 								Recursos.validarCamposVaciosU(txtUserName.getText(), txtapellido.getText(), 

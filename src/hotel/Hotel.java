@@ -3,9 +3,6 @@ package hotel;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.ListIterator;
-
 import javax.swing.table.DefaultTableModel;
 import arbol.ABB;
 import arbol.ACliente;
