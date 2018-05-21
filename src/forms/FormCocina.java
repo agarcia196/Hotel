@@ -13,6 +13,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
@@ -87,9 +88,9 @@ public class FormCocina extends JFrame {
 					Hotel h = new Hotel();
 					Chef e = new Chef("Lopez", "Daniel", "Sin especificar", "DD", "123", "CC", "123");
 					FormCocina frame = new FormCocina(h,e);
-					h.getCocina().getMenu().add(new Plato("Bandeja ", true, 80.5, 80.6));
-					h.getCocina().getMenu().add(new Plato("Bandeja 2 ", true, 80.5, 80.6));
-					h.getCocina().getMenu().add(new Plato("Bandeja 3 ", true, 80.5, 80.6));
+					h.getCocina().getMenu().add(new Plato("Bandeja ", true, 80.5, 5000));
+					h.getCocina().getMenu().add(new Plato("Bandeja 2 ", true, 80.5, 15000));
+					h.getCocina().getMenu().add(new Plato("Bandeja 3 ", true, 80.5, 18000));
 					Cliente c = new Cliente("Lopez", "Daniel", "Sin especificar", "DD", "123", "CC", "123");
 					Habitacion hab = new Habitacion("302", "Vip");
 					Reserva r = new Reserva(null, null, hab);
@@ -1232,9 +1233,6 @@ public class FormCocina extends JFrame {
 				// TODO Auto-generated catch block
 				JOptionPane.showMessageDialog(contentPedido, e.getMessage());
 			}
-			 
-			
-			 
 			 }
 			 else {
 				 JOptionPane.showMessageDialog(contentPane, "Debe ingresar todos los datos");
@@ -1323,9 +1321,7 @@ public class FormCocina extends JFrame {
 	    columnModel.getColumn(3).setPreferredWidth(50);
 		scrollPane.setViewportView(table_1);
 		try {
-			table_1.setRowHeight(25);
 			persona.consultarCola(modeloTable, hotel);
-			
 		} catch (EArrayVacio e1) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(contentPane, e1.getMessage());

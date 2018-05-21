@@ -139,7 +139,7 @@ public class FormBuscarUsuario extends JFrame {
 					JOptionPane.showMessageDialog(contentPane, "Porfavor seleccione un producto para continuar");
 					dispose();
 				}else {//si se selecciona fila pasar contenido del sku al textfile del form para agregar producto
-					campo.setText((String) table_1.getValueAt(table_1.getSelectedRow(), 2));
+					campo.setText((String) table_1.getValueAt(table_1.getSelectedRow(), 0));
 					dispose();
 				}
 			}

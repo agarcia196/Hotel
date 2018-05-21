@@ -484,7 +484,7 @@ public class FormLogin extends JFrame {
 					Persona p = hotel.login(tipodeuser,textField.getText(),String.valueOf(passwordField.getPassword()));
 					dispose();
 					if(p instanceof Chef) {
-						FormCocina menu= new FormCocina(hotel,p);
+						FormCocina menu= new FormCocina(hotel,(Chef)p);
 						menu.setVisible(true);
 					}else {
 					FormMenuPrincipal menu = new FormMenuPrincipal(hotel, p);

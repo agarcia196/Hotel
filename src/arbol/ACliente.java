@@ -74,7 +74,7 @@ public class ACliente extends ABB<Cliente> {
 		if(r!=null) {			
 			ConsultaUsuarios(list,r.getHijoIzq());
 			if(r.getLlave().isActivo()) {
-				String [] model = {r.getLlave().getNombre(),r.getLlave().getApellido(),r.getLlave().getId(),String.valueOf(!r.getLlave().getReservasActivas().isEmpty())};
+				String [] model = {r.getLlave().getId(),r.getLlave().getNombre(),r.getLlave().getApellido(),String.valueOf(!r.getLlave().getReservasActivas().isEmpty())};
 				list.addRow(model);	}
 			ConsultaUsuarios(list,r.getHijoDer());			
 		}
@@ -92,7 +92,7 @@ public class ACliente extends ABB<Cliente> {
 			ConsultaUsuarios(list,r.getHijoIzq(),palabra);
 			if(r.getLlave().isActivo()) {
 				if(r.getLlave().getNombre().toLowerCase().contains(palabra)||r.getLlave().getApellido().toLowerCase().contains(palabra)||r.getLlave().getId().toLowerCase().contains(palabra)) {
-					String [] model = {r.getLlave().getNombre(),r.getLlave().getApellido(),r.getLlave().getId(),String.valueOf(!r.getLlave().getReservasActivas().isEmpty())};
+					String [] model = {r.getLlave().getId(),r.getLlave().getNombre(),r.getLlave().getApellido(),String.valueOf(!r.getLlave().getReservasActivas().isEmpty())};
 					list.addRow(model);	}
 			}
 			ConsultaUsuarios(list,r.getHijoDer(),palabra);			
