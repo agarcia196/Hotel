@@ -19,8 +19,12 @@ import exception.EArrayVacio;
 import exception.ECamposVacios;
 import exception.ECocina;
 import exception.ELetrasEnCampoN;
+import exception.ExceptionNodo;
 import hotel.Administrador;
+import hotel.Cliente;
+import hotel.Habitacion;
 import hotel.Hotel;
+import hotel.Pedido;
 import hotel.Persona;
 import hotel.Plato;
 /*import hotel.Cliente;
@@ -28,6 +32,7 @@ import hotel.Habitacion;
 import hotel.Pedido;
 import hotel.Reserva;*/
 import hotel.Recursos;
+import hotel.Reserva;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
@@ -43,6 +48,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -81,9 +88,18 @@ public class FormCocina extends JFrame {
 					Hotel h = new Hotel();
 					Administrador e = new Administrador("Lopez", "Daniel", "Sin especificar", "DD", "123", "CC", "123");
 					FormCocina frame = new FormCocina(h,e);
+					h.getCocina().getMenu().add(new Plato("Bandeja ", true, 80.5, 80.6));
+					h.getCocina().getMenu().add(new Plato("Bandeja 2 ", true, 80.5, 80.6));
+					h.getCocina().getMenu().add(new Plato("Bandeja 3 ", true, 80.5, 80.6));
+					Cliente c = new Cliente("Lopez", "Daniel", "Sin especificar", "DD", "123", "CC", "123");
+					Habitacion hab = new Habitacion("302", "Vip");
+					Reserva r = new Reserva(null, null, hab);
+	
+					c.getReservasActivas().add(r);
+					h.addUser(c);
 					/*Date d1 = new Date("08/05/18") ;
 					Date d2 = new Date("08/07/18") ;
-					Habitacion hab = new Habitacion("302", "Vip");
+				
 					Cliente c1= new  Cliente("nombre"," apellido", "genero", "correo", "id", "tipoId", "pwd");
 					c1.addReserva(d1, d2, "VIp", h);
 					ArrayList<Plato> pla= new ArrayList<Plato>();
@@ -123,7 +139,8 @@ public class FormCocina extends JFrame {
 	//	vistaCMenu("Pedido",null);
 	}
 	
-	private void vistaCMenu(String ventana,Plato plato) {
+	private void vistaCMenu(String ventana) {
+		
 		// TODO Auto-generated method stub
 		JPanel contentCmenu = new JPanel();
 		contentCmenu.setBackground(Color.decode(backgroundcolor));
@@ -221,9 +238,16 @@ public class FormCocina extends JFrame {
 					JOptionPane.showMessageDialog(contentCmenu, "Porfavor seleccione un producto para continuar");
 				}else {
 					getContentPane().setVisible(false);
-					plato= 
-					txtpedido.setText(table_1.getValueAt(table_1.getSelectedRow(), 0).toString());
+					try {
+						p= hotel.getCocina().buscarPlato(table_1.getValueAt(table_1.getSelectedRow(), 0).toString());
+						txtplato.setText(p.getNombre());
+					} catch (ECocina e) {
+						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(contentCmenu, e.getMessage());
+					}
 					setContentPane(contentPedido);
+					lblCocina.setText("Servicio : pedido");
+					contentPedido.add(lblCocina);
 					contentPedido.setVisible(true);
 				}
 			}
@@ -746,7 +770,7 @@ public class FormCocina extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				getContentPane().setVisible(false);
-				vistaCMenu("",null);
+				vistaCMenu("");
 			}
 			public void mouseEntered(MouseEvent arg0) {
 				textMensaje.setText("Ver menú.");
@@ -1003,7 +1027,7 @@ public class FormCocina extends JFrame {
 	private void vistaPedido() {
 		JTextField txtUserName;
 		JLabel lblNombre,Plato;
-		
+		ArrayList<Plato> platos = new ArrayList<Plato>();
 		contentPedido = new JPanel();
 		contentPedido.setBackground(Color.decode(backgroundcolor));
 		contentPedido.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -1096,7 +1120,7 @@ public class FormCocina extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				if(!hotel.getCocina().getMenu().isEmpty()) {
 				getContentPane().setVisible(false);
-				vistaCMenu("Pedido",p);}
+				vistaCMenu("Pedido");}
 				else
 					JOptionPane.showMessageDialog(contentPane, "No hay platos disponibles");
 			}
@@ -1154,6 +1178,10 @@ public class FormCocina extends JFrame {
 		lblPlus.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				platos.add(p);
+				String [] model = {p.getNombre(),Double.toString(p.getDuracion()),Double.toString(p.getValor())};
+				modeloTable.addRow(model);
+				System.out.println(platos);				
 			}
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
@@ -1184,7 +1212,32 @@ public class FormCocina extends JFrame {
 		});
 		btnpedido.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			//	hotel.login(tipodeuser);
+			 if(txtUserName.getText().compareTo("")!=0) {				
+			 try {
+				 Cliente c = hotel.buscarCliente(txtUserName.getText());
+				 int validar1 = JOptionPane.showConfirmDialog(contentPedido,"Esta seguro de crear el pedido a nombre de :"
+						 + c.getNombre()+" y los platos \n"+platos);
+				 if(validar1==0) {
+					 Pedido pedido = new Pedido(c.getReservasActivas().get(0), platos);
+					 hotel.getCocina().addCola(pedido);
+					 int validar = JOptionPane.showConfirmDialog(contentPedido,"Pedido creado correctamente ¿Desea crear otro?");
+					 Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
+					 if (validar == 0) {
+						 getContentPane().setVisible(false);
+						 vistaPedido();
+					 }else {
+						 getContentPane().setVisible(false);
+						 vistaPrincipal();
+					 }
+				 }
+			} catch (ExceptionNodo | ECocina e) {
+				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(contentPedido, e.getMessage());
+			}
+			 
+			
+			 
+			 }
 			}
 		});
 		btnpedido.setBounds(776, 581, btnwidth+50, btnheight);

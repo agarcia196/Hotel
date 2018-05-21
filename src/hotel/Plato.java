@@ -55,8 +55,8 @@ public class Plato implements Comparable<Plato>, Serializable {
 	
 	@Override
 	public String toString() {
-		return "Plato [nombre=" + nombre + ", duracion=" + duracion + ", disponibilidad=" + disponibilidad + ", valor="
-				+ valor + "]";
+		return "Plato " + nombre + " duracion=" + duracion + " disponibilidad=" + disponibilidad + " valor="
+				+ valor+"\n";
 	}
 
 	@Override

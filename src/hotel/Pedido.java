@@ -1,8 +1,13 @@
 package hotel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Pedido implements Comparable<Pedido> {
+public class Pedido implements Comparable<Pedido>,Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4557397842131081670L;
 	private int id;
 	private Reserva reserva;
 	private ArrayList<Plato> platos;
