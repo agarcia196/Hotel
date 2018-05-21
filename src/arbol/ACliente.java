@@ -1,5 +1,10 @@
 package arbol;
 
+import java.util.ArrayList;
+
+import javax.swing.table.DefaultTableModel;
+
+import exception.EArrayVacio;
 import exception.ExceptionNodo;
 import hotel.Cliente;
 
@@ -18,8 +23,9 @@ public class ACliente extends ABB<Cliente> {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
-	
+	public boolean isEmpty() {
+		return raiz==null;	
+	}	
 	
 	public NodoB<Cliente> buscarS(String elemento) throws ExceptionNodo {
 		//NodoB<Cliente> c = new NodoB<Cliente>();
@@ -40,8 +46,58 @@ public class ACliente extends ABB<Cliente> {
 			}
 		}
 		return nodo;
+	}/*
+	public DefaultTableModel ConsultaUsuarios(DefaultTableModel modeloTable) throws EArrayVacio{
+		ArrayList<Cliente> lista = usuarios.inOrdenA();
+		if(lista.size()>0) {
+			int i=0;
+			while (i<lista.size()) {
+				if(lista.get(i).isActivo()) {
+					String [] model = {lista.get(i).getNombre(),lista.get(i).getApellido(),lista.get(i).getId(),String.valueOf(!lista.get(i).getReservasActivas().isEmpty())};
+					modeloTable.addRow(model);	}
+				i++;
+			}
+			return modeloTable;}
+		else {
+			throw new EArrayVacio("No hay Usuarios");
+		}
+	}*/
+	public DefaultTableModel ConsultaUsuarios(DefaultTableModel modeloTable) throws EArrayVacio {
+		if(raiz!=null) {
+			ConsultaUsuarios(modeloTable,raiz);
+			return modeloTable;
+		}else {
+			throw new EArrayVacio("No hay Usuarios");
+		}		
 	}
-
+	private void ConsultaUsuarios(DefaultTableModel list,NodoB<Cliente> r) {
+		if(r!=null) {			
+			ConsultaUsuarios(list,r.getHijoIzq());
+			if(r.getLlave().isActivo()) {
+				String [] model = {r.getLlave().getNombre(),r.getLlave().getApellido(),r.getLlave().getId(),String.valueOf(!r.getLlave().getReservasActivas().isEmpty())};
+				list.addRow(model);	}
+			ConsultaUsuarios(list,r.getHijoDer());			
+		}
+	}
+	public DefaultTableModel ConsultaUsuarios(DefaultTableModel modeloTable,String palabra) throws EArrayVacio {
+		if(raiz!=null) {
+			ConsultaUsuarios(modeloTable,raiz,palabra);
+			return modeloTable;
+		}else {
+			throw new EArrayVacio("No hay Usuarios");
+		}		
+	}
+	private void ConsultaUsuarios(DefaultTableModel list,NodoB<Cliente> r,String palabra) {
+		if(r!=null) {			
+			ConsultaUsuarios(list,r.getHijoIzq(),palabra);
+			if(r.getLlave().isActivo()) {
+				if(r.getLlave().getNombre().toLowerCase().contains(palabra)||r.getLlave().getApellido().toLowerCase().contains(palabra)||r.getLlave().getId().toLowerCase().contains(palabra)) {
+					String [] model = {r.getLlave().getNombre(),r.getLlave().getApellido(),r.getLlave().getId(),String.valueOf(!r.getLlave().getReservasActivas().isEmpty())};
+					list.addRow(model);	}
+			}
+			ConsultaUsuarios(list,r.getHijoDer(),palabra);			
+		}
+	}
 	
 	public void eliminar(String info) throws ExceptionNodo {
 		raiz=eliminar(info, raiz);

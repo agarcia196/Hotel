@@ -16,6 +16,7 @@ import exception.ECliente;
 import exception.EIgualdad;
 import exception.ELongitud;
 import exception.ExceptionNodo;
+import hotel.Chef;
 import hotel.Cliente;
 import hotel.Hotel;
 import hotel.Persona;
@@ -325,16 +326,12 @@ public class FormLogin extends JFrame {
 								JOptionPane.showMessageDialog(contentPane2, "Registro realizado");
 								contentPane2.setVisible(false);
 								vistaLogin();
-							} catch (ECamposVacios | EIgualdad | ELongitud e) {
+							} catch (ECamposVacios | EIgualdad | ELongitud | ExceptionNodo e) {
 								// TODO Auto-generated catch block
 								JOptionPane.showMessageDialog(contentPane2, e.getMessage());
-							} catch (ExceptionNodo e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
+							} 
 						}						
-				}
-			
+				}			
 		});
 		signup.setBounds(720, 484, 300, 40);
 		contentPane2.add(signup);
@@ -486,8 +483,12 @@ public class FormLogin extends JFrame {
 				try {
 					Persona p = hotel.login(tipodeuser,textField.getText(),String.valueOf(passwordField.getPassword()));
 					dispose();
+					if(p instanceof Chef) {
+						FormCocina menu= new FormCocina(hotel,p);
+						menu.setVisible(true);
+					}else {
 					FormMenuPrincipal menu = new FormMenuPrincipal(hotel, p);
-					menu.setVisible(true);
+					menu.setVisible(true);}
 				} catch (ExceptionNodo | ECliente e) {
 					// TODO Auto-generated catch block
 					JOptionPane.showMessageDialog(contentPane1, e.getMessage());

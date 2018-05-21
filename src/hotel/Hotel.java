@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import arbol.ABB;
 import arbol.ACliente;
+import exception.EArrayVacio;
 import exception.ECliente;
 import exception.ExceptionNodo;
 
@@ -87,7 +88,6 @@ public class Hotel implements Serializable{
 	}
 	
 	public Cliente buscarCliente (String cedula) throws ExceptionNodo {
-		
 		return  usuarios.buscarS(cedula).getLlave();
 	}
 	
@@ -130,6 +130,13 @@ public class Hotel implements Serializable{
 			modeloTable.removeRow(i);
 		}
 		return modeloTable;
+	}
+	
+	public DefaultTableModel ConsultaUsuarios(DefaultTableModel modeloTable) throws EArrayVacio{
+		return usuarios.ConsultaUsuarios(modeloTable);
+	}
+	public DefaultTableModel ConsultaUsuarios(DefaultTableModel modeloTable,String palabra) throws EArrayVacio{
+		return usuarios.ConsultaUsuarios(modeloTable,palabra);
 	}
 	public Persona login(String typeUser,String id,String pwd) throws ExceptionNodo, ECliente {
 		Persona persona =null;

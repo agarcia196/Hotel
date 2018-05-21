@@ -109,9 +109,6 @@ public class Administrador extends Empleado implements Serializable {
 		return false;
 	}
 
-	
-	
-
 	@Override
 	public boolean addReserva(Date dateIn, Date dateOut, String tipo, Hotel hotel) {
 		// TODO Auto-generated method stub

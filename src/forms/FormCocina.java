@@ -19,7 +19,9 @@ import exception.EArrayVacio;
 import exception.ECamposVacios;
 import exception.ECocina;
 import exception.ELetrasEnCampoN;
+import hotel.Administrador;
 import hotel.Hotel;
+import hotel.Persona;
 import hotel.Plato;
 /*import hotel.Cliente;
 import hotel.Habitacion;
@@ -68,6 +70,7 @@ public class FormCocina extends JFrame {
 	private JTable table_1;
 	private Plato p;
 	private JTextField txtplato;
+	private Persona persona;
 	/**
 	 * Launch the application.
 	 */
@@ -76,7 +79,8 @@ public class FormCocina extends JFrame {
 			public void run() {
 				try {
 					Hotel h = new Hotel();
-					FormCocina frame = new FormCocina(h);
+					Administrador e = new Administrador("Lopez", "Daniel", "Sin especificar", "DD", "123", "CC", "123");
+					FormCocina frame = new FormCocina(h,e);
 					/*Date d1 = new Date("08/05/18") ;
 					Date d2 = new Date("08/07/18") ;
 					Habitacion hab = new Habitacion("302", "Vip");
@@ -98,8 +102,9 @@ public class FormCocina extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FormCocina(Hotel h) {
+	public FormCocina(Hotel h, Persona persona) {
 		hotel=h;
+		this.persona=persona;
 		setForeground(Color.WHITE);
 		setExtendedState(MAXIMIZED_BOTH);
 		setFont(new Font(font, Font.PLAIN, 14));
@@ -108,17 +113,17 @@ public class FormCocina extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("Icons\\oficcial.png"));
 		setBounds(0, 0, 1366, 768);
 		lblCocina = new JLabel();
-		vistaPrincipal();
+	//	vistaPrincipal();
 	//	vistaServicios();
-	//	vistaPedido();
+		vistaPedido();
 	//	vistaConsulta();
-	//	vistaMenu();
+	//vistaMenu();
 	//	vistaCrearPlato();
 	//	vistaEliminar();
 	//	vistaCMenu("Pedido",null);
 	}
 	
-	private void vistaCMenu(String ventana,JTextField txtpedido) {
+	private void vistaCMenu(String ventana,Plato plato) {
 		// TODO Auto-generated method stub
 		JPanel contentCmenu = new JPanel();
 		contentCmenu.setBackground(Color.decode(backgroundcolor));
@@ -216,6 +221,7 @@ public class FormCocina extends JFrame {
 					JOptionPane.showMessageDialog(contentCmenu, "Porfavor seleccione un producto para continuar");
 				}else {
 					getContentPane().setVisible(false);
+					plato= 
 					txtpedido.setText(table_1.getValueAt(table_1.getSelectedRow(), 0).toString());
 					setContentPane(contentPedido);
 					contentPedido.setVisible(true);
@@ -1065,6 +1071,14 @@ public class FormCocina extends JFrame {
 				textMensaje.setText("");
 				lblInfo.setVisible(false);
 			}
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if(!hotel.getUsuarios().isEmpty()) {
+				FormBuscarUsuario buscar= new FormBuscarUsuario(hotel, txtUserName);
+				buscar.setVisible(true);}
+				else
+					JOptionPane.showMessageDialog(contentPane, "No hay Usuarios registrados");
+			}
 		});
 		txtUserName.setToolTipText("");
 		txtUserName.setForeground(Color.BLACK);
@@ -1080,8 +1094,11 @@ public class FormCocina extends JFrame {
 		txtplato.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				if(!hotel.getCocina().getMenu().isEmpty()) {
 				getContentPane().setVisible(false);
-				vistaCMenu("Pedido",txtplato);
+				vistaCMenu("Pedido",p);}
+				else
+					JOptionPane.showMessageDialog(contentPane, "No hay platos disponibles");
 			}
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
@@ -1110,7 +1127,7 @@ public class FormCocina extends JFrame {
 		separator.setBounds(313, 141, 763, 20);
 		contentPedido.add(separator);
 		
-		lblNombre = new JLabel("Nombre");
+		lblNombre = new JLabel("ID");
 		lblNombre.setForeground(Color.decode(txtcolor1));
 		lblNombre.setFont(new Font("Century Gothic", Font.BOLD | Font.ITALIC, 16));
 		lblNombre.setBounds(355, 170, 240, 15);
