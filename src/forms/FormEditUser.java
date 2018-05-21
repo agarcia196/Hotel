@@ -69,6 +69,7 @@ public class FormEditUser extends JFrame {
 		setExtendedState(MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 1366, 768);	
+		lblLogin= new JLabel();
 		EditarUsuario();
 		
 		/*
@@ -419,26 +420,7 @@ public class FormEditUser extends JFrame {
 		contentPane2.add(btnback);
 		
 		DefaultTableModel printUsers= new DefaultTableModel();
-		
-		public printUsers (DefaultTableModel tabla) throws EArrayVacio {
-			if(menu.size()>0) {
-			int i=0;
-			while (i<menu.size()) {
-				String [] model = {menu.get(i).getNombre(),Boolean.toString(menu.get(i).isDisponibilidad()),
-						Double.toString(menu.get(i).getDuracion()),Double.toString(menu.get(i).getValor())};
-				modeloTable.addRow(model);	
-				i++;
-			}
-			return modeloTable;}
-			else {
-				throw new EArrayVacio("No hay usuarios en el sistema");
-			}
-		}
-		
-		for(int i=0;i<hotel.getPersonal().size();i++) {
-			String[] fila= hotel.getPersonal().get(i).imprimirPersonaTabla();
-			((DefaultTableModel) table.getModel()).addRow(fila);
-		}
+
 		
 		
 		JLabel lblActualizarTablaDe = new JLabel("Actualizar tabla de usuarios");
@@ -451,17 +433,7 @@ public class FormEditUser extends JFrame {
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				ArrayList<Cliente> us=hotel.getUsuarios().inOrdenA();
-				for(int i=0;i<us.size();i++) {
-					String[] fila=us.get(i).imprimirPersonaTabla();
-					((DefaultTableModel) table.getModel()).addRow(fila);
-				}
-				
-				for(int i=0;i<hotel.getPersonal().size();i++) {
-					String[] fila= hotel.getPersonal().get(i).imprimirPersonaTabla();
-					((DefaultTableModel) table.getModel()).addRow(fila);
-				}
+			
 			}
 		});
 		

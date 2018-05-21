@@ -13,10 +13,8 @@ import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-
 import exception.EArrayVacio;
 import exception.ECamposVacios;
 import exception.ECocina;
@@ -48,12 +46,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class FormCocina extends JFrame {
+public class FormCocina extends JFrame implements Serializable  {
 
 	/**
 	 * 
@@ -129,14 +128,15 @@ public class FormCocina extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("Icons\\oficcial.png"));
 		setBounds(0, 0, 1366, 768);
 		lblCocina = new JLabel();
-	//	vistaPrincipal();
+		vistaPrincipal();
 	//	vistaServicios();
 	//	vistaPedido();
-		vistaConsulta();
-	//vistaMenu();
+	//	vistaConsulta();
+	//  vistaMenu();
 	//	vistaCrearPlato();
 	//	vistaEliminar();
 	//	vistaCMenu("Pedido",null);
+	//	vistaDespachar();
 	}
 	
 	private void vistaCMenu(String ventana) {
@@ -889,6 +889,29 @@ public class FormCocina extends JFrame {
 			}
 		});
 		contentPane.add(lblBack);
+		
+		JLabel lblExit = new JLabel("Exit");
+		lblExit.setIcon(new ImageIcon("Icons\\exit.png"));
+		lblExit.setBounds(1130, 296, 64, 64);
+		lblExit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				int validar = JOptionPane.showConfirmDialog(contentPane,
+						"Desea salir?");
+				if(validar==0) {
+					System.exit(0); 
+				}
+			}
+			public void mouseEntered(MouseEvent arg0) {
+				textMensaje.setText("Salir.");
+				lblInfo.setVisible(true);
+			}			
+			public void mouseExited(MouseEvent arg0) {
+				textMensaje.setText("");
+				lblInfo.setVisible(false);
+			}
+		});
+		contentPane.add(lblExit);
 	}
 	private void vistaServicios() {
 		contentServicios = new JPanel();
@@ -1004,7 +1027,8 @@ public class FormCocina extends JFrame {
 		lblDespachar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				
+				getContentPane().setVisible(false);
+				vistaDespachar();
 			}
 			public void mouseEntered(MouseEvent arg0) {
 				textMensaje.setText("Agregar producto a factura del cliente y dar por terminada la preparación del plato.");
@@ -1024,6 +1048,131 @@ public class FormCocina extends JFrame {
 		lblDespachar_1.setBounds(900, 467, 233, 60);		
 		contentServicios.add(lblDespachar_1);
 	}
+	private void vistaDespachar() {
+		JPanel contentDespachar = new JPanel();
+		contentDespachar.setBackground(Color.decode(backgroundcolor));
+		contentDespachar.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentDespachar);
+		contentDespachar.setLayout(null);
+		
+		lblCocina.setText("Servicio : Despachar");
+		lblCocina.setForeground(Color.WHITE);
+		lblCocina.setFont(new Font(font, Font.BOLD, 40));
+		lblCocina.setBounds(480, 66, 431, 50);
+		contentDespachar.add(lblCocina);		
+		
+		JLabel lblInfo = new JLabel("Info");
+		lblInfo.setBounds(235, 578, 100, 100);
+		ImageIcon iconinfo =new ImageIcon("Icons\\information.png");
+		Icon iconoinfo  = new ImageIcon(iconinfo.getImage().getScaledInstance(lblInfo.getWidth(),lblInfo.getHeight(), Image.SCALE_DEFAULT));
+		lblInfo.setIcon(iconoinfo);
+		lblInfo.setVisible(false);
+		contentDespachar.add(lblInfo);
+		
+		JTextArea textMensaje = new JTextArea();
+		textMensaje.setWrapStyleWord(true);
+		textMensaje.setLineWrap(true);
+		textMensaje.setTabSize(4);
+		textMensaje.setEditable(false);
+		textMensaje.setRows(3);
+		textMensaje.setBounds(337, 578, 365, 100);
+		textMensaje.setBackground(Color.decode(backgroundcolor));
+		textMensaje.setForeground(Color.WHITE);
+		textMensaje.setFont(new Font(font, Font.PLAIN | Font.ITALIC, fontsize));
+		contentDespachar.add(textMensaje);
+		JLabel lblBack = new JLabel("Back");
+		lblBack.setBounds(185, 296, 64, 64);
+		lblBack.setIcon(new ImageIcon("Icons\\back1.png"));
+		lblBack.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				getContentPane().setVisible(false);
+				vistaServicios();
+			}
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				textMensaje.setText("Volver a servicio");
+				lblInfo.setVisible(true);
+			}
+			@Override		
+			public void mouseExited(MouseEvent arg0) {
+				textMensaje.setText("");
+				lblInfo.setVisible(false);
+			}
+		});
+		contentDespachar.add(lblBack);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBackground(Color.decode("#c4c4c4"));
+		separator.setBounds(313, 141, 763, 20);
+		contentDespachar.add(separator);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setViewportBorder(null);
+		scrollPane.setBounds(337, 154, 723, 393);
+		contentDespachar.add(scrollPane);
+		String [] titulos = {"Id ", "Nombre", "Platos","Posición"};	//crear vector con titulos de la tabla
+		DefaultTableModel modeloTable= new DefaultTableModel(titulos,0); //crear modelo con el vector de titulos
+		table_1 = new JTable(modeloTable);							//cargar modelo en la tabla
+		TableColumnModel columnModel = table_1.getColumnModel();
+	    columnModel.getColumn(0).setPreferredWidth(25);
+	    columnModel.getColumn(1).setPreferredWidth(70);
+	    columnModel.getColumn(2).setPreferredWidth(400);
+	    columnModel.getColumn(3).setPreferredWidth(50);
+		scrollPane.setViewportView(table_1);
+		
+		JButton btnDespachar = new JButton("Despachar");
+		btnDespachar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(table_1.getSelectedRow()==-1){
+					JOptionPane.showMessageDialog(contentPane, "Porfavor seleccione un pedido para continuar");
+				}
+				else {
+					try {
+						String pedido = table_1.getValueAt(table_1.getSelectedRow(), 0).toString();
+						int validar = JOptionPane.showConfirmDialog(contentDespachar,
+								"Esta seguro de dar por terminado el pedido "+pedido);
+						if(validar==0) {
+							if(persona.despachar(pedido, hotel)) {
+								JOptionPane.showMessageDialog(contentPane, "Se facturo correctamente");
+								hotel.limpiarMenu(modeloTable);
+								persona.consultarCola(modeloTable, hotel);
+								Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
+							}else{
+								JOptionPane.showMessageDialog(contentPane, "No se pudo despachar");
+							}
+						}
+					} catch (EArrayVacio e1) {
+						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(contentPane, e1.getMessage());
+					}
+				}
+			}
+		});
+		btnDespachar.setForeground(Color.WHITE);
+		btnDespachar.setFont(new Font("Century Gothic", Font.BOLD, 30));
+		btnDespachar.setBackground(new Color(58, 136, 219));
+		btnDespachar.setBounds(760, 586, 300, 40);
+		btnDespachar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				textMensaje.setText("Despachar producto seleccionado");
+				lblInfo.setVisible(true);
+			}
+			@Override		
+			public void mouseExited(MouseEvent arg0) {
+				textMensaje.setText("");
+				lblInfo.setVisible(false);
+			}
+		});
+		contentDespachar.add(btnDespachar);
+		try {
+			persona.consultarCola(modeloTable, hotel);
+		} catch (EArrayVacio e1) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(contentDespachar, e1.getMessage());
+		}
+	}
 	private void vistaPedido() {
 		JTextField txtUserName;
 		JLabel lblNombre,Plato;
@@ -1033,7 +1182,7 @@ public class FormCocina extends JFrame {
 		contentPedido.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPedido);
 		contentPedido.setLayout(null);
-		
+		p=null;
 		lblCocina.setText("Servicio : pedido");
 		lblCocina.setForeground(Color.WHITE);
 		lblCocina.setFont(new Font(font, Font.BOLD, 40));
@@ -1213,26 +1362,26 @@ public class FormCocina extends JFrame {
 		btnpedido.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			 if(txtUserName.getText().compareTo("")!=0) {				
-			 try {
-				 Cliente c = hotel.buscarCliente(txtUserName.getText());
-				 int validar1 = JOptionPane.showConfirmDialog(contentPedido,"Esta seguro de crear el pedido a nombre de :"
-						 + c.getNombre()+" y los platos \n"+platos);
-				 if(validar1==0) {
-					 persona.finalizarPedido(c, platos, hotel);
-					 int validar = JOptionPane.showConfirmDialog(contentPedido,"Pedido creado correctamente ¿Desea crear otro?");
-					 Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
-					 if (validar == 0) {
-						 getContentPane().setVisible(false);
-						 vistaPedido();
-					 }else {
-						 getContentPane().setVisible(false);
-						 vistaPrincipal();
+				 try {
+					 Cliente c = hotel.buscarCliente(txtUserName.getText());
+					 int validar1 = JOptionPane.showConfirmDialog(contentPedido,"Esta seguro de crear el pedido a nombre de :"
+							 + c.getNombre()+" y los platos \n"+platos);
+					 if(validar1==0) {
+						 persona.finalizarPedido(c, platos, hotel);
+						 int validar = JOptionPane.showConfirmDialog(contentPedido,"Pedido creado correctamente ¿Desea crear otro?");
+						 Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
+						 if (validar == 0) {
+							 getContentPane().setVisible(false);
+							 vistaPedido();
+						 }else {
+							 getContentPane().setVisible(false);
+							 vistaPrincipal();
+						 }
 					 }
+				 } catch (ExceptionNodo | ECocina e) {
+					 // TODO Auto-generated catch block
+					 JOptionPane.showMessageDialog(contentPedido, e.getMessage());
 				 }
-			} catch (ExceptionNodo | ECocina e) {
-				// TODO Auto-generated catch block
-				JOptionPane.showMessageDialog(contentPedido, e.getMessage());
-			}
 			 }
 			 else {
 				 JOptionPane.showMessageDialog(contentPane, "Debe ingresar todos los datos");

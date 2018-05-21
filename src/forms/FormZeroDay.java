@@ -28,12 +28,13 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.Serializable;
 import java.awt.event.ActionEvent;
 import javax.swing.JSeparator;
 import java.awt.Toolkit;
 import javax.swing.JPasswordField;
 
-public class FormZeroDay extends JFrame {
+public class FormZeroDay extends JFrame implements Serializable {
 
 	/**
 	 * 

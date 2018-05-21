@@ -6,11 +6,8 @@ package hotel;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.ListIterator;
 import java.util.PriorityQueue;
-
 import javax.swing.table.DefaultTableModel;
-
 import exception.EArrayVacio;
 import exception.ECamposVacios;
 import exception.ECocina;
@@ -20,6 +17,7 @@ public class Cocina implements Serializable {
 
 	private static final long serialVersionUID = 7911124575383121936L;
 	private PriorityQueue<Pedido>cola_servicios;
+	private ArrayList<Pedido>historial_pedidos;
 	private ArrayList<Plato> menu;
 	
 	public static void main(String[] args) {
@@ -35,16 +33,12 @@ public class Cocina implements Serializable {
 		}
 		
 	}
-	public Cocina(PriorityQueue<Pedido> cola_servicios, ArrayList<Plato> menu) {
-		super();
-		this.cola_servicios = new PriorityQueue<Pedido>();
-		this.menu = new ArrayList<Plato>();
-	}
-	
+		
 	public Cocina() {
 		super();
 		this.cola_servicios = new PriorityQueue<Pedido>();
 		this.menu = new ArrayList<Plato>();
+		this.historial_pedidos= new ArrayList<Pedido>();
 	}
 	public PriorityQueue<Pedido> getCola_servicios() {
 		return cola_servicios;
@@ -116,7 +110,20 @@ public class Cocina implements Serializable {
 			throw new EArrayVacio("No hay platos disponibles en el menú");
 		}
 	}
-	
+	public DefaultTableModel printHistorial(DefaultTableModel modeloTable) throws EArrayVacio {
+		if(!historial_pedidos.isEmpty()) {
+		int i=0;
+		while (i<historial_pedidos.size()) {
+			Pedido pedido= historial_pedidos.get(i);
+			String [] model = {String.valueOf(pedido.getId()),pedido.getCliente().getNombre(),pedido.getPlatos().toString()};
+			modeloTable.addRow(model);	
+			i++;
+		}
+		return modeloTable;}
+		else {
+			throw new EArrayVacio("No hay platos disponibles en el menú");
+		}
+	}
 	public String [] printMenu(int i) throws EArrayVacio {
 		if(menu.size()>0) {
 		String [] model = {menu.get(i).getNombre(),Boolean.toString(menu.get(i).isDisponibilidad()),
@@ -143,6 +150,30 @@ public class Cocina implements Serializable {
 	public Pedido despacharPlato() {
 		
 		return cola_servicios.poll();
+	}
+	public Pedido BuscarPedido(String id_pedido) throws EArrayVacio {
+		if(cola_servicios.size()>0) {
+			Pedido pedido=null;
+			Iterator<Pedido> lista =cola_servicios.iterator();
+			int i=0;
+			while (i<cola_servicios.size()&&lista.hasNext()&& pedido==null) {
+				Pedido aux=lista.next();
+				if(String.valueOf(aux.getId()).compareTo(id_pedido)==0)
+					pedido=aux;
+				i++;
+			}
+			if(pedido!=null)
+				return pedido;
+			else
+				throw new EArrayVacio("Pedido no encontrado");
+		}else {
+			throw new EArrayVacio("No hay pedidos registrados");
+		}
+	}
+	public boolean despacharPlato(String id_pedido) throws EArrayVacio {
+		Pedido pedido = BuscarPedido(id_pedido);
+		historial_pedidos.add(pedido);
+		return cola_servicios.remove(pedido);
 	}
 	
 }

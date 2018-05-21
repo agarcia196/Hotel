@@ -38,9 +38,10 @@ import javax.swing.JPasswordField;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.awt.event.ActionEvent;
 
-public class FormLogin extends JFrame {
+public class FormLogin extends JFrame implements Serializable {
 
 	/**
 	 * 
@@ -74,6 +75,8 @@ public class FormLogin extends JFrame {
 			public void run() {
 				try {
 					Hotel h = new Hotel();
+					Chef chef = new Chef("Lopez", "Daniel", "Sin especificar", "DD", "123", "CC", "12345678");
+					h.addEmpleado(chef);
 					//Persona p= new Administrador("nombre"," apellido", "genero", "correo", "id", "tipoId", "pwd");
 					FormLogin frame = new FormLogin(h);
 					frame.setVisible(true);

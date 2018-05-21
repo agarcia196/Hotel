@@ -25,9 +25,12 @@ public class Chef extends Empleado implements Serializable{
 		super(nombre, apellido, genero, correo, id, tipoId, pwd);
 		// TODO Auto-generated constructor stub
 	}
-	
+		
+	public boolean despachar(String id_pedido,Hotel hotel) throws EArrayVacio {
+		return hotel.getCocina().despacharPlato(id_pedido); 
+	}
 	public void finalizarPedido(Cliente reserva,ArrayList<Plato> platos,Hotel hotel) throws ECocina {
-		if(platos.size()>0&& reserva!=null) {
+		if(!platos.isEmpty()&& reserva!=null) {
 			Pedido pedido = new Pedido(reserva, platos);
 			addCola(pedido, hotel.getCocina());
 		}else {

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Pedido implements Comparable<Pedido>,Serializable {
+	
 	/**
 	 * 
 	 */
@@ -68,9 +69,13 @@ public class Pedido implements Comparable<Pedido>,Serializable {
 		return Valor;		
 	}
 	@Override
+	public String toString() {
+		return "Pedido :" + id + ", cliente:" + cliente + ", platos:" + platos;
+	}
+	@Override
 	public int compareTo(Pedido arg0) {
 		// TODO Auto-generated method stub
-		return (tiempo.compareTo(arg0.getTiempo())>0)?-1:(tiempo.compareTo(arg0.getTiempo())<0)? 1:0 ;
+		return (tiempo.compareTo(arg0.getTiempo())<0)?-1:(tiempo.compareTo(arg0.getTiempo())>0)? 1:0 ;
 	}
 
 }
