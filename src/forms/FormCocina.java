@@ -14,18 +14,17 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 import exception.EArrayVacio;
 import exception.ECamposVacios;
 import exception.ECocina;
 import exception.ELetrasEnCampoN;
 import exception.ExceptionNodo;
-import hotel.Administrador;
+import hotel.Chef;
 import hotel.Cliente;
 import hotel.Habitacion;
 import hotel.Hotel;
-import hotel.Pedido;
-import hotel.Persona;
 import hotel.Plato;
 /*import hotel.Cliente;
 import hotel.Habitacion;
@@ -77,7 +76,7 @@ public class FormCocina extends JFrame {
 	private JTable table_1;
 	private Plato p;
 	private JTextField txtplato;
-	private Persona persona;
+	private Chef persona;
 	/**
 	 * Launch the application.
 	 */
@@ -86,7 +85,7 @@ public class FormCocina extends JFrame {
 			public void run() {
 				try {
 					Hotel h = new Hotel();
-					Administrador e = new Administrador("Lopez", "Daniel", "Sin especificar", "DD", "123", "CC", "123");
+					Chef e = new Chef("Lopez", "Daniel", "Sin especificar", "DD", "123", "CC", "123");
 					FormCocina frame = new FormCocina(h,e);
 					h.getCocina().getMenu().add(new Plato("Bandeja ", true, 80.5, 80.6));
 					h.getCocina().getMenu().add(new Plato("Bandeja 2 ", true, 80.5, 80.6));
@@ -118,7 +117,7 @@ public class FormCocina extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FormCocina(Hotel h, Persona persona) {
+	public FormCocina(Hotel h, Chef persona) {
 		hotel=h;
 		this.persona=persona;
 		setForeground(Color.WHITE);
@@ -131,8 +130,8 @@ public class FormCocina extends JFrame {
 		lblCocina = new JLabel();
 	//	vistaPrincipal();
 	//	vistaServicios();
-		vistaPedido();
-	//	vistaConsulta();
+	//	vistaPedido();
+		vistaConsulta();
 	//vistaMenu();
 	//	vistaCrearPlato();
 	//	vistaEliminar();
@@ -1218,8 +1217,7 @@ public class FormCocina extends JFrame {
 				 int validar1 = JOptionPane.showConfirmDialog(contentPedido,"Esta seguro de crear el pedido a nombre de :"
 						 + c.getNombre()+" y los platos \n"+platos);
 				 if(validar1==0) {
-					 Pedido pedido = new Pedido(c.getReservasActivas().get(0), platos);
-					 hotel.getCocina().addCola(pedido);
+					 persona.finalizarPedido(c, platos, hotel);
 					 int validar = JOptionPane.showConfirmDialog(contentPedido,"Pedido creado correctamente ¿Desea crear otro?");
 					 Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
 					 if (validar == 0) {
@@ -1237,6 +1235,9 @@ public class FormCocina extends JFrame {
 			 
 			
 			 
+			 }
+			 else {
+				 JOptionPane.showMessageDialog(contentPane, "Debe ingresar todos los datos");
 			 }
 			}
 		});
@@ -1310,12 +1311,24 @@ public class FormCocina extends JFrame {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setViewportBorder(null);
-		scrollPane.setBounds(337, 155, 723, 393);
+		scrollPane.setBounds(337, 154, 723, 393);
 		contentConsulta.add(scrollPane);
 		String [] titulos = {"Id ", "Nombre", "Platos","Posición"};	//crear vector con titulos de la tabla
 		DefaultTableModel modeloTable= new DefaultTableModel(titulos,0); //crear modelo con el vector de titulos
 		table_1 = new JTable(modeloTable);							//cargar modelo en la tabla
+		TableColumnModel columnModel = table_1.getColumnModel();
+	    columnModel.getColumn(0).setPreferredWidth(25);
+	    columnModel.getColumn(1).setPreferredWidth(150);
+	    columnModel.getColumn(2).setPreferredWidth(400);
+	    columnModel.getColumn(3).setPreferredWidth(50);
 		scrollPane.setViewportView(table_1);
-		
+		try {
+			table_1.setRowHeight(25);
+			persona.consultarCola(modeloTable, hotel);
+			
+		} catch (EArrayVacio e1) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(contentPane, e1.getMessage());
+		}
 	}
 }

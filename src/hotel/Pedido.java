@@ -9,15 +9,15 @@ public class Pedido implements Comparable<Pedido>,Serializable {
 	 */
 	private static final long serialVersionUID = 4557397842131081670L;
 	private int id;
-	private Reserva reserva;
+	private Cliente cliente;
 	private ArrayList<Plato> platos;
 	private Double tiempo;
 	private Double costo;
 	private static int count=0;
-	public Pedido(Reserva reserva, ArrayList<Plato> platos) {
+	public Pedido(Cliente cliente, ArrayList<Plato> platos) {
 		super();
 		this.id = ++count;
-		this.reserva = reserva;
+		this.cliente = cliente;
 		this.platos = platos;
 		this.tiempo = calcularTiempo(platos);
 		this.costo = calcularCosto(platos);
@@ -28,11 +28,12 @@ public class Pedido implements Comparable<Pedido>,Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Reserva getReserva() {
-		return reserva;
+	
+	public Cliente getCliente() {
+		return cliente;
 	}
-	public void setReserva(Reserva reserva) {
-		this.reserva = reserva;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 	public ArrayList<Plato> getPlatos() {
 		return platos;

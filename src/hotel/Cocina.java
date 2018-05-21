@@ -5,6 +5,8 @@ package hotel;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.PriorityQueue;
 
 import javax.swing.table.DefaultTableModel;
@@ -84,7 +86,22 @@ public class Cocina implements Serializable {
 	public boolean removePlato(Plato nombredeplato) throws ECocina {
 			return menu.remove(nombredeplato);
 	}
-	
+	//"Id ", "Nombre", "Platos","Posición"
+	public DefaultTableModel consultaCola(DefaultTableModel modeloTable) throws EArrayVacio {
+		if(cola_servicios.size()>0) {
+			Iterator<Pedido> lista =cola_servicios.iterator();
+			int i=1;
+			while (lista.hasNext()) {
+				Pedido pedido= lista.next();
+				String [] model = {String.valueOf(pedido.getId()),pedido.getCliente().getNombre(),pedido.getPlatos().toString(),String.valueOf(i)};
+				i++;
+				modeloTable.addRow(model);	
+			}
+			return modeloTable;
+		}else {
+			throw new EArrayVacio("No hay pedidos en cola");
+		}
+	}
 	public DefaultTableModel printMenu(DefaultTableModel modeloTable) throws EArrayVacio {
 		if(menu.size()>0) {
 		int i=0;

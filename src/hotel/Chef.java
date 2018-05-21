@@ -1,8 +1,14 @@
 package hotel;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+
+import javax.swing.table.DefaultTableModel;
+
+import exception.EArrayVacio;
 import exception.ECamposVacios;
+import exception.ECocina;
 import exception.EIgualdad;
 import exception.ELongitud;
 import exception.ETipoInconrrecto;
@@ -19,7 +25,24 @@ public class Chef extends Empleado implements Serializable{
 		super(nombre, apellido, genero, correo, id, tipoId, pwd);
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	public void finalizarPedido(Cliente reserva,ArrayList<Plato> platos,Hotel hotel) throws ECocina {
+		if(platos.size()>0&& reserva!=null) {
+			Pedido pedido = new Pedido(reserva, platos);
+			addCola(pedido, hotel.getCocina());
+		}else {
+			throw new ECocina("Faltan datos");
+		}
+	}
+	
+	private boolean addCola(Pedido p,Cocina cocina) throws ECocina {
+		return cocina.addCola(p);
+	}
+	
+	public DefaultTableModel consultarCola(DefaultTableModel modeloTable,Hotel hotel) throws EArrayVacio {
+		return 	hotel.getCocina().consultaCola(modeloTable);
+	}
+	
 	@Override
 	public void addUser(String nombre, String apellido, String genero, String correo, String id, String tipoId,
 			String pwd, String cpwd, String cargo, Hotel h)
