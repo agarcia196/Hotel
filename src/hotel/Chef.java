@@ -1,6 +1,7 @@
 package hotel;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -61,7 +62,7 @@ public class Chef extends Empleado implements Serializable{
 	}
 
 	@Override
-	public boolean addReserva(Date dateIn, Date dateOut, String tipo, Hotel hotel) {
+	public boolean addReserva(LocalDate dateIn, LocalDate dateOut, String tipo, Hotel hotel) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -73,7 +74,7 @@ public class Chef extends Empleado implements Serializable{
 	}
 
 	@Override
-	public boolean editReserva(String id, Date dateIn, Date dateOut, Habitacion habitacion) {
+	public boolean editReserva(String id, LocalDate dateIn, LocalDate dateOut, Habitacion habitacion) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -91,7 +92,7 @@ public class Chef extends Empleado implements Serializable{
 	}
 
 	@Override
-	public Reserva buscarReserva(Date dateIn) {
+	public Reserva buscarReserva(LocalDate dateIn) {
 		// TODO Auto-generated method stub
 		return null;
 	}

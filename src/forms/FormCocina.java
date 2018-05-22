@@ -94,7 +94,7 @@ public class FormCocina extends JFrame implements Serializable  {
 					h.getCocina().getMenu().add(new Plato("Bandeja 2 ", true, 80.5, 15000));
 					h.getCocina().getMenu().add(new Plato("Bandeja 3 ", true, 80.5, 18000));
 					Cliente c = new Cliente("Lopez", "Daniel", "Sin especificar", "DD", "123", "CC", "123");
-					Habitacion hab = new Habitacion("302", "Vip");
+					Habitacion hab = new Habitacion("302", "Vip",1300);
 					Reserva r = new Reserva(null, null, hab);
 	
 					c.getReservasActivas().add(r);
