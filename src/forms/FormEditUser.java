@@ -3,6 +3,7 @@ package forms;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -22,6 +23,10 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
+import exception.EArrayVacio;
+import exception.ECliente;
+import exception.EIgualdad;
 import exception.ExceptionNodo;
 import hotel.Administrador;
 import hotel.Cliente;
@@ -31,6 +36,7 @@ import hotel.Persona;
 import hotel.Recursos;
 
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -38,19 +44,29 @@ import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
 import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 
 public class FormEditUser extends JFrame {
+	private JPanel contentPane;
+	private JLabel lblCocina ;
+	private JTable table_1;
+	private JTextField textFieldBuscar;
 	
 	/**
 	 * Launch the application.
 	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					Hotel hotel= new Hotel();
-					Persona Fabox= new Cliente("Fabio","Anaya","Masculino","fabeac", "1212","Cedula","123");
-					Persona fabio= new Administrador("Fabio","Anaya","Masculino","fabeac", "1212","Cedula","123");
+					Cliente Fabox= new Cliente("Fabio","Anaya","Masculino","fabeac", "1212","Cedula","123");
+					Administrador fabio= new Administrador("Fabio","Anaya","Masculino","fabeac", "1212","Cedula","123");
+					fabio.addUser("Fabio", "Pedro", "Masculino", "xd", "6545", "Cedula", "12345678", "12345678", "Recepcion",hotel);
+					fabio.addUser("Fabio12", "Pedro", "Masculino", "xd", "6545", "Cedula", "12345678", "12345678", "Recepcion",hotel);
+					fabio.addUser("Fabio3213", "Pedro", "Masculino", "xd", "6545", "Cedula", "12345678", "12345678", "Recepcion",hotel);
+					hotel.addUser( Fabox);
 					FormEditUser frame = new FormEditUser(hotel, fabio);
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -69,8 +85,9 @@ public class FormEditUser extends JFrame {
 		setExtendedState(MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 1366, 768);	
-		lblLogin= new JLabel();
-		EditarUsuario();
+		EditarUsuario(h);
+		lblEditar = new JLabel();
+		//Editar(persona);
 		
 		/*
 		lblLogin = new JLabel();
@@ -88,7 +105,7 @@ public class FormEditUser extends JFrame {
 	private final String txtcolor1= "#FFFFFF";
 	private final String font= "Century Gothic";
 	private final int fontsize=20;
-	private JLabel lblLogin;
+	private JLabel lblEditar;
 	private Hotel hotel;
 	private Persona p;
 
@@ -112,11 +129,11 @@ public class FormEditUser extends JFrame {
 		setContentPane(contentPane2);
 		contentPane2.setLayout(null);
 		
-		lblLogin.setBounds(336, 78, 395, 50);
-		lblLogin.setFont(new Font(font, Font.BOLD, 40));
-		lblLogin.setForeground(Color.WHITE);
-		lblLogin.setText("Modificar usuario\r\n");
-		contentPane2.add(lblLogin);
+		lblEditar.setBounds(336, 78, 395, 50);
+		lblEditar.setFont(new Font(font, Font.BOLD, 40));
+		lblEditar.setForeground(Color.WHITE);
+		lblEditar.setText("Modificar usuario\r\n");
+		contentPane2.add(lblEditar);
 		
 		Nombre = new JTextField();
 		Nombre.setToolTipText("");
@@ -125,6 +142,7 @@ public class FormEditUser extends JFrame {
 		Nombre.setBounds(355, 190, 300, 40);
 		contentPane2.add(Nombre);
 		Nombre.setColumns(100);
+		Nombre.setText(CEC.getNombre());
 		Nombre.setBackground(Color.decode(txtcolor1));
 		Nombre.setBorder(new LineBorder(Color.decode(txtcolor1), 3, true));
 		
@@ -133,6 +151,7 @@ public class FormEditUser extends JFrame {
 		contraseña.setForeground(Color.BLACK);
 		contraseña.setFont(new Font(font, Font.PLAIN, fontsize));
 		contraseña.setColumns(100);
+		contraseña.setText(CEC.getPwd());
 		contraseña.setBorder(new LineBorder(Color.decode(txtcolor1), 3, true));
 		contraseña.setBackground(Color.decode(txtcolor1));
 		contraseña.setBounds(355, 418,300, 40);
@@ -143,6 +162,7 @@ public class FormEditUser extends JFrame {
 		txtapellido.setForeground(Color.BLACK);
 		txtapellido.setFont(new Font(font, Font.PLAIN, fontsize));
 		txtapellido.setColumns(100);
+		txtapellido.setText(CEC.getApellido());
 		txtapellido.setBorder(new LineBorder(Color.decode(txtcolor1), 3, true));
 		txtapellido.setBackground(Color.decode(txtcolor1));
 		txtapellido.setBounds(720, 190, 300, 40);
@@ -155,6 +175,7 @@ public class FormEditUser extends JFrame {
 		txtncedula.setForeground(Color.BLACK);
 		txtncedula.setFont(new Font(font, Font.PLAIN, fontsize));
 		txtncedula.setColumns(100);
+		txtncedula.setText(CEC.getId());
 		txtncedula.setBorder(new LineBorder(Color.decode(txtcolor1), 3, true));
 		txtncedula.setBackground(Color.decode(txtcolor1));
 		txtncedula.setBounds(720, 351, 300, 40);
@@ -165,6 +186,7 @@ public class FormEditUser extends JFrame {
 		txtemail.setForeground(Color.BLACK);
 		txtemail.setFont(new Font(font, Font.PLAIN, fontsize));
 		txtemail.setColumns(100);
+		txtemail.setText(CEC.getCorreo());
 		txtemail.setBorder(new LineBorder(Color.decode(txtcolor1), 3, true));
 		txtemail.setBackground(Color.decode(txtcolor1));
 		txtemail.setBounds(720, 270, 300, 40);
@@ -172,6 +194,7 @@ public class FormEditUser extends JFrame {
 		
 		ccontraseña = new JPasswordField();
 		ccontraseña.setToolTipText("");
+		ccontraseña.setText(CEC.getPwd());
 		ccontraseña.setForeground(Color.BLACK);
 		ccontraseña.setFont(new Font(font, Font.PLAIN, fontsize));
 		ccontraseña.setColumns(100);
@@ -257,18 +280,23 @@ public class FormEditUser extends JFrame {
 				int validar = JOptionPane.showConfirmDialog(contentPane2,
 						"¿Está seguro de las modificaciones realizadas?");
 				if (validar == 0) {
-					if(contraseña.equals(ccontraseña)) {
-					Cliente c;
 					try {
-						hotel.getUsuarios().buscarS(CEC.getId()).setLlave(new Cliente(Nombre.getText().toString(),txtapellido.getText().toString(),CEC.getGenero(),txtemail.getText().toString(),txtncedula.getText().toString(),
-							cbtipodedocumento.getSelectedItem().toString(),contraseña.toString()));
-							Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
-					} catch (ExceptionNodo e) {
+						if(Recursos.validarIgualdadPwd(contraseña.getPassword().toString(), ccontraseña.getPassword().toString())) {
+						Cliente c;
+						try {
+							hotel.getUsuarios().buscarS(CEC.getId()).setLlave(new Cliente(Nombre.getText().toString(),txtapellido.getText().toString(),CEC.getGenero(),txtemail.getText().toString(),txtncedula.getText().toString(),
+								cbtipodedocumento.getSelectedItem().toString(),contraseña.toString()));
+								Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
+						} catch (ExceptionNodo e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+}else {
+							JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden");
+						}
+					} catch (HeadlessException | EIgualdad e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}
-				}else {
-						JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden");
 					}
 				}
 			}
@@ -334,7 +362,13 @@ public class FormEditUser extends JFrame {
 		JButton btnEliminarUsuario = new JButton("Eliminar usuario\r\n");
 		btnEliminarUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				System.out.println(CEC.getNombre());
+				CEC.setActivo(false);
+				System.out.println(CEC.isActivo());
+				//Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
+				JOptionPane.showMessageDialog(null, "El estado de la cuenta a pasado a inactivo");
+				getContentPane().setVisible(false);
+				EditarUsuario(hotel);
 			}
 		});
 		btnEliminarUsuario.setForeground(Color.WHITE);
@@ -342,140 +376,205 @@ public class FormEditUser extends JFrame {
 		btnEliminarUsuario.setBackground(new Color(58, 136, 219));
 		btnEliminarUsuario.setBounds(355, 482, 300, 40);
 		contentPane2.add(btnEliminarUsuario);
-		JButton btnback = new JButton("back");
-		btnback.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(contentPane2,"Aqui iria hacia donde regresa");
-				//contentPane2.setVisible(false);
-				//vistaLogin();
-			}
-			
-		});
-	}
-		
-		
-	private void EditarUsuario() {
-		JTextField DocMod;
-		JLabel username;
-		JLabel lblConfirmarContrasea;
-		
-		contentPane2 = new JPanel();
-		contentPane2.setBackground(Color.decode(backgroundcolor));
-		contentPane2.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane2);
-		contentPane2.setLayout(null);
-		
-		lblLogin.setBounds(522, 78, 300, 50);
-		lblLogin.setFont(new Font(font, Font.BOLD, 40));
-		lblLogin.setForeground(Color.WHITE);
-		lblLogin.setText("Editar usuario\r\n");
-		contentPane2.add(lblLogin);
-		
-		DocMod = new JTextField();
-		DocMod.setToolTipText("");
-		DocMod.setForeground(Color.BLACK);
-		DocMod.setFont(new Font(font, Font.PLAIN, fontsize));
-		DocMod.setColumns(100);
-		DocMod.setBorder(new LineBorder(Color.decode(txtcolor1), 3, true));
-		DocMod.setBackground(Color.decode(txtcolor1));
-		DocMod.setBounds(310, 190, 300, 40);
-		contentPane2.add(DocMod);
-		
-		username = new JLabel("");
-		username.setBounds(310, 190, 40, 40);
-		ImageIcon iconusername =new ImageIcon("Icons\\username.png");
-		Icon iconousername = new ImageIcon(iconusername.getImage().getScaledInstance(username.getWidth(),username.getHeight(), Image.SCALE_DEFAULT));
-		username.setIcon(iconousername);
-		contentPane2.add(username);
-	
-		
-		JSeparator separator = new JSeparator();
-		separator.setBackground(Color.decode("#c4c4c4"));
-		separator.setBounds(313, 141, 725, 20);
-		contentPane2.add(separator);
-	
-		
-		lblConfirmarContrasea = new JLabel("Numero de documento\r\n");
-		lblConfirmarContrasea.setForeground(Color.decode(txtcolor1));
-		lblConfirmarContrasea.setFont(new Font("Century Gothic", Font.BOLD | Font.ITALIC, 16));
-		lblConfirmarContrasea.setBounds(323, 162, 240, 15);
-		contentPane2.add(lblConfirmarContrasea);
-		JButton btnback = new JButton("back");
-		btnback.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(contentPane2,"Aqui iria hacia donde regresa");
-				//contentPane2.setVisible(false);
-				//vistaLogin();
-			}
-			
-		});
-		btnback.setForeground(Color.decode(txtcolor1));
-		btnback.setFont(new Font(font, Font.PLAIN, 11));
-		btnback.setBackground(Color.decode(backgroundcolor));
-		btnback.setBounds(222, 50, 80, 80);
-		btnback.setBorderPainted(false);
-		ImageIcon iconback =new ImageIcon("Icons\\back.png");
-		Icon iconoback = new ImageIcon(iconback.getImage().getScaledInstance(btnback.getWidth(),btnback.getHeight(), Image.SCALE_DEFAULT));
-		btnback.setIcon(iconoback);
-		contentPane2.add(btnback);
-		
-		DefaultTableModel printUsers= new DefaultTableModel();
-
-		
-		
-		JLabel lblActualizarTablaDe = new JLabel("Actualizar tabla de usuarios");
-		lblActualizarTablaDe.setHorizontalAlignment(SwingConstants.CENTER);
-		lblActualizarTablaDe.setBounds(342, 668, 779, 40);
-		contentPane2.add(lblActualizarTablaDe);
-		lblActualizarTablaDe.setVisible(false);
-		
 		
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			
+				getContentPane().setVisible(false);
+				EditarUsuario(hotel);
 			}
 		});
-		
-		button.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				lblActualizarTablaDe.setVisible(true);
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				lblActualizarTablaDe.setVisible(false);
-			}
-		});
-		button.setIcon(new ImageIcon("C:\\Users\\MSI-PC\\Desktop\\Proyecto\\Hotel\\Icons\\user.png"));
-		button.setBounds(1151, 340, 145, 163);
+		button.setIcon(new ImageIcon("C:\\Users\\MSI-PC\\Desktop\\Proyecto\\Hotel\\Icons\\back.png"));
+		button.setBounds(79, 118, 135, 124);
 		contentPane2.add(button);
-		
-		JScrollBar scrollBar = new JScrollBar();
-		scrollBar.setBounds(1109, 305, 21, 48);
-		contentPane2.add(scrollBar);
-		
-		JButton button_1 = new JButton("");
-		button_1.addActionListener(new ActionListener() {
+		JButton btnback = new JButton("back");
+		btnback.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					Cliente CEC=hotel.buscarCliente(DocMod.getText().toString());
-					if(CEC!=null) {
-						Editar(CEC);
-					}else {
-						JOptionPane.showConfirmDialog(null,"La ID ingresada no coincide con ningun usuario");
-					}
-				} catch (ExceptionNodo e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				JOptionPane.showMessageDialog(contentPane2,"Aqui iria hacia donde regresa");
+				//contentPane2.setVisible(false);
+				//vistaLogin();
 			}
+			
 		});
-		button_1.setIcon(new ImageIcon("Icons\\LapizPeque\u00F1o.png"));
-		button_1.setSelectedIcon(new ImageIcon("Icons\\LapizPeque\u00F1o.png"));
-		button_1.setBounds(622, 189, 51, 41);
-		contentPane2.add(button_1);
-		
-		
 	}
+		
+		
+	private void EditarUsuario(Hotel h) {
+			hotel=h;
+			setForeground(Color.WHITE);
+			setExtendedState(MAXIMIZED_BOTH);
+			setFont(new Font(font, Font.PLAIN, 14));
+			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			setTitle("Cocina");
+			setIconImage(Toolkit.getDefaultToolkit().getImage("Icons\\oficcial.png"));
+			setBounds(0, 0, 1366, 768);
+			
+			contentPane = new JPanel();
+			contentPane.setBackground(Color.decode(backgroundcolor));
+			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+			setContentPane(contentPane);
+			contentPane.setLayout(null);
+			lblCocina = new JLabel("Editar usuario\r\n");
+			lblCocina.setForeground(Color.WHITE);
+			lblCocina.setFont(new Font(font, Font.BOLD, 40));
+			lblCocina.setBounds(544, 65, 300, 50);
+			contentPane.add(lblCocina);
+			JLabel lblInfo = new JLabel("Info");
+			lblInfo.setBounds(202, 578, 100, 100);
+			ImageIcon iconinfo =new ImageIcon("Icons\\information.png");
+			Icon iconoinfo  = new ImageIcon(iconinfo.getImage().getScaledInstance(lblInfo.getWidth(),lblInfo.getHeight(), Image.SCALE_DEFAULT));
+			lblInfo.setIcon(iconoinfo);
+			lblInfo.setVisible(false);
+			contentPane.add(lblInfo);
+			
+			JLabel InfoSeleccionar = new JLabel("Editar el usuario seleccionado\r\n");
+			InfoSeleccionar.setFont(new Font("Century Gothic", Font.PLAIN, 25));
+			InfoSeleccionar.setBounds(337, 600, 371, 40);
+			InfoSeleccionar.setVisible(false);
+			contentPane.add(InfoSeleccionar);
+			
+			JSeparator separator = new JSeparator();
+			separator.setBackground(Color.decode("#c4c4c4"));
+			separator.setBounds(313, 141, 763, 20);
+			contentPane.add(separator);
+			
+			JScrollPane scrollPane = new JScrollPane();
+			scrollPane.setViewportBorder(null);
+			scrollPane.setBounds(337, 217, 720, 330);
+			contentPane.add(scrollPane);
+			String [] titulos = {"ID","Nombre", "Apellido","Activo"};	//crear vector con titulos de la tabla
+			DefaultTableModel modeloTable= new DefaultTableModel(titulos,0); //crear modelo con el vector de titulos
+			table_1 = new JTable(modeloTable);							//cargar modelo en la tabla
+			scrollPane.setViewportView(table_1);
+			try {
+				h.ConsultaUsuarios(modeloTable);
+			} catch (EArrayVacio e) {
+				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(contentPane, e.getMessage());
+			}		
+			JButton btnSeleccionar = new JButton("Seleccionar");
+			btnSeleccionar.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseEntered(MouseEvent arg0) {
+					InfoSeleccionar.setVisible(true);
+				}
+				@Override
+				public void mouseExited(MouseEvent e) {
+					InfoSeleccionar.setVisible(false);
+				}
+			});
+			
+			JComboBox TipoUsuario = new JComboBox();
+			TipoUsuario.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					hotel.limpiarMenu(modeloTable);
+					String tipo=TipoUsuario.getSelectedItem().toString();
+					if(tipo=="Empleado") {
+						if(!hotel.getPersonal().isEmpty()) {
+							try {
+								hotel.ConsultaEmpleados(modeloTable,textFieldBuscar.getText());
+							} catch (EArrayVacio e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}else {
+							JOptionPane.showMessageDialog(null,"No hay empleados");
+						}
+		
+					}else {
+						try {
+							h.ConsultaUsuarios(modeloTable);
+						} catch (EArrayVacio e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+			});
+			
+			btnSeleccionar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(table_1.getSelectedRow()==-1) {			//comprobar que se seleccione una fila
+						JOptionPane.showMessageDialog(contentPane, "Seleccione un usuario para editar");
+					}else {//si se selecciona fila pasar contenido del sku al textfile del form para agregar producto
+						if(TipoUsuario.getSelectedItem().toString()=="Empleado") {
+							getContentPane().setVisible(false);
+							try {
+								Editar(h.buscarEmpleado(table_1.getValueAt(table_1.getSelectedRow(),0).toString()));
+							} catch (ECliente e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						}else{
+							try {
+								getContentPane().setVisible(false);
+								Editar(h.buscarCliente(table_1.getValueAt(table_1.getSelectedRow(), 0).toString()));
+							} catch (ExceptionNodo e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						}
+					}
+				}
+			});
+			btnSeleccionar.setForeground(Color.WHITE);
+			btnSeleccionar.setFont(new Font("Century Gothic", Font.BOLD, 30));
+			btnSeleccionar.setBackground(new Color(58, 136, 219));
+			btnSeleccionar.setBounds(760, 600, 300, 40);
+			contentPane.add(btnSeleccionar);
+			
+			
+			TipoUsuario.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+				}
+				@Override
+				public void mouseEntered(MouseEvent e) {
+				}
+			});
+			TipoUsuario.setFont(new Font("Century Gothic", Font.PLAIN, 30));
+			TipoUsuario.setModel(new DefaultComboBoxModel(new String[] {"Cliente", "Empleado"}));
+			TipoUsuario.setBounds(919, 164, 138, 40);
+			contentPane.add(TipoUsuario);
+			
+			
+			
+			textFieldBuscar = new JTextField();
+			textFieldBuscar.setBounds(405, 164, 332, 40);
+			textFieldBuscar.setForeground(Color.BLACK);
+			textFieldBuscar.setFont(new Font("Century Gothic", Font.PLAIN, 20));
+			textFieldBuscar.setBorder(new LineBorder(Color.decode(txtcolor1), 3, true));
+			textFieldBuscar.setBackground(Color.WHITE);
+			contentPane.add(textFieldBuscar);
+			textFieldBuscar.setColumns(10);
+			JButton btnFiltrar = new JButton("Filtrar");
+			btnFiltrar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					hotel.limpiarMenu(modeloTable);
+					try {
+						if(TipoUsuario.getSelectedItem().toString()=="Cliente") {
+							hotel.ConsultaUsuarios(modeloTable, textFieldBuscar.getText());
+						}else {
+							hotel.ConsultaEmpleados(modeloTable, textFieldBuscar.getText());
+						}
+					} catch (EArrayVacio e) {
+						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(contentPane, e.getMessage());
+					}
+				}
+			});
+			btnFiltrar.setForeground(Color.WHITE);
+			btnFiltrar.setFont(new Font("Century Gothic", Font.BOLD, 30));
+			btnFiltrar.setBackground(new Color(58, 136, 219));
+			btnFiltrar.setBounds(760, 164, 150, 40);
+			contentPane.add(btnFiltrar);
+			JLabel lblBuscar = new JLabel("Buscar");
+			lblBuscar.setForeground(Color.WHITE);
+			lblBuscar.setFont(new Font(font, Font.BOLD | Font.ITALIC, fontsize));
+			lblBuscar.setBounds(337, 164, 100, 40);
+			contentPane.add(lblBuscar);
+			
+			
+			
+		}
 }

@@ -155,4 +155,36 @@ public class Hotel implements Serializable{
 		else
 			throw new ECliente("Contraseña Inconrrecta");
 	}
+	
+	public DefaultTableModel ConsultaEmpleados(DefaultTableModel modeloTable) throws EArrayVacio {
+		if(!personal.isEmpty()) {
+		int i=0;
+		while (i<personal.size()) {
+			Empleado e= personal.get(i);
+			String [] model = {e.getId(),e.getNombre(),e.getApellido(),"true"};
+			modeloTable.addRow(model);	
+			i++;
+		}
+		return modeloTable;}
+		else {
+			throw new EArrayVacio("No hay empleados");
+		}
+	}
+	
+	public DefaultTableModel ConsultaEmpleados(DefaultTableModel modeloTable,String palabra) throws EArrayVacio {
+		if(personal.get(0)!=null) {
+			int i=0;
+			while (i<personal.size()) {
+				Empleado e= personal.get(i);
+				if(palabra.compareTo("")==0||e.getNombre().toLowerCase().contains(palabra)||e.getApellido().toLowerCase().contains(palabra)||e.getId().toLowerCase().contains(palabra)) {
+					String [] model = {e.getId(),e.getNombre(),e.getApellido(),"true"};
+					modeloTable.addRow(model);	
+					i++;
+				}
+			}
+		return modeloTable;
+		}else {
+			throw new EArrayVacio("No hay empleados");
+		}
+}
 }
