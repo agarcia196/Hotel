@@ -74,6 +74,7 @@ public class Administrador extends Empleado implements Serializable {
 				break;
 			case "Cliente":
 				h.addUser(new Cliente(nombre, apellido, genero, correo, id, tipoId, cpwd));
+				break;
 			default:
 				throw new ETipoInconrrecto();
 			}

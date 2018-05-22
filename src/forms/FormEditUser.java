@@ -40,6 +40,7 @@ import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
@@ -66,6 +67,7 @@ public class FormEditUser extends JFrame {
 					fabio.addUser("Fabio", "Pedro", "Masculino", "xd", "6545", "Cedula", "12345678", "12345678", "Recepcion",hotel);
 					fabio.addUser("Fabio12", "Pedro", "Masculino", "xd", "6545", "Cedula", "12345678", "12345678", "Recepcion",hotel);
 					fabio.addUser("Fabio3213", "Pedro", "Masculino", "xd", "6545", "Cedula", "12345678", "12345678", "Recepcion",hotel);
+					fabio.addUser("Fabio3213", "Pedro", "Masculino", "xd", "6545", "Cedula", "12345678", "12345678", "Cliente",hotel);
 					hotel.addUser( Fabox);
 					FormEditUser frame = new FormEditUser(hotel, fabio);
 					frame.setVisible(true);
@@ -85,9 +87,9 @@ public class FormEditUser extends JFrame {
 		setExtendedState(MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 1366, 768);	
-		EditarUsuario(h);
+		//EditarUsuario(h);
 		lblEditar = new JLabel();
-		//Editar(persona);
+		Editar(persona,1);
 		
 		/*
 		lblLogin = new JLabel();
@@ -391,15 +393,21 @@ public class FormEditUser extends JFrame {
 		btnEliminarUsuario.setBounds(355, 482, 300, 40);
 		contentPane2.add(btnEliminarUsuario);
 		
-		JButton button = new JButton("");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		JLabel button = new JLabel();
+		button.setText("Back");
+		button.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
 				getContentPane().setVisible(false);
-				EditarUsuario(hotel);
+				if(p instanceof Cliente) {
+					dispose();
+				}
+				else {				
+				EditarUsuario(hotel);}
 			}
 		});
-		button.setIcon(new ImageIcon("C:\\Users\\MSI-PC\\Desktop\\Proyecto\\Hotel\\Icons\\back.png"));
-		button.setBounds(79, 118, 135, 124);
+		button.setIcon(new ImageIcon("Icons"+File.separator+"back1.png"));
+		button.setBounds(185, 296, 64, 64);
 		contentPane2.add(button);
 		JButton btnback = new JButton("back");
 		btnback.addActionListener(new ActionListener() {
@@ -478,33 +486,32 @@ public class FormEditUser extends JFrame {
 				}
 			});
 			
-			JComboBox TipoUsuario = new JComboBox();
+			JComboBox<String> TipoUsuario = new JComboBox<String>();
 			TipoUsuario.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					hotel.limpiarMenu(modeloTable);
 					String tipo=TipoUsuario.getSelectedItem().toString();
 					if(tipo=="Empleado") {
-						if(!hotel.getPersonal().isEmpty()) {
 							try {
 								hotel.ConsultaEmpleados(modeloTable,textFieldBuscar.getText());
 							} catch (EArrayVacio e) {
 								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						}else {
-							JOptionPane.showMessageDialog(null,"No hay empleados");
-						}
-		
+								JOptionPane.showMessageDialog(contentPane,e.getMessage());
+							}		
 					}else {
 						try {
 							h.ConsultaUsuarios(modeloTable);
 						} catch (EArrayVacio e) {
 							// TODO Auto-generated catch block
-							e.printStackTrace();
+							JOptionPane.showMessageDialog(contentPane,e.getMessage());
 						}
 					}
 				}
 			});
+			TipoUsuario.setFont(new Font("Century Gothic", Font.PLAIN, 30));
+			TipoUsuario.setModel(new DefaultComboBoxModel<String>(new String[] {"Cliente", "Empleado"}));
+			TipoUsuario.setBounds(919, 164, 138, 40);
+			contentPane.add(TipoUsuario);
 			
 			btnSeleccionar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -517,7 +524,7 @@ public class FormEditUser extends JFrame {
 								Editar(h.buscarEmpleado(table_1.getValueAt(table_1.getSelectedRow(),0).toString()),1);
 							} catch (ECliente e1) {
 								// TODO Auto-generated catch block
-								e1.printStackTrace();
+								JOptionPane.showMessageDialog(contentPane,e1.getMessage());
 							}
 						}else{
 							try {
@@ -525,7 +532,7 @@ public class FormEditUser extends JFrame {
 								Editar(h.buscarCliente(table_1.getValueAt(table_1.getSelectedRow(), 0).toString()),0);
 							} catch (ExceptionNodo e1) {
 								// TODO Auto-generated catch block
-								e1.printStackTrace();
+								JOptionPane.showMessageDialog(contentPane,e1.getMessage());
 							}
 						}
 					}
@@ -537,21 +544,7 @@ public class FormEditUser extends JFrame {
 			btnSeleccionar.setBounds(760, 600, 300, 40);
 			contentPane.add(btnSeleccionar);
 			
-			
-			TipoUsuario.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent arg0) {
-				}
-				@Override
-				public void mouseEntered(MouseEvent e) {
-				}
-			});
-			TipoUsuario.setFont(new Font("Century Gothic", Font.PLAIN, 30));
-			TipoUsuario.setModel(new DefaultComboBoxModel(new String[] {"Cliente", "Empleado"}));
-			TipoUsuario.setBounds(919, 164, 138, 40);
-			contentPane.add(TipoUsuario);
-			
-			
+		
 			
 			textFieldBuscar = new JTextField();
 			textFieldBuscar.setBounds(405, 164, 332, 40);
@@ -565,11 +558,14 @@ public class FormEditUser extends JFrame {
 			btnFiltrar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					hotel.limpiarMenu(modeloTable);
+					String tipo=TipoUsuario.getSelectedItem().toString();
 					try {
-						if(TipoUsuario.getSelectedItem().toString()=="Cliente") {
+						if(tipo=="Cliente") {
 							hotel.ConsultaUsuarios(modeloTable, textFieldBuscar.getText());
-						}else {
+						}else if(tipo=="Empleado"){
 							hotel.ConsultaEmpleados(modeloTable, textFieldBuscar.getText());
+						}else {
+							JOptionPane.showMessageDialog(contentPane, "Tipo de usuario no valido");
 						}
 					} catch (EArrayVacio e) {
 						// TODO Auto-generated catch block

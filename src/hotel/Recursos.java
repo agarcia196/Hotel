@@ -41,7 +41,7 @@ public class Recursos {
 			}
 
 		} catch (FileNotFoundException e) {
-			System.out.println("Problemas con la direcion para crear el fichero");
+			System.out.println("Problemas con la direccion para crear el fichero");
 		} catch (IOException e) {
 			System.out.println("El fichero tiene problemas para crearse");
 		} finally {

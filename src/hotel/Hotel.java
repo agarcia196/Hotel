@@ -172,15 +172,15 @@ public class Hotel implements Serializable{
 	}
 	
 	public DefaultTableModel ConsultaEmpleados(DefaultTableModel modeloTable,String palabra) throws EArrayVacio {
-		if(personal.get(0)!=null) {
+		if(!personal.isEmpty()) {
 			int i=0;
 			while (i<personal.size()) {
 				Empleado e= personal.get(i);
 				if(palabra.compareTo("")==0||e.getNombre().toLowerCase().contains(palabra)||e.getApellido().toLowerCase().contains(palabra)||e.getId().toLowerCase().contains(palabra)) {
 					String [] model = {e.getId(),e.getNombre(),e.getApellido(),"true"};
 					modeloTable.addRow(model);	
-					i++;
 				}
+				i++;
 			}
 		return modeloTable;
 		}else {
