@@ -75,7 +75,8 @@ public class FormMenuPrincipal extends JFrame {
 		setBounds(0, 0, 1366, 768);	
 
 		lblLogin = new JLabel();
-		lblLogin.setFont(new Font(font, Font.BOLD, fontsize));
+		lblLogin.setBounds(557, 64, 246, 50);
+		lblLogin.setFont(new Font(font, Font.BOLD, fontsize+20));
 		lblLogin.setForeground(Color.WHITE);
 		lblInfo = new JLabel("Info");
 		lblInfo.setBounds(200, 578, 100, 100);
@@ -84,6 +85,7 @@ public class FormMenuPrincipal extends JFrame {
 		lblInfo.setIcon(iconoinfo);
 		lblInfo.setVisible(false);
 		textArea = new JTextArea();
+		textArea.setBounds(310, 578, 766, 100);
 		textArea.setWrapStyleWord(true);
 		textArea.setTabSize(4);
 		textArea.setRows(3);
@@ -92,9 +94,9 @@ public class FormMenuPrincipal extends JFrame {
 		textArea.setFont(new Font(font, Font.ITALIC, fontsize-20));
 		textArea.setEditable(false);
 		textArea.setBackground(new Color(68, 178, 86));
-		textArea.setBounds(310, 578, 766, 100);
-		//vistaPrincipal();
-		vistaHotel();
+		vistaPrincipal();
+		//vistaHotel();
+		//vistaUsers();
 				
 	}
 	private void vistaHotel() {
@@ -240,13 +242,19 @@ public class FormMenuPrincipal extends JFrame {
 		lblUsuario.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				if(p instanceof Cliente) {
 				FormEditUser editar = new FormEditUser(h, p);
 				editar.setVisible(true);
+				}
+				if(p instanceof Recepcion || p instanceof Administrador) {
+					getContentPane().setVisible(false);;
+					vistaUsers();				
+				}
 			}
 			public void mouseEntered(MouseEvent arg0) {
-				if(p instanceof Cliente || p instanceof Recepcion )
-					textArea.setText("Aqu"+File.separator+"u00ed puedes editar t"+File.separator+"u00fa informaci"+File.separator+"u00f3n personal");
-				if(p instanceof Administrador)
+				if(p instanceof Cliente)
+					textArea.setText("Aqu\\u00ed puedes editar t"+File.separator+"u00fa informaci"+File.separator+"u00f3n personal");
+				if(p instanceof Recepcion || p instanceof Administrador)
 					textArea.setText("Aqu"+File.separator+"u00ed  puedes editar informaci"+File.separator+"u00f3n para de los usuarios");
 				lblInfo.setVisible(true);
 			}			
@@ -268,5 +276,83 @@ public class FormMenuPrincipal extends JFrame {
 		lblUsuario_1.setFont(new Font(font, Font.BOLD | Font.ITALIC, fontsize));
 		lblUsuario_1.setBounds(881, 450, 189, 60);
 		contentPane.add(lblUsuario_1);
+	}
+	private void vistaUsers() {
+		JPanel contentVistaUsuarios = new JPanel();
+		contentVistaUsuarios.setBackground(Color.decode(backgroundcolor));
+		contentVistaUsuarios.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentVistaUsuarios);
+		contentVistaUsuarios.setLayout(null);
+		contentVistaUsuarios.setLayout(null);
+		lblLogin.setText("Usuarios");
+		contentVistaUsuarios.add(lblLogin);
+		contentVistaUsuarios.add(lblInfo);
+		contentVistaUsuarios.add(textArea);
+					
+		JLabel lblServicio = new JLabel("Agregar");
+		lblServicio.setBounds(310, 200, 256, 256);
+		lblServicio.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				FormAddUser agregar = new FormAddUser(h, (Empleado)p);
+				agregar.setVisible(true);
+			}
+			public void mouseEntered(MouseEvent arg0) {
+				textArea.setText("Agregar Clientes"+(p instanceof Administrador) != null?"Administradores":""+"y Empleados");
+				lblInfo.setVisible(true);
+			}			
+			public void mouseExited(MouseEvent arg0) {
+				textArea.setText("");
+				lblInfo.setVisible(false);
+			}
+		});
+		Icon iconoservicio = new ImageIcon("Icons"+File.separator+"add-user.png");
+		lblServicio.setIcon(iconoservicio);	
+		contentVistaUsuarios.add(lblServicio);
+		
+		JLabel lblMenu = new JLabel("Editar");
+		lblMenu.setBounds(820, 200, 256, 256);
+		lblMenu.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				FormEditUser editar = new FormEditUser(h, (Empleado)p);
+				editar.setVisible(true);
+			}
+			public void mouseEntered(MouseEvent arg0) {
+				textArea.setText("Editar, elimina y busca Usuarios.");
+				lblInfo.setVisible(true);
+			}			
+			public void mouseExited(MouseEvent arg0) {
+				textArea.setText("");
+				lblInfo.setVisible(false);
+			}
+		});
+		Icon iconomenu = new ImageIcon("Icons"+File.separator+"edit-user.png");
+		lblMenu.setIcon(iconomenu);	
+		contentVistaUsuarios.add(lblMenu);
+		
+		JLabel lblServicio_1 = new JLabel("Agregar Usuario");
+		lblServicio_1.setBounds(283, 467, 314, 60);
+		lblServicio_1.setForeground(Color.WHITE);
+		lblServicio_1.setFont(new Font(font, Font.BOLD | Font.ITALIC, fontsize));
+		contentVistaUsuarios.add(lblServicio_1);
+		
+		JLabel lblMen = new JLabel("Editar Usuario");
+		lblMen.setBounds(820, 467, 273, 60);
+		lblMen.setForeground(Color.WHITE);
+		lblMen.setFont(new Font(font, Font.BOLD | Font.ITALIC, fontsize));
+		contentVistaUsuarios.add(lblMen);
+		
+		JLabel lblBack = new JLabel("Back");
+		lblBack.setBounds(185, 296, 64, 64);
+		lblBack.setIcon(new ImageIcon("Icons\\back1.png"));
+		lblBack.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				getContentPane().setVisible(false);
+				vistaPrincipal();
+			}
+		});
+		contentVistaUsuarios.add(lblBack);
 	}
 }
