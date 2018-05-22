@@ -54,10 +54,10 @@ public class Hotel implements Serializable{
 	public Hotel(String nombre) {
 		super();
 		this.nombre= nombre;
-		usuarios = new ACliente();
-		habitaciones = new ArrayList<Habitacion>();
-		personal = new ArrayList<Empleado>();
-		cocina= new Cocina();
+		this.usuarios = new ACliente();
+		this.habitaciones = new ArrayList<Habitacion>();
+		this.personal = new ArrayList<Empleado>();
+		this.cocina= new Cocina();
 	}
 	//AAGREGAR USUARIO CON COMBO BOX,EMPLEADO,ADMINISTRADOR Y CLIENTE.ELIMINAR USUARIO Y EDITAR USUARIO, 
 	public Cocina getCocina() {

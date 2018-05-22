@@ -52,7 +52,16 @@ public class FormEditUser extends JFrame {
 	private JLabel lblCocina ;
 	private JTable table_1;
 	private JTextField textFieldBuscar;
-	
+	private static final long serialVersionUID = 1858820207514553474L;
+	private JPanel contentPane2;
+	private final String backgroundcolor="#44b256";
+	private final String btncolor1= "#3a88db";
+	private final String txtcolor1= "#FFFFFF";
+	private final String font= "Century Gothic";
+	private final int fontsize=20;
+	private JLabel lblEditar;
+	private Hotel hotel;
+	private Persona p;
 	/**
 	 * Launch the application.
 	 */
@@ -79,7 +88,6 @@ public class FormEditUser extends JFrame {
 	}
 
 	public FormEditUser(Hotel h,Persona persona) {
-
 		hotel=h;
 		this.p=persona;
 		setTitle("Sign in");
@@ -87,29 +95,17 @@ public class FormEditUser extends JFrame {
 		setExtendedState(MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 1366, 768);	
-		//EditarUsuario(h);
+		EditarUsuario();
 		lblEditar = new JLabel();
-		Editar(persona,1);
+		//Editar(persona,1);
 		
-		/*
-		lblLogin = new JLabel();
-		if(p instanceof Cliente) {
-		Editar(p);}
+	/*	if(p instanceof Cliente) {
+		Editar(p,1);}
 		else{
-		EditarUsuario();}
+		EditarUsuario();}*/
 		//EditarUsuario();
-		 * */
 	}
-	private static final long serialVersionUID = 1858820207514553474L;
-	private JPanel contentPane2;
-	private final String backgroundcolor="#44b256";
-	private final String btncolor1= "#3a88db";
-	private final String txtcolor1= "#FFFFFF";
-	private final String font= "Century Gothic";
-	private final int fontsize=20;
-	private JLabel lblEditar;
-	private Hotel hotel;
-	private Persona p;
+	
 
 	
 	/**
@@ -384,7 +380,7 @@ public class FormEditUser extends JFrame {
 				//Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
 				JOptionPane.showMessageDialog(null, "El estado de la cuenta a pasado a inactivo");
 				getContentPane().setVisible(false);
-				EditarUsuario(hotel);
+				EditarUsuario();
 			}
 		});
 		btnEliminarUsuario.setForeground(Color.WHITE);
@@ -403,34 +399,17 @@ public class FormEditUser extends JFrame {
 					dispose();
 				}
 				else {				
-				EditarUsuario(hotel);}
+				EditarUsuario();
+				}
 			}
 		});
 		button.setIcon(new ImageIcon("Icons"+File.separator+"back1.png"));
 		button.setBounds(185, 296, 64, 64);
 		contentPane2.add(button);
-		JButton btnback = new JButton("back");
-		btnback.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(contentPane2,"Aqui iria hacia donde regresa");
-				//contentPane2.setVisible(false);
-				//vistaLogin();
-			}
-			
-		});
 	}
 		
 		
-	private void EditarUsuario(Hotel h) {
-			hotel=h;
-			setForeground(Color.WHITE);
-			setExtendedState(MAXIMIZED_BOTH);
-			setFont(new Font(font, Font.PLAIN, 14));
-			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			setTitle("Cocina");
-			setIconImage(Toolkit.getDefaultToolkit().getImage("Icons\\oficcial.png"));
-			setBounds(0, 0, 1366, 768);
-			
+	private void EditarUsuario() {			
 			contentPane = new JPanel();
 			contentPane.setBackground(Color.decode(backgroundcolor));
 			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -448,6 +427,18 @@ public class FormEditUser extends JFrame {
 			lblInfo.setIcon(iconoinfo);
 			lblInfo.setVisible(false);
 			contentPane.add(lblInfo);
+			
+			JLabel button = new JLabel();
+			button.setText("Back");
+			button.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					dispose();
+				}
+			});
+			button.setIcon(new ImageIcon("Icons"+File.separator+"back1.png"));
+			button.setBounds(185, 296, 64, 64);
+			contentPane.add(button);
 			
 			JLabel InfoSeleccionar = new JLabel("Editar el usuario seleccionado\r\n");
 			InfoSeleccionar.setFont(new Font("Century Gothic", Font.PLAIN, 25));
@@ -469,7 +460,7 @@ public class FormEditUser extends JFrame {
 			table_1 = new JTable(modeloTable);							//cargar modelo en la tabla
 			scrollPane.setViewportView(table_1);
 			try {
-				h.ConsultaUsuarios(modeloTable);
+				hotel.ConsultaUsuarios(modeloTable);
 			} catch (EArrayVacio e) {
 				// TODO Auto-generated catch block
 				JOptionPane.showMessageDialog(contentPane, e.getMessage());
@@ -500,7 +491,7 @@ public class FormEditUser extends JFrame {
 							}		
 					}else {
 						try {
-							h.ConsultaUsuarios(modeloTable);
+							hotel.ConsultaUsuarios(modeloTable);
 						} catch (EArrayVacio e) {
 							// TODO Auto-generated catch block
 							JOptionPane.showMessageDialog(contentPane,e.getMessage());
@@ -521,7 +512,7 @@ public class FormEditUser extends JFrame {
 						if(TipoUsuario.getSelectedItem().toString()=="Empleado") {
 							getContentPane().setVisible(false);
 							try {
-								Editar(h.buscarEmpleado(table_1.getValueAt(table_1.getSelectedRow(),0).toString()),1);
+								Editar(hotel.buscarEmpleado(table_1.getValueAt(table_1.getSelectedRow(),0).toString()),1);
 							} catch (ECliente e1) {
 								// TODO Auto-generated catch block
 								JOptionPane.showMessageDialog(contentPane,e1.getMessage());
@@ -529,7 +520,7 @@ public class FormEditUser extends JFrame {
 						}else{
 							try {
 								getContentPane().setVisible(false);
-								Editar(h.buscarCliente(table_1.getValueAt(table_1.getSelectedRow(), 0).toString()),0);
+								Editar(hotel.buscarCliente(table_1.getValueAt(table_1.getSelectedRow(), 0).toString()),0);
 							} catch (ExceptionNodo e1) {
 								// TODO Auto-generated catch block
 								JOptionPane.showMessageDialog(contentPane,e1.getMessage());
