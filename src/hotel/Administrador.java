@@ -4,6 +4,7 @@
 package hotel;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -53,12 +54,12 @@ public class Administrador extends Empleado implements Serializable {
 	 * @param h El hotel
 	 * @throws ECamposVacios the e campos vac�os
 	 */
-	public void addHabitacion(String iD, String tipo,Hotel h) throws ECamposVacios {
+	public void addHabitacion(String iD, String tipo,Hotel h, double costo) throws ECamposVacios {
 		if (iD.compareTo("")==0 ||tipo.compareTo("")==0) {
 			throw new ECamposVacios();
 		}
 		else {
-			h.addHabitacion(new Habitacion(iD, tipo));
+			h.addHabitacion(new Habitacion(iD, tipo, costo));
 		}
 	}
 	
@@ -141,19 +142,19 @@ public class Administrador extends Empleado implements Serializable {
 
 
 	@Override
-	public boolean editReserva(String id, Date dateIn, Date dateOut, Habitacion habitacion) {
+	public boolean editReserva(String id, LocalDate dateIn, LocalDate dateOut, Habitacion habitacion) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean addReserva(Date dateIn, Date dateOut, String tipo, Hotel hotel) {
+	public boolean addReserva(LocalDate dateIn, LocalDate dateOut, String tipo, Hotel hotel) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public Reserva buscarReserva(Date dateIn) {
+	public Reserva buscarReserva(LocalDate dateIn) {
 		// TODO Auto-generated method stub
 		return null;
 	}

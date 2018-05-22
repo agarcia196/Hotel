@@ -2,6 +2,7 @@ package hotel;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import arbol.ABB;
@@ -21,7 +22,7 @@ public class Hotel implements Serializable{
 	//Prueba
 	public static void main(String[] args) {
 		Hotel h = new Hotel("Trivago");
-		Habitacion h1 = new Habitacion("301A", "VIP");
+		Habitacion h1 = new Habitacion("301A", "VIP", 1233);
 		Administrador e = new Administrador("Lopez", "Daniel", "Sin especificar", "DD", "123", "CC", "123");
 		Empleado c= new Recepcion("Juan", "Carlos", "Mas", "juan@", "01", "cedula", "2");
 		h.addHabitacion(h1);
@@ -77,7 +78,7 @@ public class Hotel implements Serializable{
 	}
 	
 	// buscar reserva 
-	public Reserva buscarReserva (String cedula,Date in) throws ExceptionNodo {
+	public Reserva buscarReserva (String cedula,LocalDate in) throws ExceptionNodo {
 		Cliente c1=buscarCliente(cedula);
 		if(c1.getReservasActivas().contains(in)) {
 			return c1.buscarReserva(in);
@@ -186,5 +187,22 @@ public class Hotel implements Serializable{
 		}else {
 			throw new EArrayVacio("No hay empleados");
 		}
-}
+	}
+	
+	public DefaultTableModel printHabitaciones(DefaultTableModel modeloTable, LocalDate in, LocalDate out) throws EArrayVacio {
+		if(this.getHabitaciones().size()>0) {
+		int i=0;
+		while (i<habitaciones.size() ) {
+			if ( this.getHabitaciones().get(i).verDisponibilidad(in, out)) {
+			String [] model = {habitaciones.get(i).getID(),habitaciones.get(i).getTipo(),Double.toString(habitaciones.get(i).getPrecioNoche())};
+			modeloTable.addRow(model);
+			}
+			i++;
+			
+		}
+		return modeloTable;}
+		else {
+			throw new EArrayVacio("No hay habitaciones disponibles");
+		}
+	}
 }

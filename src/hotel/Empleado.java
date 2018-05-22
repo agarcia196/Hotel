@@ -23,7 +23,7 @@ public abstract class Empleado extends Persona implements Usuario, Serializable 
 		
 		if (cliente != null) {
 			
-			Date hoy = new Date ();
+			LocalDate hoy = LocalDate.now();
 			Reserva reserva = cliente.buscarReserva (hoy);
 			
 			if (reserva != null) {
@@ -82,5 +82,14 @@ public abstract class Empleado extends Persona implements Usuario, Serializable 
 	public void addUser(Cliente c) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public boolean addReserva(LocalDate dateIn, LocalDate dateOut, String ID, Hotel hotel, String cedula) throws ExceptionNodo {
+		Cliente cliente;
+		
+		cliente = hotel.buscarCliente(cedula);
+		
+		cliente.addReserva(dateIn, dateOut, ID, hotel);
+		return false;
 	}
 }

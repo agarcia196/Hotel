@@ -94,6 +94,7 @@ public class Recepcion extends Empleado {
 		// TODO Auto-generated method stub
 		
 	}
+	
 
 
 
