@@ -25,8 +25,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import exception.EArrayVacio;
+import exception.ECamposVacios;
 import exception.ECliente;
 import exception.EIgualdad;
+import exception.ELongitud;
 import exception.ExceptionNodo;
 import hotel.Administrador;
 import hotel.Cliente;
@@ -78,7 +80,7 @@ public class FormEditUser extends JFrame {
 					fabio.addUser("Fabio3213", "Pedro", "Masculino", "xd", "6545", "Cedula", "12345678", "12345678", "Recepcion",hotel);
 					fabio.addUser("Fabio3213", "Pedro", "Masculino", "xd", "6545", "Cedula", "12345678", "12345678", "Cliente",hotel);
 					hotel.addUser( Fabox);
-					FormEditUser frame = new FormEditUser(hotel, fabio);
+					FormEditUser frame = new FormEditUser(hotel,Fabox,fabio);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -87,7 +89,7 @@ public class FormEditUser extends JFrame {
 		});
 	}
 
-	public FormEditUser(Hotel h,Persona persona) {
+	public FormEditUser(Hotel h,Persona persona,Administrador a) {
 		hotel=h;
 		this.p=persona;
 		setTitle("Sign in");
@@ -95,9 +97,9 @@ public class FormEditUser extends JFrame {
 		setExtendedState(MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 1366, 768);	
-		//EditarUsuario();
+		//EditarUsuario(a);
 		lblEditar = new JLabel();
-		Editar(persona,1);
+	Editar(persona,a,1);
 		
 	/*	if(p instanceof Cliente) {
 		Editar(p,1);}
@@ -111,9 +113,10 @@ public class FormEditUser extends JFrame {
 	/**
 	 * Create the frame.
 	 * @param CEC 
+	 * @param h 
 	 */
 	
-	private void Editar(Persona CEC,int ind) {
+	private void Editar(Persona CEC,Administrador a,int ind) {
 		
 		JPasswordField contraseña,ccontraseña;
 		JTextField txtapellido,txtncedula,txtemail,Nombre;
@@ -279,39 +282,54 @@ public class FormEditUser extends JFrame {
 						"¿Está seguro de las modificaciones realizadas?");
 				if (validar == 0) {
 					try {
+						a.editUser(Nombre.getText().toString(),txtapellido.getText().toString(),genero.getText().toString(),txtemail.getText().toString(),
+								txtncedula.getText().toString(),String.valueOf(contraseña.getPassword()),String.valueOf(ccontraseña.getPassword()), hotel, CEC,ind);
+					} catch (ECamposVacios | EIgualdad | ELongitud e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				/*
+					try {
+					
+					}
 						if(ind==1) {
-							if(Recursos.validarIgualdadPwd(contraseña.getPassword().toString(), ccontraseña.getPassword().toString())) {
-								Cliente c;
+							if(Recursos.validarIgualdadPwd((String.valueOf(contraseña.getPassword())),(String.valueOf(ccontraseña.getPassword())))) {
 								try {
-									hotel.getUsuarios().buscarS(CEC.getId()).setLlave(new Cliente(Nombre.getText().toString(),txtapellido.getText().toString(),CEC.getGenero(),txtemail.getText().toString(),txtncedula.getText().toString(),
-										cbtipodedocumento.getSelectedItem().toString(),contraseña.toString()));
-										Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
-								} catch (ExceptionNodo e) {
+									a.editUser(Nombre.getText().toString(),txtapellido.getText().toString(),genero.getText().toString(),txtemail.getText().toString(),
+											txtncedula.getText().toString(),contraseña.getPassword().toString(),ccontraseña.getPassword().toString(), hotel, CEC,ind);
+								} catch (ECamposVacios e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								} catch (ELongitud e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
+									Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
 							}else {
 								JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden");
 							}
 						}else {
-							Empleado c=(Empleado) CEC;
-							if(Recursos.validarIgualdadPwd(contraseña.getPassword().toString(), ccontraseña.getPassword().toString())){
-								if(Recursos.validarIgualdadPwd(contraseña.getPassword().toString(), ccontraseña.getPassword().toString())||Recursos.validarIgualdadPwd(CEC.getPwd().toString(), contraseña.getPassword().toString())){
-									CEC.setNombre(Nombre.getText().toString());CEC.setApellido(txtapellido.getText().toString());CEC.setCorreo(txtemail.getText().toString());
-									CEC.setId(txtncedula.getText().toString());
-								}
-						}else {
-							CEC.setNombre(Nombre.getText().toString());CEC.setApellido(txtapellido.getText().toString());CEC.setCorreo(txtemail.getText().toString());
-							CEC.setId(txtncedula.getText().toString());CEC.setPwd(contraseña.getPassword().toString());
+							try {
+								a.editUser(Nombre.getText().toString(),txtapellido.getText().toString(),genero.getText().toString(),txtemail.getText().toString(),
+										txtncedula.getText().toString(),contraseña.getPassword().toString(),ccontraseña.getPassword().toString(), hotel, CEC,ind);
+							} catch (ECamposVacios e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (ELongitud e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						
 						}
-						}
-							
-						}catch (HeadlessException | EIgualdad e) {
+					}catch (HeadlessException | EIgualdad e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-						}
+						}*/
+				}else {
+					JOptionPane.showMessageDialog(null, "Seleccione un usuario a editar");
 				}
 			}
+							
 			
 		});
 		signup.setBounds(770, 482, 250, 40);
@@ -380,7 +398,7 @@ public class FormEditUser extends JFrame {
 				//Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
 				JOptionPane.showMessageDialog(null, "El estado de la cuenta a pasado a inactivo");
 				getContentPane().setVisible(false);
-				EditarUsuario();
+				EditarUsuario(a);
 			}
 		});
 		btnEliminarUsuario.setForeground(Color.WHITE);
@@ -395,12 +413,15 @@ public class FormEditUser extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				getContentPane().setVisible(false);
-				if(p instanceof Cliente) {
+				/*if(p instanceof Cliente) {
 					dispose();
 				}
 				else {				
-				EditarUsuario();
+				EditarUsuario(a);
 				}
+			}
+			*/
+				EditarUsuario(a);
 			}
 		});
 		button.setIcon(new ImageIcon("Icons"+File.separator+"back1.png"));
@@ -421,7 +442,7 @@ public class FormEditUser extends JFrame {
 	}
 		
 		
-	private void EditarUsuario() {			
+	private void EditarUsuario(Administrador a) {			
 			contentPane = new JPanel();
 			contentPane.setBackground(Color.decode(backgroundcolor));
 			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -518,13 +539,13 @@ public class FormEditUser extends JFrame {
 			
 			btnSeleccionar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					if(table_1.getSelectedRow()==-1) {			//comprobar que se seleccione una fila
+					if(table_1.getSelectedRow()==-1) {		
 						JOptionPane.showMessageDialog(contentPane, "Seleccione un usuario para editar");
-					}else {//si se selecciona fila pasar contenido del sku al textfile del form para agregar producto
+					}else {
 						if(TipoUsuario.getSelectedItem().toString()=="Empleado") {
 							getContentPane().setVisible(false);
 							try {
-								Editar(hotel.buscarEmpleado(table_1.getValueAt(table_1.getSelectedRow(),0).toString()),1);
+								Editar(hotel.buscarEmpleado(table_1.getValueAt(table_1.getSelectedRow(),0).toString()),a,1);
 							} catch (ECliente e1) {
 								// TODO Auto-generated catch block
 								JOptionPane.showMessageDialog(contentPane,e1.getMessage());
@@ -532,7 +553,7 @@ public class FormEditUser extends JFrame {
 						}else{
 							try {
 								getContentPane().setVisible(false);
-								Editar(hotel.buscarCliente(table_1.getValueAt(table_1.getSelectedRow(), 0).toString()),0);
+								Editar(hotel.buscarCliente(table_1.getValueAt(table_1.getSelectedRow(), 0).toString()),a,0);
 							} catch (ExceptionNodo e1) {
 								// TODO Auto-generated catch block
 								JOptionPane.showMessageDialog(contentPane,e1.getMessage());

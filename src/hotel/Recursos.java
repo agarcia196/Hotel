@@ -115,4 +115,12 @@ public class Recursos {
 		 else
 			 return true;
 	 }
+	 
+	 public static boolean validarCamposVaciosU(String nombre, String apellido, String genero, String correo, String id,
+				String pwd, String cpwd) throws ECamposVacios {
+		 if (nombre.compareTo("")==0 ||apellido.compareTo("")==0 || id.compareTo("")==0 
+					|| pwd.compareTo("") == 0 ||cpwd.compareTo("") == 0)throw new ECamposVacios();
+		 else
+			 return true;
+	 }
 }

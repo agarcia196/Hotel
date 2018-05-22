@@ -65,7 +65,14 @@ public abstract class Empleado extends Persona implements Usuario, Serializable 
 		
 		
 	}
-	
+	public String getActivo(boolean A) {
+		A=isActivo();
+		if(A==true) {
+			return "Activa";
+		}else {
+			return "Inactiva";
+		}
+	}
 	
 	public void addEmpleado(Persona c) {
 		// TODO Auto-generated method stub

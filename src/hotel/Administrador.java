@@ -105,6 +105,17 @@ public class Administrador extends Empleado implements Serializable {
 			}
 	}
 	
+	public void editUser(String nombre, String apellido, String genero, String correo, String id,
+			String pwd, String cpwd, Hotel h,Persona c, int ind) throws ECamposVacios, EIgualdad, ELongitud {
+		Recursos.validarCamposVaciosU(nombre, apellido, genero, correo, id, pwd, cpwd);
+		Recursos.validarLongitudPwd(cpwd);
+		Recursos.validarIgualdadPwd(pwd, cpwd);
+		c.setNombre(nombre);
+		c.setApellido(apellido);
+		c.setCorreo(correo);
+		c.setPwd(cpwd);
+	}
+	
 
 	@Override
 	public void cancelReserva() {

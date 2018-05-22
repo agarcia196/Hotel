@@ -161,7 +161,7 @@ public class Hotel implements Serializable{
 		int i=0;
 		while (i<personal.size()) {
 			Empleado e= personal.get(i);
-			String [] model = {e.getId(),e.getNombre(),e.getApellido(),"true"};
+			String [] model = {e.getId(),e.getNombre(),e.getApellido(),e.getActivo(e.isActivo())};
 			modeloTable.addRow(model);	
 			i++;
 		}
@@ -177,7 +177,7 @@ public class Hotel implements Serializable{
 			while (i<personal.size()) {
 				Empleado e= personal.get(i);
 				if(palabra.compareTo("")==0||e.getNombre().toLowerCase().contains(palabra)||e.getApellido().toLowerCase().contains(palabra)||e.getId().toLowerCase().contains(palabra)) {
-					String [] model = {e.getId(),e.getNombre(),e.getApellido(),"true"};
+					String [] model = {e.getId(),e.getNombre(),e.getApellido(),e.getActivo(e.isActivo())};
 					modeloTable.addRow(model);	
 				}
 				i++;
