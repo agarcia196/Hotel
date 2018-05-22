@@ -3,6 +3,7 @@
  */
 package hotel;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -32,7 +33,7 @@ public interface Usuario {
 	/**
 	* Agregar reserva.
 	*/
-	public boolean addReserva (Date dateIn, Date dateOut, String tipo, Hotel hotel);
+	boolean addReserva(LocalDate dateIn, LocalDate dateOut, String tipo, Hotel hotel);
 	/**
 	 * Cancelar reserva.
 	 */
@@ -40,7 +41,7 @@ public interface Usuario {
 	/**
 	 * Editar reserva.
 	 */
-	public boolean editReserva (String id, Date dateIn, Date dateOut, Habitacion habitacion);
+	public boolean editReserva (String id, LocalDate dateIn, LocalDate dateOut, Habitacion habitacion);
 	/**
 	 * Verificar reserva.
 	 */
@@ -51,10 +52,13 @@ public interface Usuario {
 	 * 
 	 */
 	public Reserva buscarReserva (String id);
-	public Reserva buscarReserva (Date dateIn);
+	public Reserva buscarReserva (LocalDate dateIn);
 	/**
 	 
 	 */
+
+
+	
 	
 	
 	

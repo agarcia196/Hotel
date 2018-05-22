@@ -1,6 +1,7 @@
 package hotel;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public abstract class Persona implements Serializable{
 
@@ -94,6 +95,21 @@ public abstract class Persona implements Serializable{
 	@Override
 	public String toString() {
 		return "Persona [nombre=" + nombre + ", id=" + id +  "]";//", genero=" + genero + ", correo=" + correo+ ", id=" + id + ", tipoId=" + tipoId + ", pwd=" + pwd + "]";
+	}
+
+	public boolean addReserva(LocalDate dateIn, LocalDate dateOut, String tipo, Hotel hotel) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public Reserva buscarReserva(LocalDate dateIn) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public boolean addReserva(LocalDate dateIn, LocalDate dateOut, String tipo, Hotel hotel, Cliente cliente) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	

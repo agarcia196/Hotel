@@ -1,6 +1,7 @@
 package hotel;
 
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -52,11 +53,11 @@ public class Cliente extends Persona implements Usuario,Comparable<Cliente> {
 
 
 	@Override
-	public boolean addReserva (Date dateIn, Date dateOut, String tipo, Hotel hotel) {
+	public boolean addReserva (LocalDate dateIn, LocalDate dateOut, String ID, Hotel hotel) {
 
 		int i = 0;
 		
-		while (i < hotel.getHabitaciones ().size () && (hotel.getHabitaciones().get(i).getTipo() != tipo || !hotel.getHabitaciones().get (i).isDisponible ())) {
+		while (i < hotel.getHabitaciones ().size () && (hotel.getHabitaciones().get(i).getID() != ID || !hotel.getHabitaciones().get (i).isDisponible ())) {
 			
 			i++;
 		}
@@ -75,7 +76,7 @@ public class Cliente extends Persona implements Usuario,Comparable<Cliente> {
 
 
 	@Override
-	public boolean editReserva (String id, Date dateIn, Date dateOut, Habitacion habitacion) {
+	public boolean editReserva (String id, LocalDate dateIn, LocalDate dateOut, Habitacion habitacion) {
 
 		Reserva reserva = buscarReserva (id);
 		
@@ -146,7 +147,7 @@ public class Cliente extends Persona implements Usuario,Comparable<Cliente> {
 
 
 	@Override
-	public Reserva buscarReserva (Date dateIn) {
+	public Reserva buscarReserva (LocalDate dateIn) {
 		
 		int i = 0;
 		

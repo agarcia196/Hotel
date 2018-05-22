@@ -1,11 +1,17 @@
 package hotel;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Date;
+
+import javax.swing.table.DefaultTableModel;
+
+import exception.EArrayVacio;
 
 public class Reserva implements Serializable {
 	private static final long serialVersionUID = 8428205740350054875L;
-	private Date date_in,date_out;
+	private LocalDate date_in,date_out;
 	private Habitacion habitacion;
 	private String id;
 	private double tarifa;
@@ -16,22 +22,22 @@ public class Reserva implements Serializable {
 	private static int numeroDeReservas = 0;
 	
 	
-	public Date getDate_in() {
+	public LocalDate getDate_in() {
 		return date_in;
 	}
 
 
-	public void setDate_in(Date date_in) {
+	public void setDate_in(LocalDate date_in) {
 		this.date_in = date_in;
 	}
 
 
-	public Date getDate_out() {
+	public LocalDate getDate_out() {
 		return date_out;
 	}
 
 
-	public void setDate_out(Date date_out) {
+	public void setDate_out(LocalDate date_out) {
 		this.date_out = date_out;
 	}
 
@@ -47,7 +53,7 @@ public class Reserva implements Serializable {
 	}
 
 
-	public Reserva(Date date_in, Date date_out, Habitacion habitacion, String id) {
+	public Reserva(LocalDate date_in, LocalDate date_out, Habitacion habitacion, String id) {
 		super();
 		this.date_in = date_in;
 		this.date_out = date_out;
@@ -58,7 +64,7 @@ public class Reserva implements Serializable {
 	}
 
 
-	public Reserva (Date in,Date out,Habitacion h) {
+	public Reserva (LocalDate in,LocalDate out,Habitacion h) {
 		
 		date_in=in;
 		date_out=out;
@@ -68,25 +74,25 @@ public class Reserva implements Serializable {
 	}
 	
 		
-	public Date getLlegada() {
+	public LocalDate getLlegada() {
 		return date_in;
 	}
 
 
 
-	public void setLlegada(Date llegada) {
+	public void setLlegada(LocalDate llegada) {
 		date_in = llegada;
 	}
 
 
 
-	public Date getSalida() {
+	public LocalDate getSalida() {
 		return date_out;
 	}
 
 
 
-	public void setSalida(Date salida) {
+	public void setSalida(LocalDate salida) {
 		date_out = salida;
 	}
 
@@ -116,7 +122,13 @@ public class Reserva implements Serializable {
 
 
 
-	public void CalcularTarifa() {
+	public double CalcularTarifa() {
+		
+		Period dias ;
+		
+		dias =  Period.between(date_in,date_out);
+		tarifa= habitacion.getPrecioNoche()*(dias.getDays());
+		return tarifa;
 		
 	}
 
@@ -129,4 +141,6 @@ public class Reserva implements Serializable {
 	public void setIdReserva(String idReserva) {
 		this.idReserva = idReserva;
 	}
+	
+	
 }
