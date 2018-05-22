@@ -18,6 +18,8 @@ import javax.swing.border.LineBorder;
 import exception.ECamposVacios;
 import exception.EIgualdad;
 import exception.ELongitud;
+import exception.ETipoInconrrecto;
+import exception.ExceptionNodo;
 import hotel.Administrador;
 import hotel.Cliente;
 import hotel.Empleado;
@@ -177,9 +179,9 @@ public class FormAddUser extends JFrame {
 		contentPane2.add(cbtipodedocumento);
 		
 		JComboBox<String> TipoDeUsuario = new JComboBox<String>();
-		TipoDeUsuario.setModel(new DefaultComboBoxModel<String>(new String[] {"Cliente", "Empleado", "Administrador"}));
+		TipoDeUsuario.setModel(new DefaultComboBoxModel(new String[] {"Cliente", "Empleado", "Administrador", "Chef"}));
 		TipoDeUsuario.setFont(new Font("Century Gothic", Font.PLAIN, 40));
-		TipoDeUsuario.setBounds(695, 83, 294, 40);
+		TipoDeUsuario.setBounds(355, 484, 294, 40);
 		contentPane2.add(TipoDeUsuario);
 		
 		username = new JLabel("");
@@ -238,76 +240,24 @@ public class FormAddUser extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				int validar = JOptionPane.showConfirmDialog(contentPane2,
 						"¿Está seguro de que la información es correcta?");
-				if (validar == 0) {
-					if(TipoDeUsuario.getSelectedItem().toString()=="Usuario") {
-							try {
-								Recursos.validarCamposVaciosU(txtUserName.getText(), txtapellido.getText(), 
-										cbgenero.getSelectedItem().toString(), txtemail.getText(),txtncedula.getText(), 
-										cbtipodedocumento.getSelectedItem().toString(), String.valueOf(contraseña.getPassword()), 
-										String.valueOf(ccontraseña.getPassword()), "Visitante");
-								Recursos.validarLongitudPwd(String.valueOf(contraseña.getPassword()));
-								Recursos.validarIgualdadPwd(String.valueOf(contraseña.getPassword()), String.valueOf(ccontraseña.getPassword()));
+				try {
+					p.addUser(txtUserName.getText(), txtapellido.getText(), cbgenero.getSelectedItem().toString(), txtemail.getText(),txtncedula.getText(), cbtipodedocumento.getSelectedItem().toString(),  String.valueOf(contraseña.getPassword()), String.valueOf(ccontraseña.getPassword()), TipoDeUsuario.getSelectedItem().toString(), hotel);
+					Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
+					int validar1 = JOptionPane.showConfirmDialog(contentPane2, "Se ha agregado correctamente,¿Desea agregar otro?");
+					if(validar1==0) {
+					dispose();
+					FormAddUser form=new FormAddUser(hotel,p);
+					form.setVisible(true);
 					
-								Cliente c = new Cliente(txtUserName.getText(), txtapellido.getText(), 
-										cbgenero.getSelectedItem().toString(), txtemail.getText(),txtncedula.getText(), 
-										cbtipodedocumento.getSelectedItem().toString(), String.valueOf(contraseña.getPassword()));
-								p.addUser(c);
-								Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
-								JOptionPane.showMessageDialog(contentPane2, "Registro realizado");
-								//contentPane2.setVisible(false);
-								//vistaLogin();
-							} catch (ECamposVacios | EIgualdad | ELongitud e) {
-								// TODO Auto-generated catch block
-								JOptionPane.showMessageDialog(contentPane2, e.getMessage());
-							}
-						}else{
-							if(TipoDeUsuario.getSelectedItem().toString()=="Empleado") {
-								try {
-									Recursos.validarCamposVaciosU(txtUserName.getText(), txtapellido.getText(), 
-											cbgenero.getSelectedItem().toString(), txtemail.getText(),txtncedula.getText(), 
-											cbtipodedocumento.getSelectedItem().toString(), String.valueOf(contraseña.getPassword()), 
-											String.valueOf(ccontraseña.getPassword()), "Visitante");
-									Recursos.validarLongitudPwd(String.valueOf(contraseña.getPassword()));
-									Recursos.validarIgualdadPwd(String.valueOf(contraseña.getPassword()), String.valueOf(ccontraseña.getPassword()));
-						
-									Administrador c = new Administrador(txtUserName.getText(), txtapellido.getText(), 
-											cbgenero.getSelectedItem().toString(), txtemail.getText(),txtncedula.getText(), 
-											cbtipodedocumento.getSelectedItem().toString(), String.valueOf(contraseña.getPassword()));
-									p.addEmpleado(c);
-									Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
-									JOptionPane.showMessageDialog(contentPane2, "Registro realizado");
-									//contentPane2.setVisible(false);
-									//vistaLogin();
-								} catch (ECamposVacios | EIgualdad | ELongitud e) {
-									// TODO Auto-generated catch block
-									JOptionPane.showMessageDialog(contentPane2, e.getMessage());
-								}
-							}else {
-								if(TipoDeUsuario.getSelectedItem().toString()=="Administrador") {
-									try {
-										Recursos.validarCamposVaciosU(txtUserName.getText(), txtapellido.getText(), 
-												cbgenero.getSelectedItem().toString(), txtemail.getText(),txtncedula.getText(), 
-												cbtipodedocumento.getSelectedItem().toString(), String.valueOf(contraseña.getPassword()), 
-												String.valueOf(ccontraseña.getPassword()), "Visitante");
-										Recursos.validarLongitudPwd(String.valueOf(contraseña.getPassword()));
-										Recursos.validarIgualdadPwd(String.valueOf(contraseña.getPassword()), String.valueOf(ccontraseña.getPassword()));
+					}
+					if(validar1==1) {
+						dispose();
+					}
 							
-										//Administrador c = new Administrador(txtUserName.getText(), txtapellido.getText(), 
-										//		cbgenero.getSelectedItem().toString(), txtemail.getText(),txtncedula.getText(), 
-										//		cbtipodedocumento.getSelectedItem().toString(), String.valueOf(contraseña.getPassword()));
-										//AGREGAR ADMINISTRADOR
-										Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
-										JOptionPane.showMessageDialog(contentPane2, "Registro realizado");
-										//contentPane2.setVisible(false);
-										//vistaLogin();
-									} catch (ECamposVacios | EIgualdad | ELongitud e) {
-										// TODO Auto-generated catch block
-										JOptionPane.showMessageDialog(contentPane2, e.getMessage());
-									}
-								}
-							}
-						}
+				} catch (ELongitud | ECamposVacios | EIgualdad | ETipoInconrrecto | ExceptionNodo e) {
+					JOptionPane.showMessageDialog(contentPane2,e);
 				}
+				
 			}
 			
 		});
