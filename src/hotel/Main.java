@@ -11,8 +11,7 @@ public class Main {
 		// TODO Auto-generated method stub
 		File file = new File("hotel.dat");
 		if(file.exists()) {
-			Hotel hotel = new Hotel();
-			hotel = Recursos.ReadFileObjectEmpresa("hotel.dat");
+			Hotel hotel = Recursos.ReadFileObjectEmpresa("hotel.dat");
 			FormLogin inicio = new FormLogin(hotel);
 			inicio.setVisible(true);
 		}else {

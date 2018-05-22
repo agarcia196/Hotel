@@ -4,9 +4,7 @@
 package hotel;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-
 import exception.ECamposVacios;
 import exception.EIgualdad;
 import exception.ELongitud;
@@ -74,6 +72,9 @@ public class Administrador extends Empleado implements Serializable {
 				break;
 			case "Cliente":
 				h.addUser(new Cliente(nombre, apellido, genero, correo, id, tipoId, cpwd));
+				break;
+			case "Chef":
+				h.addEmpleado(new Chef(nombre, apellido, genero, correo, id, tipoId, cpwd));
 				break;
 			default:
 				throw new ETipoInconrrecto();
