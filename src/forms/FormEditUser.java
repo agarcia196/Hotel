@@ -95,9 +95,9 @@ public class FormEditUser extends JFrame {
 		setExtendedState(MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 1366, 768);	
-		EditarUsuario();
+		//EditarUsuario();
 		lblEditar = new JLabel();
-		//Editar(persona,1);
+		Editar(persona,1);
 		
 	/*	if(p instanceof Cliente) {
 		Editar(p,1);}
@@ -314,7 +314,7 @@ public class FormEditUser extends JFrame {
 			}
 			
 		});
-		signup.setBounds(720, 482, 300, 40);
+		signup.setBounds(770, 482, 250, 40);
 		contentPane2.add(signup);
 		
 		JSeparator separator = new JSeparator();
@@ -371,7 +371,7 @@ public class FormEditUser extends JFrame {
 		lblConfirmarContrasea.setBounds(720, 401, 240, 15);
 		contentPane2.add(lblConfirmarContrasea);
 		
-		JButton btnEliminarUsuario = new JButton("Eliminar usuario\r\n");
+		JButton btnEliminarUsuario = new JButton("Eliminar ");
 		btnEliminarUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println(CEC.getNombre());
@@ -386,7 +386,7 @@ public class FormEditUser extends JFrame {
 		btnEliminarUsuario.setForeground(Color.WHITE);
 		btnEliminarUsuario.setFont(new Font("Century Gothic", Font.BOLD, 25));
 		btnEliminarUsuario.setBackground(new Color(58, 136, 219));
-		btnEliminarUsuario.setBounds(355, 482, 300, 40);
+		btnEliminarUsuario.setBounds(355, 482, 221, 40);
 		contentPane2.add(btnEliminarUsuario);
 		
 		JLabel button = new JLabel();
@@ -406,6 +406,18 @@ public class FormEditUser extends JFrame {
 		button.setIcon(new ImageIcon("Icons"+File.separator+"back1.png"));
 		button.setBounds(185, 296, 64, 64);
 		contentPane2.add(button);
+		
+		JButton btnActivar = new JButton("Activar");
+		btnActivar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CEC.setActivo(true);
+			}
+		});
+		btnActivar.setForeground(Color.WHITE);
+		btnActivar.setFont(new Font("Century Gothic", Font.BOLD, 25));
+		btnActivar.setBackground(Color.RED);
+		btnActivar.setBounds(577, 482, 193, 40);
+		contentPane2.add(btnActivar);
 	}
 		
 		
