@@ -115,7 +115,7 @@ public class FormEditUser extends JFrame {
 	 * @param CEC 
 	 */
 	
-	private void Editar(Persona CEC) {
+	private void Editar(Persona CEC,int ind) {
 		
 		JPasswordField contraseña,ccontraseña;
 		JTextField txtapellido,txtncedula,txtemail,Nombre;
@@ -281,23 +281,37 @@ public class FormEditUser extends JFrame {
 						"¿Está seguro de las modificaciones realizadas?");
 				if (validar == 0) {
 					try {
-						if(Recursos.validarIgualdadPwd(contraseña.getPassword().toString(), ccontraseña.getPassword().toString())) {
-						Cliente c;
-						try {
-							hotel.getUsuarios().buscarS(CEC.getId()).setLlave(new Cliente(Nombre.getText().toString(),txtapellido.getText().toString(),CEC.getGenero(),txtemail.getText().toString(),txtncedula.getText().toString(),
-								cbtipodedocumento.getSelectedItem().toString(),contraseña.toString()));
-								Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
-						} catch (ExceptionNodo e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+						if(ind==1) {
+							if(Recursos.validarIgualdadPwd(contraseña.getPassword().toString(), ccontraseña.getPassword().toString())) {
+								Cliente c;
+								try {
+									hotel.getUsuarios().buscarS(CEC.getId()).setLlave(new Cliente(Nombre.getText().toString(),txtapellido.getText().toString(),CEC.getGenero(),txtemail.getText().toString(),txtncedula.getText().toString(),
+										cbtipodedocumento.getSelectedItem().toString(),contraseña.toString()));
+										Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
+								} catch (ExceptionNodo e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}else {
+								JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden");
+							}
+						}else {
+							Empleado c=(Empleado) CEC;
+							if(Recursos.validarIgualdadPwd(contraseña.getPassword().toString(), ccontraseña.getPassword().toString())){
+								if(Recursos.validarIgualdadPwd(contraseña.getPassword().toString(), ccontraseña.getPassword().toString())||Recursos.validarIgualdadPwd(CEC.getPwd().toString(), contraseña.getPassword().toString())){
+									CEC.setNombre(Nombre.getText().toString());CEC.setApellido(txtapellido.getText().toString());CEC.setCorreo(txtemail.getText().toString());
+									CEC.setId(txtncedula.getText().toString());
+								}
+						}else {
+							CEC.setNombre(Nombre.getText().toString());CEC.setApellido(txtapellido.getText().toString());CEC.setCorreo(txtemail.getText().toString());
+							CEC.setId(txtncedula.getText().toString());CEC.setPwd(contraseña.getPassword().toString());
 						}
-}else {
-							JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden");
 						}
-					} catch (HeadlessException | EIgualdad e) {
+							
+						}catch (HeadlessException | EIgualdad e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}
+						}
 				}
 			}
 			
@@ -500,7 +514,7 @@ public class FormEditUser extends JFrame {
 						if(TipoUsuario.getSelectedItem().toString()=="Empleado") {
 							getContentPane().setVisible(false);
 							try {
-								Editar(h.buscarEmpleado(table_1.getValueAt(table_1.getSelectedRow(),0).toString()));
+								Editar(h.buscarEmpleado(table_1.getValueAt(table_1.getSelectedRow(),0).toString()),1);
 							} catch (ECliente e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
@@ -508,7 +522,7 @@ public class FormEditUser extends JFrame {
 						}else{
 							try {
 								getContentPane().setVisible(false);
-								Editar(h.buscarCliente(table_1.getValueAt(table_1.getSelectedRow(), 0).toString()));
+								Editar(h.buscarCliente(table_1.getValueAt(table_1.getSelectedRow(), 0).toString()),0);
 							} catch (ExceptionNodo e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
