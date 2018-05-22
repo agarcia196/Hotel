@@ -66,8 +66,8 @@ public class FormMenuPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public FormMenuPrincipal(Hotel hotel, Persona persona) {
-		 h = hotel;
-		 p = persona;
+		this.h = hotel;
+		this.p= persona;
 		setTitle("Home");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("Icons"+File.separator+"oficcial.png"));
 		setExtendedState(MAXIMIZED_BOTH);
@@ -75,7 +75,7 @@ public class FormMenuPrincipal extends JFrame {
 		setBounds(0, 0, 1366, 768);	
 
 		lblLogin = new JLabel();
-		lblLogin.setBounds(557, 64, 246, 50);
+		lblLogin.setBounds(310, 69, 780, 50);
 		lblLogin.setFont(new Font(font, Font.BOLD, fontsize+20));
 		lblLogin.setForeground(Color.WHITE);
 		lblInfo = new JLabel("Info");
@@ -105,7 +105,6 @@ public class FormMenuPrincipal extends JFrame {
 		Menu.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(Menu);
 		Menu.setLayout(null);
-		lblLogin.setBounds(600, 67, 470, 50);
 		lblLogin.setText("Men\u00fa Hotel");
 		Menu.add(lblLogin);
 		Menu.add(lblInfo);
@@ -204,13 +203,12 @@ public class FormMenuPrincipal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		lblLogin.setBounds(520, 67, 550, 50);
 		lblLogin.setText("Bienvenido a "+h.getNombre());
 		contentPane.add(lblLogin);
 		contentPane.add(lblInfo);
 		contentPane.add(textArea);
 		JLabel lblHotel = new JLabel("Hotel");
-		lblHotel.setBounds(310, 200, lbtnwidth, lbtnheight);
+		//lblHotel.setBounds(310, 200, lbtnwidth, lbtnheight);
 		lblHotel.setIcon(new ImageIcon("Icons"+File.separator+"hotel.png"));	
 		lblHotel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -276,6 +274,41 @@ public class FormMenuPrincipal extends JFrame {
 		lblUsuario_1.setFont(new Font(font, Font.BOLD | Font.ITALIC, fontsize));
 		lblUsuario_1.setBounds(881, 450, 189, 60);
 		contentPane.add(lblUsuario_1);
+		
+	
+		if(p instanceof Administrador) {
+			JLabel lblCocina = new JLabel("Cocina");
+			lblCocina.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					FormCocina cocina = new FormCocina(h, (Empleado)p);
+					cocina.setVisible(true);
+				}
+				@Override
+				public void mouseEntered(MouseEvent arg0) {
+					textArea.setText("Acceso directo a la Cocina");
+					lblInfo.setVisible(true);
+				}		
+				@Override
+				public void mouseExited(MouseEvent arg0) {
+					textArea.setText("");
+					lblInfo.setVisible(false);
+				}
+			});
+			lblCocina.setBounds(570, 200, 256, 256);
+			contentPane.add(lblCocina);
+			lblHotel.setBounds(250, 200, lbtnwidth, lbtnheight);
+			lblUsuario.setBounds(870, 200, 256, 256);
+			lblHotel_1.setBounds(324, 450, 182, 60);
+			lblUsuario_1.setBounds(937, 450, 189, 60);
+			
+			JLabel lblCocina_1 = new JLabel("Cocina");
+			lblCocina_1.setForeground(Color.WHITE);
+			lblCocina_1.setFont(new Font("Century Gothic", Font.BOLD | Font.ITALIC, 40));
+			lblCocina_1.setBounds(637, 450, 189, 60);
+			lblCocina.setIcon(new ImageIcon("Icons"+File.separator+"chef1.png"));
+			contentPane.add(lblCocina_1);
+		}
 	}
 	private void vistaUsers() {
 		JPanel contentVistaUsuarios = new JPanel();

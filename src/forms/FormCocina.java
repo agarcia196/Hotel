@@ -20,8 +20,10 @@ import exception.ECamposVacios;
 import exception.ECocina;
 import exception.ELetrasEnCampoN;
 import exception.ExceptionNodo;
+import hotel.Administrador;
 import hotel.Chef;
 import hotel.Cliente;
+import hotel.Empleado;
 import hotel.Habitacion;
 import hotel.Hotel;
 import hotel.Plato;
@@ -77,6 +79,7 @@ public class FormCocina extends JFrame implements Serializable  {
 	private Plato p;
 	private JTextField txtplato;
 	private Chef persona;
+	private Administrador admin;
 	/**
 	 * Launch the application.
 	 */
@@ -117,9 +120,12 @@ public class FormCocina extends JFrame implements Serializable  {
 	/**
 	 * Create the frame.
 	 */
-	public FormCocina(Hotel h, Chef persona) {
+	public FormCocina(Hotel h, Empleado persona) {
 		hotel=h;
-		this.persona=persona;
+		if(persona instanceof Chef) {
+		this.persona=(Chef)persona;}else {
+		this.admin=(Administrador)persona;
+		}	
 		setForeground(Color.WHITE);
 		setExtendedState(MAXIMIZED_BOTH);
 		setFont(new Font(font, Font.PLAIN, 14));
@@ -878,18 +884,19 @@ public class FormCocina extends JFrame implements Serializable  {
 		lblMen.setFont(new Font(font, Font.BOLD | Font.ITALIC, fontsize+20));
 		lblMen.setBounds(899, 467, 200, 60);
 		contentPane.add(lblMen);
-		
+		if(admin!=null) {
 		JLabel lblBack = new JLabel("Back");
 		lblBack.setBounds(185, 296, 64, 64);
 		lblBack.setIcon(new ImageIcon("Icons\\back1.png"));
 		lblBack.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				dispose();
 			}
 		});
 		contentPane.add(lblBack);
-		
+		}
+		if(persona!=null) {
 		JLabel lblExit = new JLabel("Exit");
 		lblExit.setIcon(new ImageIcon("Icons\\exit.png"));
 		lblExit.setBounds(1130, 296, 64, 64);
@@ -911,7 +918,7 @@ public class FormCocina extends JFrame implements Serializable  {
 				lblInfo.setVisible(false);
 			}
 		});
-		contentPane.add(lblExit);
+		contentPane.add(lblExit);}
 	}
 	private void vistaServicios() {
 		contentServicios = new JPanel();
@@ -1327,10 +1334,13 @@ public class FormCocina extends JFrame implements Serializable  {
 		lblPlus.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				if(p!=null) {
 				platos.add(p);
 				String [] model = {p.getNombre(),Double.toString(p.getDuracion()),Double.toString(p.getValor())};
 				modeloTable.addRow(model);
-				System.out.println(platos);				
+				System.out.println(platos);		}
+				else
+					JOptionPane.showMessageDialog(contentPedido, "Debe seleccionar un producto");
 			}
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
