@@ -225,7 +225,7 @@ public class Hotel implements Serializable{
 		int i=0;
 		while (i<habitaciones.size()) {
 			Habitacion habitacion= habitaciones.get(i);
-			String [] model = {habitacion.getID(),habitacion.getTipo(),String.valueOf(habitacion.getDisponibilidad()),String.valueOf(habitacion.getPrecioNoche())};
+			String [] model = {habitacion.getID(),habitacion.getTipo(),String.valueOf(habitacion.isDisponible()),String.valueOf(habitacion.getPrecioNoche())};
 			modeloTable.addRow(model);	
 			i++;
 		}
