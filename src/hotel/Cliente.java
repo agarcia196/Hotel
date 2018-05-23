@@ -1,9 +1,9 @@
 package hotel;
 
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 import arbol.NodoB;
 import exception.ECamposVacios;
@@ -12,7 +12,7 @@ import exception.ELongitud;
 import exception.ETipoInconrrecto;
 import exception.ExceptionNodo;
 
-public class Cliente extends Persona implements Usuario,Comparable<Cliente> {
+public class Cliente extends Persona implements Serializable,Comparable<Cliente> {
 
 	/**
 	 * 
@@ -125,16 +125,6 @@ public class Cliente extends Persona implements Usuario,Comparable<Cliente> {
 	}
 
 	
-
-	@Override
-	public void addUser(String nombre, String apellido, String genero, String correo, String id, String tipoId,
-			String pwd, String cpwd, String cargo, Hotel h)
-			throws ELongitud, ECamposVacios, EIgualdad, ETipoInconrrecto {
-		
-		
-	}
-
-
 	public ArrayList<Reserva> getHistorialReservas() {
 		return historialReservas;
 	}
@@ -186,5 +176,11 @@ public class Cliente extends Persona implements Usuario,Comparable<Cliente> {
 	public int compareTo(Cliente a) {
 		// TODO Auto-generated method stub
 		return this.getId().compareTo(a.getId());
+	}
+
+	@Override
+	public void addUser(String nombre, String apellido, String genero, String correo, String id, String tipoId,
+			String pwd, String cpwd, String cargo, Hotel h)
+			throws ELongitud, ECamposVacios, EIgualdad, ETipoInconrrecto, ExceptionNodo {	
 	}
 }

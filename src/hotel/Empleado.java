@@ -3,12 +3,10 @@ package hotel;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Date;
-
 import exception.ECliente;
 import exception.ExceptionNodo;
 
-public abstract class Empleado extends Persona implements Usuario, Serializable {
+public abstract class Empleado extends Persona implements Serializable {
 
 	private static final long serialVersionUID = 8181518522862120375L;
 	public Empleado(String nombre, String apellido, String genero, String correo, String id, String tipoId,

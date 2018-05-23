@@ -2,12 +2,8 @@ package hotel;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
-
 import javax.swing.table.DefaultTableModel;
-
 import exception.EArrayVacio;
-
 import java.util.ArrayList;
 
 public class Habitacion implements Serializable {

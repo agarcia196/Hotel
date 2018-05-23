@@ -1,9 +1,7 @@
 package hotel;
 
+import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-
 import exception.ECamposVacios;
 import exception.ECliente;
 import exception.EIgualdad;
@@ -11,7 +9,7 @@ import exception.ELongitud;
 import exception.ETipoInconrrecto;
 import exception.ExceptionNodo;
 
-public class Recepcion extends Empleado {
+public class Recepcion extends Empleado implements Serializable{
 	
 	
 	
@@ -82,18 +80,17 @@ public class Recepcion extends Empleado {
 		return null;
 	}
 
-
-	@Override
 	public void addUser(String nombre, String apellido, String genero, String correo, String id, String tipoId,
 			String pwd, String cpwd, String cargo, Hotel h)
-			throws ELongitud, ECamposVacios, EIgualdad, ETipoInconrrecto, ExceptionNodo
-			{
-		
-			h.addUser(new Cliente(nombre, apellido, genero, correo, id, tipoId, cpwd));
-				throw new ETipoInconrrecto();
-		// TODO Auto-generated method stub
-		
-	}
+			throws ELongitud, ECamposVacios, EIgualdad, ETipoInconrrecto, ExceptionNodo{
+		Recursos.validarCamposVaciosU(nombre, apellido, genero, correo, id, tipoId, pwd, cpwd, cargo);
+		Recursos.validarLongitudPwd(cpwd);
+		Recursos.validarIgualdadPwd(pwd, cpwd);
+		if(cargo=="Cliente") {
+		h.addUser(new Cliente(nombre, apellido, genero, correo, id, tipoId, cpwd));}
+		else {
+				throw new ETipoInconrrecto();}
+}
 	
 
 

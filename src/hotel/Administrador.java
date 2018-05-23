@@ -6,10 +6,7 @@ package hotel;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
-
 import javax.swing.table.DefaultTableModel;
-
 import exception.EArrayVacio;
 import exception.ECamposVacios;
 import exception.ECocina;
@@ -82,7 +79,6 @@ public class Administrador extends Empleado implements Serializable {
 	 * @throws ETipoInconrrecto the e tipo incorrecto
 	 * @throws ExceptionNodo 
 	 */
-	@Override
 	public void addUser(String nombre, String apellido, String genero, String correo, String id, String tipoId,
 			String pwd, String cpwd, String cargo , Hotel h) throws ELongitud, ECamposVacios, EIgualdad, ETipoInconrrecto, ExceptionNodo {
 			Recursos.validarCamposVaciosU(nombre, apellido, genero, correo, id, tipoId, pwd, cpwd, cargo);

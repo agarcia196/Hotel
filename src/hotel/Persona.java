@@ -3,6 +3,12 @@ package hotel;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import exception.ECamposVacios;
+import exception.EIgualdad;
+import exception.ELongitud;
+import exception.ETipoInconrrecto;
+import exception.ExceptionNodo;
+
 public abstract class Persona implements Serializable{
 
 	private static final long serialVersionUID = -8652198501390246789L;
@@ -85,7 +91,7 @@ public abstract class Persona implements Serializable{
 	}
 
 	public void setActivo(boolean activo) {
-		activo = activo;
+		this.activo = activo;
 	}
 
 	public static long getSerialversionuid() {
@@ -97,6 +103,11 @@ public abstract class Persona implements Serializable{
 		return "Persona [nombre=" + nombre + ", id=" + id +  "]";//", genero=" + genero + ", correo=" + correo+ ", id=" + id + ", tipoId=" + tipoId + ", pwd=" + pwd + "]";
 	}
 
+	
+	public void addUser(String nombre, String apellido, String genero, String correo, String id, String tipoId,
+			String pwd, String cpwd, String cargo, Hotel h)
+			throws ELongitud, ECamposVacios, EIgualdad, ETipoInconrrecto, ExceptionNodo {
+	}
 	public boolean addReserva(LocalDate dateIn, LocalDate dateOut, String tipo, Hotel hotel) {
 		// TODO Auto-generated method stub
 		return false;
@@ -111,6 +122,37 @@ public abstract class Persona implements Serializable{
 		// TODO Auto-generated method stub
 		return false;
 	}
+		
+	// borrar un cliente 
 	
+	public void deleteUser(Cliente cliente, Hotel h) throws ExceptionNodo {
+	}
+	
+	
+	/**
+	 * Cancelar reserva.
+	 */
+	public  void cancelReserva() {
+	}
+	/**
+	 * Editar reserva.
+	 */
+	public boolean editReserva (String id, LocalDate dateIn, LocalDate dateOut, Habitacion habitacion) {
+		return false;
+	}
+	/**
+	 * Verificar reserva.
+	 */
+	public void checkReserva() {
+	}
+	
+	/**
+	 * Métodos de búsqueda
+	 * 
+	 */
+	public Reserva buscarReserva (String id) {
+		return null;
+	}
+
 	
 }
