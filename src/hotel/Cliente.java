@@ -21,8 +21,6 @@ public class Cliente extends Persona implements Serializable,Comparable<Cliente>
 	private ArrayList <Reserva> reservasActivas;
 	private ArrayList<Reserva> historialReservas;
 	
-	
-	
 	//Constructors
 	
 	public Cliente (String nombre, String apellido, String genero, String correo, String id, String tipoId, String pwd) {
@@ -32,7 +30,6 @@ public class Cliente extends Persona implements Serializable,Comparable<Cliente>
 		historialReservas = new ArrayList<Reserva>();
 		
 	}
-	
 	
 	//Gets y sets
 	public ArrayList<Reserva> getReservasActivas () {
@@ -45,9 +42,7 @@ public class Cliente extends Persona implements Serializable,Comparable<Cliente>
 		this.reservasActivas = reservasActivas;
 	}
 	
-	
 	//METODOS DE LA INTERFACE USUARIO
-
 
 	@Override
 	public boolean addReserva (LocalDate dateIn, LocalDate dateOut, String ID, Hotel hotel) {
@@ -73,14 +68,14 @@ public class Cliente extends Persona implements Serializable,Comparable<Cliente>
 	
 
 	@Override
-	public void editarUsuario(String nombre, String apellido, String genero, String correo, String id, String pwd,
+	public void editarUsuario (String nombre, String apellido, String genero, String correo, String id, String pwd,
 			String cpwd, Hotel h, Persona c) throws ECamposVacios, EIgualdad, ELongitud {
+		
 		this.setNombre(nombre);
 		this.setApellido(apellido);
 		this.setCorreo(correo);
 		this.setPwd(cpwd);
 		this.setId(id);
-		
 	}
 
 	@Override

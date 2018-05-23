@@ -76,7 +76,7 @@ public class Hotel implements Serializable{
 	}
 	
 	// buscar reserva 
-	public Reserva buscarReserva (String cedula,LocalDate in) throws ExceptionNodo {
+	public Reserva buscarReserva (String cedula, LocalDate in) throws ExceptionNodo {
 		Cliente c1 = buscarCliente (cedula);
 		Reserva reserva = c1.buscarReserva (LocalDate.now ());
 		
@@ -87,6 +87,11 @@ public class Hotel implements Serializable{
 			
 			throw new ExceptionNodo ("No existe una reserva para la fecha solicitada: " + in.toString ());
 		}
+	}
+	
+	public Reserva buscarReserva (String id) {
+		
+		for (CLiente cliente : )
 	}
 	
 	public Cliente buscarCliente (String cedula) throws ExceptionNodo {

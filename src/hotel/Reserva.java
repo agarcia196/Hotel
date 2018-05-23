@@ -13,12 +13,9 @@ public class Reserva implements Serializable {
 	private static final long serialVersionUID = 8428205740350054875L;
 	private LocalDate date_in,date_out;
 	private Habitacion habitacion;
-	private String id;
 	private double tarifa;
 	
-	// Para hacer la búsqueda de una reserva
 	private String idReserva;
-	// Este será el id (para garantizarlo único)
 	private static int numeroDeReservas = 0;
 	
 	
@@ -42,35 +39,13 @@ public class Reserva implements Serializable {
 	}
 
 
-	
-	public String getId() {
-		return id;
-	}
-
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-
-	public Reserva(LocalDate date_in, LocalDate date_out, Habitacion habitacion, String id) {
+	public Reserva(LocalDate date_in, LocalDate date_out, Habitacion habitacion) {
 		super();
 		this.date_in = date_in;
 		this.date_out = date_out;
 		this.habitacion = habitacion;
-		this.id = id;
 		++numeroDeReservas;
 		this.idReserva = "ABC"+numeroDeReservas;
-	}
-
-
-	public Reserva (LocalDate in,LocalDate out,Habitacion h) {
-		
-		date_in=in;
-		date_out=out;
-		habitacion=h;
-		
-		setIdReserva("" + numeroDeReservas++);
 	}
 	
 		

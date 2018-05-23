@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.Month;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -52,6 +53,7 @@ public class FormMenuPrincipal extends JFrame implements Serializable{
 	private	JTextArea textArea;
 	private JLabel lblInfo;
 	JLabel lblLogin;
+	private JTextField textField_1;
 
 	/**
 	 * Launch the application.
@@ -65,9 +67,7 @@ public class FormMenuPrincipal extends JFrame implements Serializable{
 						Cliente a = new Cliente("a", "a", "Sin especificar", "DD", "1234", "CC", "123");
 						Habitacion ha = new Habitacion ("VIP", "VIP", 150000);
 						h.addHabitacion (ha);
-						System.out.println (ha);
-						System.out.println (h.getHabitaciones().size());
-						a.addReserva(LocalDate.now (), LocalDate.of (2018, 10, 29), "VIP", h);
+						a.addReserva (LocalDate.of(2018, Month.MAY, 20), LocalDate.of (2018, Month.MAY, 21), "VIP", h);
 						Cliente b = new Cliente("b", "b", "Sin especificar", "DD", "abc", "CC", "123");
 						Cliente g = new Cliente("g", "c", "Sin especificar", "DD", "def", "CC", "123");
 						Cliente d = new Cliente("d", "d", "Sin especificar", "DD", "ghi", "CC", "123");
@@ -128,7 +128,7 @@ public class FormMenuPrincipal extends JFrame implements Serializable{
 		vistaPrincipal();
 		//vistaHotel();
 		//vistaUsers();
-				
+		//vistaCheckOut ();		
 	}
 	private void vistaHotel() {
 		JPanel Menu = new JPanel();
@@ -204,9 +204,11 @@ public class FormMenuPrincipal extends JFrame implements Serializable{
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
+				getContentPane ().setVisible (false);
+				vistaCheckOut ();
 			}
 			public void mouseEntered(MouseEvent arg0) {
-				textArea.setText("TEXTPPPPP");
+				textArea.setText("Realizar check-Out a un cliente sobre una reserva.");
 				lblInfo.setVisible(true);
 			}			
 			public void mouseExited(MouseEvent arg0) {
@@ -572,8 +574,19 @@ public class FormMenuPrincipal extends JFrame implements Serializable{
 		});
 		
 		JButton btnComprobar = new JButton("Comprobar");
-		btnComprobar.setBounds(575, 399, 135, 53);
+		btnComprobar.setBounds(577, 465, 135, 53);
 		contentCheckOut.add(btnComprobar);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(627, 349, 313, 41);
+		contentCheckOut.add(textField_1);
+		
+		JLabel lblIdDeLa = new JLabel("ID de la reserva:");
+		lblIdDeLa.setForeground(Color.WHITE);
+		lblIdDeLa.setFont(new Font("Dialog", Font.BOLD, 16));
+		lblIdDeLa.setBounds(436, 349, 157, 41);
+		contentCheckOut.add(lblIdDeLa);
 		
 		btnComprobar.addMouseListener(new MouseAdapter() {
 			@Override
@@ -581,11 +594,12 @@ public class FormMenuPrincipal extends JFrame implements Serializable{
 
 				try {
 					
-					((Empleado)p).checkIn (textField.getText (), h);
+					double tarifa = ((Empleado)p).checkOut (textField.getText (), textField_1.getText (), h);
 					
 
-					JOptionPane.showMessageDialog(null, "Check-In realizado con éxito", "Completo", JOptionPane.INFORMATION_MESSAGE);
-					
+					JOptionPane.showMessageDialog(null, "Check-Out realizado con éxito\n\nTarifa a pagar: " + tarifa, "Completo", JOptionPane.INFORMATION_MESSAGE);
+					textField.setText ("");
+					textField_1.setText ("");
 					
 				} catch (ExceptionNodo | ECliente e) {
 
@@ -593,8 +607,8 @@ public class FormMenuPrincipal extends JFrame implements Serializable{
 				}
 			}
 			public void mouseEntered(MouseEvent arg0) {
-				textArea.setText("Busca un usuario asociado a la cédula introducida y luego mira si tiene una reserva"
-						+ " hecha para el día actual.");
+				textArea.setText("Busca un usuario con la cédula introducida, busca la reserva asociada a este usuario y verifica "
+						+ "si hay que aplicar recargo por noches que se haya quedado adicionales a las que estaban facturadas inicialmente.");
 				lblInfo.setVisible(true);
 			}			
 			public void mouseExited(MouseEvent arg0) {
