@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 
 import exception.EArrayVacio;
+import exception.ECliente;
 import exception.ExceptionNodo;
 import hotel.Chef;
 import hotel.Cliente;
@@ -349,8 +350,13 @@ public class FormReservas extends JFrame implements Serializable {
 					 refreshTablaHabitaciones(hotel,modeloTable,LocalDate.parse(textFieldFechaIn.getText()),LocalDate.parse(textFieldFechaOut.getText()));
 					 Period a = Period.between(LocalDate.parse(textFieldFechaIn.getText()), LocalDate.parse(textFieldFechaOut.getText()));
 					
-					 textFieldTarifa.setText(String.valueOf(Math.abs(hotel.buscarHabitacion(textFieldHabitacion.getText()).getPrecioNoche()
-							 *(a.getDays()))));
+					 try {
+						textFieldTarifa.setText(String.valueOf(Math.abs(hotel.buscarHabitacion(textFieldHabitacion.getText()).getPrecioNoche()
+								 *(a.getDays()))));
+					} catch (ECliente e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					
 				}
 				});
@@ -447,6 +453,9 @@ public class FormReservas extends JFrame implements Serializable {
 						} catch (ExceptionNodo e2) {
 							// TODO Auto-generated catch block
 							e2.printStackTrace();
+						} catch (ECliente e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
 						}
 						
 						//JOptionPane.show("La reserva ha sido realizada con exito");
@@ -492,8 +501,13 @@ public class FormReservas extends JFrame implements Serializable {
 					 refreshTablaHabitaciones(hotel,modeloTable,LocalDate.parse(textFieldFechaIn.getText()),LocalDate.parse(textFieldFechaOut.getText()));
 					 Period a = Period.between(LocalDate.parse(textFieldFechaIn.getText()), LocalDate.parse(textFieldFechaOut.getText()));
 					
-					 textFieldTarifa.setText(String.valueOf(Math.abs(hotel.buscarHabitacion(textFieldHabitacion.getText()).getPrecioNoche()
-							 *(a.getDays()))));
+					 try {
+						textFieldTarifa.setText(String.valueOf(Math.abs(hotel.buscarHabitacion(textFieldHabitacion.getText()).getPrecioNoche()
+								 *(a.getDays()))));
+					} catch (ECliente e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					
 				}
 				});
@@ -566,6 +580,47 @@ public class FormReservas extends JFrame implements Serializable {
 						textFieldHabitacion.setVisible(false);
 					}
 				});
+				
+				 btnFinalizar.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+						
+							
+							
+						if( textUsuario.getText()==null && textFieldIDReserva.getText()==null) 
+							JOptionPane.showInputDialog("Por favor llenar todos los campos");
+						else {
+							try {
+							    //String ID = table.getValueAt(table.getSelectedRow(), 0).toString();
+								//empleado.addReserva(LocalDate.parse(textFieldFechaIn.getText()), LocalDate.parse(textFieldFechaOut.getText()),
+								//		textFieldHabitacion.getText() , hotel, textUsuario.getText());
+								
+								hotel.buscarCliente(textUsuario.getText()).cancelReserva(textUsuario.getText());
+								
+							
+				    
+							} catch (ExceptionNodo e2) {
+								// TODO Auto-generated catch block
+								e2.printStackTrace();
+							}
+							
+							//JOptionPane.show("La reserva ha sido realizada con exito");
+						
+							
+							btnAgregar.setVisible(true);
+							btnEditar.setVisible(true);
+							lblUsuario.setVisible(false);
+							textUsuario.setVisible(false);
+							lblIDReserva.setVisible(false);
+							textFieldIDReserva.setVisible(false);
+							btnFinalizar.setVisible(false);
+							
+							
+							
+							lblHabitacin.setVisible(false);
+							textFieldHabitacion.setVisible(false);
+						}
+						}
+					});
 				
 				
 				

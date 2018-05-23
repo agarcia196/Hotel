@@ -165,5 +165,10 @@ public abstract class Persona implements Serializable{
 		}
 	}
 
+	public void cancelReserva(String idr) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 }

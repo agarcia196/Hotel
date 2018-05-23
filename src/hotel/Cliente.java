@@ -156,10 +156,10 @@ public class Cliente extends Persona implements Serializable,Comparable<Cliente>
 
 
 	@Override
-	public void cancelReserva() {
+	public void cancelReserva(String idr) {
 		// TODO Auto-generated method stub
 		
-		Reserva r = buscarReserva(id);
+		Reserva r = buscarReserva(idr);
 		reservasActivas.remove(r);
 		
 		
