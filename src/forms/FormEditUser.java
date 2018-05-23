@@ -516,7 +516,7 @@ public class FormEditUser extends JFrame implements Serializable {
 					String tipo=TipoUsuario.getSelectedItem().toString();
 					if(tipo=="Empleado") {
 							try {
-								hotel.ConsultaUsuariosEdit(modeloTable,textFieldBuscar.getText());
+								hotel.ConsultaEmpleados(modeloTable,textFieldBuscar.getText());
 							} catch (EArrayVacio e) {
 								// TODO Auto-generated catch block
 								JOptionPane.showMessageDialog(contentPane,e.getMessage());
