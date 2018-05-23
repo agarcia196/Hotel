@@ -30,7 +30,16 @@ public class Recepcion extends Empleado implements Serializable{
 	}
 
 
-	
+	public boolean addReserva(LocalDate dateIn, LocalDate dateOut, String ID, Hotel hotel, String cedula) throws ExceptionNodo {
+		
+		Cliente cliente;
+		
+		cliente = hotel.buscarCliente(cedula);
+		
+		cliente.addReserva(dateIn, dateOut, ID, hotel);
+		
+		return false;
+	}
 	public boolean addReserva (LocalDate dateIn, LocalDate dateOut, String tipo, Hotel hotel, Cliente cliente) {
 
 		int i = 0;
