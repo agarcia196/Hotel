@@ -1,6 +1,12 @@
 package arbol;
 
-public class NodoB <E extends Comparable<E>>{
+import java.io.Serializable;
+
+public class NodoB <E extends Comparable<E>> implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7918120202249011259L;
 	protected E llave;
 	protected NodoB<E> padre;
 	protected NodoB<E> hijoIzq;

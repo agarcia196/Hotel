@@ -1,9 +1,15 @@
 package arbol;
 
+import java.io.Serializable;
+
 import exception.ExceptionNodo;
 
-public class ABB<E extends Comparable<E>> extends ArbolB<E> {
+public class ABB<E extends Comparable<E>> extends ArbolB<E>  implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7984699386140156252L;
 	public ABB() {
 		super();
 		// TODO Auto-generated constructor stub

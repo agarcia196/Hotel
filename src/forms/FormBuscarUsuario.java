@@ -22,9 +22,10 @@ import exception.EArrayVacio;
 import hotel.Hotel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.awt.event.ActionEvent;
 
-public class FormBuscarUsuario extends JFrame {
+public class FormBuscarUsuario extends JFrame implements Serializable {
 
 	/**
 	 * 

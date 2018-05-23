@@ -43,13 +43,14 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
-public class FormEditUser extends JFrame {
+public class FormEditUser extends JFrame implements Serializable {
 	private JPanel contentPane;
 	private JLabel lblCocina ;
 	private JTable table_1;

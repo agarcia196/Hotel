@@ -24,13 +24,18 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.awt.event.ActionEvent;
 
-public class FormReservas extends JFrame {
+public class FormReservas extends JFrame implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4873135912328496045L;
 	private JPanel contentPane;
 	private final String backgroundcolor="#44b256";
 	private final String font= "Century Gothic";

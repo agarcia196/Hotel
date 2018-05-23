@@ -13,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 import exception.ECamposVacios;
 import exception.EIgualdad;
@@ -20,7 +21,12 @@ import exception.ELongitud;
 /**
  * The Class Recursos.
  */
-public class Recursos {
+public class Recursos implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1637407092354011236L;
 
 	/**
 	 * Escribir Archivo empresa.

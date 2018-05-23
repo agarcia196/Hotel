@@ -1,5 +1,6 @@
 package exception;
 
+
 public class EArrayVacio extends Exception {
 
 	/**

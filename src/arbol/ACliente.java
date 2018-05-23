@@ -1,18 +1,21 @@
 package arbol;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 
 import javax.swing.table.DefaultTableModel;
-
 import exception.EArrayVacio;
 import exception.ExceptionNodo;
 import hotel.Cliente;
 
-public class ACliente extends ABB<Cliente> {
+public class ACliente extends ABB<Cliente>  implements Serializable{
 	
 	
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8829709942015922601L;
 	public ACliente() {
 		super();
 		// TODO Auto-generated constructor stub

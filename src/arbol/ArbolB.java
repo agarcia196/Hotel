@@ -1,10 +1,15 @@
 package arbol;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class ArbolB<E extends Comparable<E>> {
+public class ArbolB<E extends Comparable<E>> implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4279772267061502153L;
 	protected NodoB<E> raiz;
 
 	public ArbolB(NodoB<E> raiz) {
