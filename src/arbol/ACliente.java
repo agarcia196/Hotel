@@ -36,7 +36,7 @@ public class ACliente extends ABB<Cliente>  implements Serializable{
 	}
 	private NodoB<Cliente>buscarS(NodoB<Cliente> nodo, String elemento) throws ExceptionNodo {
 		if(nodo == null)
-			throw new ExceptionNodo("No existe el nodo");
+			throw new ExceptionNodo("Cliente no encontrado");
 		else {
 			if(nodo.getLlave().getId().compareTo(elemento)==0){
 				return nodo;

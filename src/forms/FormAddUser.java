@@ -7,6 +7,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.Serializable;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -317,26 +319,21 @@ public class FormAddUser extends JFrame implements Serializable {
 		lblConfirmarContrasea.setFont(new Font("Century Gothic", Font.BOLD | Font.ITALIC, 16));
 		lblConfirmarContrasea.setBounds(720, 401, 240, 15);
 		contentPane2.add(lblConfirmarContrasea);
-		JButton btnback = new JButton("back");
-		btnback.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(contentPane2,"Aqui iria hacia donde regresa");
-				//contentPane2.setVisible(false);
-				//vistaLogin();
+		JLabel lblBack = new JLabel("Back");
+		lblBack.setBounds(185, 296, 64, 64);
+		lblBack.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
 			}
-			
 		});
-		btnback.setForeground(Color.decode(txtcolor1));
-		btnback.setFont(new Font(font, Font.PLAIN, 11));
-		btnback.setBackground(Color.decode(backgroundcolor));
-		btnback.setBounds(222, 50, 80, 80);
-		btnback.setBorderPainted(false);
-		ImageIcon iconback =new ImageIcon("Icons\\back.png");
-		Icon iconoback = new ImageIcon(iconback.getImage().getScaledInstance(btnback.getWidth(),btnback.getHeight(), Image.SCALE_DEFAULT));
-		btnback.setIcon(iconoback);
-		contentPane2.add(btnback);
-		
-		
+		lblBack.setForeground(Color.decode(txtcolor1));
+		lblBack.setFont(new Font(font, Font.PLAIN, 11));
+		lblBack.setBackground(Color.decode(backgroundcolor));
+		lblBack.setIcon(new ImageIcon("Icons\\back1.png"));
+		contentPane2.add(lblBack);
+
+
 	}
 }
 	

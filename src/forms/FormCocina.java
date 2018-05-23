@@ -124,7 +124,8 @@ public class FormCocina extends JFrame implements Serializable  {
 	public FormCocina(Hotel h, Empleado persona) {
 		hotel=h;
 		if(persona instanceof Chef) {
-		this.persona=(Chef)persona;}else {
+		this.persona=(Chef)persona;}
+		else {
 		this.admin=(Administrador)persona;
 		}	
 		setForeground(Color.WHITE);

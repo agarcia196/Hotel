@@ -148,7 +148,7 @@ public class Hotel implements Serializable{
 			persona= buscarEmpleado(id);
 			break;
 		default:
-			break;
+			throw new ECliente("Usuario invalido");
 		}
 		if (pwd.compareTo(persona.getPwd())==0)
 			return persona;

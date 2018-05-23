@@ -73,7 +73,7 @@ public class FormEditUser extends JFrame implements Serializable {
 					fabio.addUser("Fabio3213", "Pedro", "Masculino", "xd", "6545", "Cedula", "12345678", "12345678", "Recepcion",hotel);
 					fabio.addUser("Fabio3213", "Pedro", "Masculino", "xd", "6545", "Cedula", "12345678", "12345678", "Cliente",hotel);
 					hotel.addUser( Fabox);
-					FormEditUser frame = new FormEditUser(hotel,Fabox);
+					FormEditUser frame = new FormEditUser(hotel,fabio);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -90,9 +90,7 @@ public class FormEditUser extends JFrame implements Serializable {
 		setExtendedState(MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 1366, 768);	
-		
 		lblEditar = new JLabel();
-		Editar(p);
 		if(p instanceof Cliente) 
 		Editar(p);
 		else
@@ -377,11 +375,11 @@ public class FormEditUser extends JFrame implements Serializable {
 		button.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				getContentPane().setVisible(false);
 				if(p instanceof Cliente) {
 					dispose();
 				}
-				else {				
+				else {	
+				getContentPane().setVisible(false);	
 				EditarUsuario();
 				}
 			}
@@ -443,7 +441,7 @@ public class FormEditUser extends JFrame implements Serializable {
 			table_1 = new JTable(modeloTable);							//cargar modelo en la tabla
 			scrollPane.setViewportView(table_1);
 			try {
-				hotel.ConsultaUsuariosEdit(modeloTable);
+				hotel.ConsultaEmpleados(modeloTable);
 			} catch (EArrayVacio e) {
 				// TODO Auto-generated catch block
 				JOptionPane.showMessageDialog(contentPane, e.getMessage());
@@ -483,7 +481,7 @@ public class FormEditUser extends JFrame implements Serializable {
 				}
 			});
 			TipoUsuario.setFont(new Font("Century Gothic", Font.PLAIN, 30));
-			TipoUsuario.setModel(new DefaultComboBoxModel<String>(new String[] {"Cliente", "Empleado"}));
+			TipoUsuario.setModel(new DefaultComboBoxModel<String>(new String[] {"Empleado","Cliente"}));
 			TipoUsuario.setBounds(919, 164, 138, 40);
 			contentPane.add(TipoUsuario);
 			
@@ -492,20 +490,23 @@ public class FormEditUser extends JFrame implements Serializable {
 					if(table_1.getSelectedRow()==-1) {		
 						JOptionPane.showMessageDialog(contentPane, "Seleccione un usuario para editar");
 					}else {
-						try {
-							if(TipoUsuario.getSelectedItem().toString()=="Empleado") {
+						if(TipoUsuario.getSelectedItem().toString()=="Empleado") {
+							try {
+								getContentPane().setVisible(false);
 								Editar(hotel.buscarEmpleado(table_1.getValueAt(table_1.getSelectedRow(),0).toString()));
-
-							}else{						
-								
+							}catch (ECliente e2) {
+								JOptionPane.showMessageDialog(contentPane,e2.getMessage());
+							}
+						}else{						
+							try {
+								getContentPane().setVisible(false);
 								Editar(hotel.buscarCliente(table_1.getValueAt(table_1.getSelectedRow(), 0).toString()));
-							} 
-							Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
-							getContentPane().setVisible(false);
-						}catch (ExceptionNodo | ECliente e1) {
-							// TODO Auto-generated catch block
-							JOptionPane.showMessageDialog(contentPane,e1.getMessage());
+							}catch (ExceptionNodo e1) {
+								// TODO Auto-generated catch block
+								JOptionPane.showMessageDialog(contentPane,e1.getMessage());
+							}
 						}
+						Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
 					}
 				}
 			});
