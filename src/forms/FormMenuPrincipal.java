@@ -8,6 +8,7 @@ import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.Serializable;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -25,7 +26,7 @@ import hotel.Recepcion;
 
 import javax.swing.JTextArea;
 
-public class FormMenuPrincipal extends JFrame {
+public class FormMenuPrincipal extends JFrame implements Serializable{
 
 	/**
 	 * 
@@ -241,8 +242,8 @@ public class FormMenuPrincipal extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				if(p instanceof Cliente) {
-				FormEditUser editar = new FormEditUser(h, p);
-				editar.setVisible(true);
+			//	FormEditUser editar = new FormEditUser(h, p);
+		//		editar.setVisible(true);
 				}
 				if(p instanceof Recepcion || p instanceof Administrador) {
 					getContentPane().setVisible(false);;
@@ -348,8 +349,8 @@ public class FormMenuPrincipal extends JFrame {
 		lblMenu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				FormEditUser editar = new FormEditUser(h, (Empleado)p);
-				editar.setVisible(true);
+			//	FormEditUser editar = new FormEditUser(h, (Empleado)p);
+			//	editar.setVisible(true);
 			}
 			public void mouseEntered(MouseEvent arg0) {
 				textArea.setText("Editar, elimina y busca Usuarios.");

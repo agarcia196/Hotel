@@ -7,21 +7,19 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.io.Serializable;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JSeparator;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-
 import exception.ECamposVacios;
 import exception.EIgualdad;
 import exception.ELongitud;
 import exception.ETipoInconrrecto;
 import exception.ExceptionNodo;
 import hotel.Administrador;
-import hotel.Cliente;
 import hotel.Empleado;
 import hotel.Hotel;
 import hotel.Recursos;
@@ -34,7 +32,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
-public class FormAddUser extends JFrame {
+public class FormAddUser extends JFrame implements Serializable {
 	
 	public FormAddUser(Hotel h,Empleado persona) {
 		
@@ -179,7 +177,7 @@ public class FormAddUser extends JFrame {
 		contentPane2.add(cbtipodedocumento);
 		
 		JComboBox<String> TipoDeUsuario = new JComboBox<String>();
-		TipoDeUsuario.setModel(new DefaultComboBoxModel(new String[] {"Cliente", "Empleado", "Administrador", "Chef"}));
+		TipoDeUsuario.setModel(new DefaultComboBoxModel<String>(new String[] {"Cliente", "Recepcion", "Administrador", "Chef"}));
 		TipoDeUsuario.setFont(new Font("Century Gothic", Font.PLAIN, 40));
 		TipoDeUsuario.setBounds(355, 484, 294, 40);
 		contentPane2.add(TipoDeUsuario);
@@ -240,6 +238,7 @@ public class FormAddUser extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				int validar = JOptionPane.showConfirmDialog(contentPane2,
 						"¿Está seguro de que la información es correcta?");
+				if(validar==0) {
 				try {
 					p.addUser(txtUserName.getText(), txtapellido.getText(), cbgenero.getSelectedItem().toString(), txtemail.getText(),txtncedula.getText(), cbtipodedocumento.getSelectedItem().toString(),  String.valueOf(contraseña.getPassword()), String.valueOf(ccontraseña.getPassword()), TipoDeUsuario.getSelectedItem().toString(), hotel);
 					Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
@@ -256,6 +255,7 @@ public class FormAddUser extends JFrame {
 							
 				} catch (ELongitud | ECamposVacios | EIgualdad | ETipoInconrrecto | ExceptionNodo e) {
 					JOptionPane.showMessageDialog(contentPane2,e);
+				}
 				}
 				
 			}
