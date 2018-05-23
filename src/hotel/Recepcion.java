@@ -62,31 +62,7 @@ public class Recepcion extends Empleado implements Serializable{
 	}
 
 
-	@Override
-	public void cancelReserva() {
-		// TODO Auto-generated method stub
-		
-	}
 
-
-	@Override
-	public boolean editReserva(String id, LocalDate dateIn, LocalDate dateOut, Habitacion habitacion) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public void checkReserva() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Reserva buscarReserva(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	public void addUser(String nombre, String apellido, String genero, String correo, String id, String tipoId,
 			String pwd, String cpwd, String cargo, Hotel h)
@@ -99,22 +75,4 @@ public class Recepcion extends Empleado implements Serializable{
 		else {
 				throw new ETipoInconrrecto();}
 }
-	
-
-
-
-	@Override
-	public Reserva buscarReserva(LocalDate dateIn) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
-
-	
-	@Override
-	public void deleteUser(Cliente cliente, Hotel h) throws ExceptionNodo {
-		// TODO Auto-generated method stub
-		
-	}	
 }
