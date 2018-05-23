@@ -3,12 +3,10 @@ package forms;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -32,22 +30,16 @@ import exception.ELongitud;
 import exception.ExceptionNodo;
 import hotel.Administrador;
 import hotel.Cliente;
-import hotel.Empleado;
 import hotel.Hotel;
 import hotel.Persona;
 import hotel.Recursos;
 
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.Serializable;
-import java.util.ArrayList;
-
-import javax.swing.SwingConstants;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
 public class FormEditUser extends JFrame implements Serializable {
@@ -98,15 +90,14 @@ public class FormEditUser extends JFrame implements Serializable {
 		setExtendedState(MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 1366, 768);	
-		EditarUsuario();
-		lblEditar = new JLabel();
-		//Editar(persona);
 		
-	/*	if(p instanceof Cliente) {
-		Editar(p,1);}
-		else{
-		EditarUsuario();}*/
-		//EditarUsuario();
+		lblEditar = new JLabel();
+		Editar(p);
+		if(p instanceof Cliente) 
+		Editar(p);
+		else
+		EditarUsuario();
+	
 	}
 	
 
@@ -290,43 +281,6 @@ public class FormEditUser extends JFrame implements Serializable {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-				/*
-					try {
-					
-					}
-						if(ind==1) {
-							if(Recursos.validarIgualdadPwd((String.valueOf(contraseña.getPassword())),(String.valueOf(ccontraseña.getPassword())))) {
-								try {
-									a.editUser(Nombre.getText().toString(),txtapellido.getText().toString(),genero.getText().toString(),txtemail.getText().toString(),
-											txtncedula.getText().toString(),contraseña.getPassword().toString(),ccontraseña.getPassword().toString(), hotel, CEC,ind);
-								} catch (ECamposVacios e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								} catch (ELongitud e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-									Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
-							}else {
-								JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden");
-							}
-						}else {
-							try {
-								a.editUser(Nombre.getText().toString(),txtapellido.getText().toString(),genero.getText().toString(),txtemail.getText().toString(),
-										txtncedula.getText().toString(),contraseña.getPassword().toString(),ccontraseña.getPassword().toString(), hotel, CEC,ind);
-							} catch (ECamposVacios e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (ELongitud e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						
-						}
-					}catch (HeadlessException | EIgualdad e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-						}*/
 				}else {
 					JOptionPane.showMessageDialog(null, "Seleccione un usuario a editar");
 				}
@@ -424,15 +378,12 @@ public class FormEditUser extends JFrame implements Serializable {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				getContentPane().setVisible(false);
-				/*if(p instanceof Cliente) {
+				if(p instanceof Cliente) {
 					dispose();
 				}
 				else {				
-				EditarUsuario(a);
-				}
-			}
-			*/
 				EditarUsuario();
+				}
 			}
 		});
 		button.setIcon(new ImageIcon("Icons"+File.separator+"back1.png"));
@@ -541,22 +492,19 @@ public class FormEditUser extends JFrame implements Serializable {
 					if(table_1.getSelectedRow()==-1) {		
 						JOptionPane.showMessageDialog(contentPane, "Seleccione un usuario para editar");
 					}else {
-						if(TipoUsuario.getSelectedItem().toString()=="Empleado") {
-							getContentPane().setVisible(false);
-							try {
+						try {
+							if(TipoUsuario.getSelectedItem().toString()=="Empleado") {
 								Editar(hotel.buscarEmpleado(table_1.getValueAt(table_1.getSelectedRow(),0).toString()));
-							} catch (ECliente e1) {
-								// TODO Auto-generated catch block
-								JOptionPane.showMessageDialog(contentPane,e1.getMessage());
-							}
-						}else{
-							try {
-								getContentPane().setVisible(false);
+
+							}else{						
+								
 								Editar(hotel.buscarCliente(table_1.getValueAt(table_1.getSelectedRow(), 0).toString()));
-							} catch (ExceptionNodo e1) {
-								// TODO Auto-generated catch block
-								JOptionPane.showMessageDialog(contentPane,e1.getMessage());
-							}
+							} 
+							Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
+							getContentPane().setVisible(false);
+						}catch (ExceptionNodo | ECliente e1) {
+							// TODO Auto-generated catch block
+							JOptionPane.showMessageDialog(contentPane,e1.getMessage());
 						}
 					}
 				}

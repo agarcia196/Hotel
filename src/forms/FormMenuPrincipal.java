@@ -244,8 +244,8 @@ public class FormMenuPrincipal extends JFrame implements Serializable{
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				if(p instanceof Cliente) {
-			//	FormEditUser editar = new FormEditUser(h, p);
-		//		editar.setVisible(true);
+				FormEditUser editar = new FormEditUser(h, p);
+				editar.setVisible(true);
 				}
 				if(p instanceof Recepcion || p instanceof Administrador) {
 					getContentPane().setVisible(false);;
@@ -324,6 +324,7 @@ public class FormMenuPrincipal extends JFrame implements Serializable{
 						"Desea Cerrar Sesion?");
 				if(validar==0) {
 					Recursos.WriteFileObjectEmpresa("hotel.dat", h);
+					dispose();
 					FormLogin login = new FormLogin(h);
 					login.setVisible(true);
 				}
@@ -377,8 +378,8 @@ public class FormMenuPrincipal extends JFrame implements Serializable{
 		lblMenu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-			//	FormEditUser editar = new FormEditUser(h, (Empleado)p);
-			//	editar.setVisible(true);
+				FormEditUser editar = new FormEditUser(h, (Empleado)p);
+				editar.setVisible(true);
 			}
 			public void mouseEntered(MouseEvent arg0) {
 				textArea.setText("Editar, elimina y busca Usuarios.");

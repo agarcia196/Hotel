@@ -38,6 +38,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.Serializable;
 import java.awt.event.ActionEvent;
 
@@ -391,19 +393,20 @@ public class FormLogin extends JFrame implements Serializable {
 		lblConfirmarContrasea.setFont(new Font("Century Gothic", Font.BOLD | Font.ITALIC, 16));
 		lblConfirmarContrasea.setBounds(720, 401, 240, 15);
 		contentPane2.add(lblConfirmarContrasea);
-		JButton btnback = new JButton("back");
-		btnback.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				contentPane2.setVisible(false);
+		JLabel btnback = new JLabel("back");
+		btnback.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				getContentPane().setVisible(false);
 				vistaLogin();
 			}
 		});
+
 		btnback.setForeground(Color.decode(txtcolor1));
 		btnback.setFont(new Font(font, Font.PLAIN, 11));
 		btnback.setBackground(Color.decode(backgroundcolor));
-		btnback.setBounds(222, 50, 80, 80);
-		btnback.setBorderPainted(false);
-		ImageIcon iconback =new ImageIcon("Icons\\back.png");
+		btnback.setBounds(185, 296, 64, 64);
+		ImageIcon iconback =new ImageIcon("Icons\\back1.png");
 		Icon iconoback = new ImageIcon(iconback.getImage().getScaledInstance(btnback.getWidth(),btnback.getHeight(), Image.SCALE_DEFAULT));
 		btnback.setIcon(iconoback);
 		contentPane2.add(btnback);
@@ -462,20 +465,20 @@ public class FormLogin extends JFrame implements Serializable {
 		lblUserIcon.setIcon(iconousericon);
 		contentPane1.add(lblUserIcon);
 
-		
-		JButton btnback = new JButton("back");
-		btnback.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				contentPane1.setVisible(false);
+	
+		JLabel btnback = new JLabel("back");
+		btnback.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				getContentPane().setVisible(false);
 				vistaPrincipal();
 			}
 		});
 		btnback.setForeground(Color.decode(txtcolor1));
 		btnback.setFont(new Font(font, Font.PLAIN, 11));
 		btnback.setBackground(Color.decode(backgroundcolor));
-		btnback.setBounds(222, 50, 80, 80);
-		btnback.setBorderPainted(false);
-		ImageIcon iconback =new ImageIcon("Icons\\back.png");
+		btnback.setBounds(185, 296, 64, 64);
+		ImageIcon iconback =new ImageIcon("Icons\\back1.png");
 		Icon iconoback = new ImageIcon(iconback.getImage().getScaledInstance(btnback.getWidth(),btnback.getHeight(), Image.SCALE_DEFAULT));
 		btnback.setIcon(iconoback);
 		contentPane1.add(btnback);
