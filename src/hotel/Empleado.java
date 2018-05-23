@@ -68,17 +68,7 @@ public abstract class Empleado extends Persona implements Serializable {
 		}
 	}
 	
-	
-	public void addEmpleado(Persona c) {
-		// TODO Auto-generated method stub
 		
-	}
-
-	public void addUser(Cliente c) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	public boolean addReserva(LocalDate dateIn, LocalDate dateOut, String ID, Hotel hotel, String cedula) throws ExceptionNodo {
 		
 		Cliente cliente;

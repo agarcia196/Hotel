@@ -31,8 +31,6 @@ import hotel.Hotel;
 import hotel.Persona;
 import hotel.Recepcion;
 import hotel.Recursos;
-import hotel.Reserva;
-
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -157,7 +155,7 @@ public class FormMenuPrincipal extends JFrame implements Serializable{
 		lblRecepcion.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				
+				 new FormReservas(h, p).setVisible(true);
 			}
 			public void mouseEntered(MouseEvent arg0) {
 				textArea.setText("TEXTPPPPP");

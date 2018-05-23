@@ -30,7 +30,6 @@ public class Recepcion extends Empleado implements Serializable{
 	}
 
 
-	@Override
 	
 	public boolean addReserva (LocalDate dateIn, LocalDate dateOut, String tipo, Hotel hotel, Cliente cliente) {
 

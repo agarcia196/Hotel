@@ -1,17 +1,12 @@
 package forms;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-
-
-import exception.EArrayVacio;
 import exception.ECliente;
 import exception.ExceptionNodo;
 import hotel.Chef;
@@ -19,20 +14,17 @@ import hotel.Cliente;
 import hotel.Empleado;
 import hotel.Habitacion;
 import hotel.Hotel;
-import hotel.Plato;
+import hotel.Persona;
 import hotel.Reserva;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -60,7 +52,7 @@ public class FormReservas extends JFrame implements Serializable {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -105,19 +97,19 @@ public class FormReservas extends JFrame implements Serializable {
 					pla.add(new Plato("Bandeja paisa", true, 80.0, 80.50));
 					pla.add(new Plato("Ajiaco", true, 90.0, 80.50));
 					System.out.println(c1.getReservasActivas().size());
-					Pedido p1= new Pedido(c1.getReservasActivas().get(0), pla);*/
+					Pedido p1= new Pedido(c1.getReservasActivas().get(0), pla);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
 	 */
-	public FormReservas(Hotel hotel, Empleado empleado) {
+	public FormReservas(Hotel hotel, Persona empleado) {
 		
 		JButton btnAgregar = new JButton("Agregar");
 		JButton btnEditar = new JButton("Editar");

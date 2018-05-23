@@ -115,8 +115,14 @@ public abstract class Persona implements Serializable{
 		return null;
 	}
 
-	public boolean addReserva(LocalDate dateIn, LocalDate dateOut, String tipo, Hotel hotel, Cliente cliente) {
-		// TODO Auto-generated method stub
+	public boolean addReserva(LocalDate dateIn, LocalDate dateOut, String ID, Hotel hotel, String cedula) throws ExceptionNodo {
+		
+		Cliente cliente;
+		
+		cliente = hotel.buscarCliente(cedula);
+		
+		cliente.addReserva(dateIn, dateOut, ID, hotel);
+		
 		return false;
 	}
 		
