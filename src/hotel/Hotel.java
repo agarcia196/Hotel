@@ -217,4 +217,18 @@ public class Hotel implements Serializable{
 			throw new EArrayVacio("No hay habitaciones disponibles");
 		}
 	}
+	
+
+	public Habitacion buscarHabitacion (String id ) {
+		Habitacion a = null;
+		int i = 0;
+		while(i<habitaciones.size() && a==null) {
+			if (habitaciones.get(i).getID().compareTo(id)==0) {
+				a= habitaciones.get(i);
+			}
+		}
+		return a;
+		
+	}
+	
 }
