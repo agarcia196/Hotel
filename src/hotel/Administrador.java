@@ -4,7 +4,6 @@
 package hotel;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import exception.EArrayVacio;
@@ -117,53 +116,6 @@ public class Administrador extends Empleado implements Serializable {
 		// TODO Auto-generated method stub
 	}
 
-	@Override
-	public void cancelReserva() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void checkReserva() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	
-
-	@Override
-	public Reserva buscarReserva(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-
-	@Override
-	public boolean editReserva(String id, LocalDate dateIn, LocalDate dateOut, Habitacion habitacion) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean addReserva(LocalDate dateIn, LocalDate dateOut, String tipo, Hotel hotel) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Reserva buscarReserva(LocalDate dateIn) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-
-	@Override
-	public void deleteUser(Cliente cliente, Hotel h) throws ExceptionNodo {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
