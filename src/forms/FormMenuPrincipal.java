@@ -243,7 +243,7 @@ public class FormMenuPrincipal extends JFrame implements Serializable{
 		contentPane.add(lblInfo);
 		contentPane.add(textArea);
 		JLabel lblHotel = new JLabel("Hotel");
-		lblHotel.setBounds(310, 200, lbtnwidth, lbtnheight);
+		lblHotel.setBounds(250, 170, lbtnwidth, lbtnheight);
 		lblHotel.setIcon(new ImageIcon("Icons"+File.separator+"hotel.png"));	
 		lblHotel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -371,7 +371,31 @@ public class FormMenuPrincipal extends JFrame implements Serializable{
 			}
 		});
 		contentPane.add(lblExit);
+		
+
+		if (p instanceof Administrador) {
+			JLabel lblHabitaciones = new JLabel("Habitaciones");
+			lblHabitaciones.setBounds(487, 156, 90, 90);
+			lblHabitaciones.setIcon(new ImageIcon(new ImageIcon("Icons"+File.separator+"house.png").getImage().getScaledInstance(90, 90, Image.SCALE_DEFAULT)));
+			contentPane.add(lblHabitaciones);
+			lblHabitaciones.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					
+					new FormAddHabitacion(h, (Administrador)p).setVisible(true);;
+				}
+				public void mouseEntered(MouseEvent arg0) {
+					textArea.setText("Gestionar las habitaciones del hotel");
+					lblInfo.setVisible(true);
+				}			
+				public void mouseExited(MouseEvent arg0) {
+					textArea.setText("");
+					lblInfo.setVisible(false);
+				}
+			});
+		}	
 	}
+	
 	private void vistaUsers() {
 		JPanel contentVistaUsuarios = new JPanel();
 		contentVistaUsuarios.setBackground(Color.decode(backgroundcolor));

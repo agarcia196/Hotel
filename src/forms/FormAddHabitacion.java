@@ -130,7 +130,7 @@ public class FormAddHabitacion extends JFrame {
 			}
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-				textMensaje.setText("Volver a Menú");
+				textMensaje.setText("Volver a Menï¿½");
 				lblInfo.setVisible(true);
 			}
 			@Override		
@@ -153,7 +153,7 @@ public class FormAddHabitacion extends JFrame {
 		
 		
 		JComboBox<String> cbDisponibilidad = new JComboBox<String>();
-		cbDisponibilidad.setModel(new DefaultComboBoxModel<String>(new String[] {"Sí", "No"}));
+		cbDisponibilidad.setModel(new DefaultComboBoxModel<String>(new String[] {"Sï¿½", "No"}));
 		cbDisponibilidad.setBackground(Color.WHITE);
 		cbDisponibilidad.setForeground(Color.BLACK);
 		cbDisponibilidad.setFont(new Font(font, Font.PLAIN, fontsize));
@@ -229,7 +229,7 @@ public class FormAddHabitacion extends JFrame {
 						txtPrecio.setText(String.valueOf(habitacion.getPrecioNoche()));
 						cbTipo.setToolTipText(habitacion.getTipo());
 					}else {
-						JOptionPane.showMessageDialog(contentPane, "Porfavor seleccione un producto plato para continuar");
+						JOptionPane.showMessageDialog(contentPane, "Porfavor seleccione una habitaciÃ³n para continuar");
 					}
 					
 				} catch (ECliente e1) {
@@ -246,7 +246,7 @@ public class FormAddHabitacion extends JFrame {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
 				if(btnCrear.getText()=="Terminar") 
-					textMensaje.setText("Finalizar la edición.");
+					textMensaje.setText("Finalizar la ediciï¿½n.");
 				else 
 					textMensaje.setText("Terminar el plato.");
 				lblInfo.setVisible(true);	
@@ -264,7 +264,7 @@ public class FormAddHabitacion extends JFrame {
 						admin.addHabitacion(txtId.getText(), cbTipo.getSelectedItem().toString(), Double.valueOf(txtPrecio.getText()), hotel);
 						Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
 						int validar = JOptionPane.showConfirmDialog(contentPane,
-								"Habitacion creada correctamente ¿Desea crear otra?");
+								"Habitacion creada correctamente ï¿½Desea crear otra?");
 						if (validar == 0) {
 							dispose();
 							new FormAddHabitacion(hotel, admin).setVisible(true);
@@ -277,7 +277,7 @@ public class FormAddHabitacion extends JFrame {
 								txtPrecio.getText(), cbTipo.getSelectedItem().toString(), hotel);
 						Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
 						int validar = JOptionPane.showConfirmDialog(contentPane,
-								"Habitacion editada correctamente ¿Desea editar otra?");
+								"Habitacion editada correctamente ï¿½Desea editar otra?");
 						if (validar == 0) {
 							dispose();
 							new FormAddHabitacion(hotel, admin).setVisible(true);
@@ -301,9 +301,9 @@ public class FormAddHabitacion extends JFrame {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
 				if(btnEditar.getText()=="Editar") 
-					textMensaje.setText("Cargar lista de platos para editar.");
+					textMensaje.setText("Cargar lista de habitaciones para editar.");
 				else 
-					textMensaje.setText("Crear nuevo plato.");
+					textMensaje.setText("Crear nuevo habitaciÃ³n.");
 				lblInfo.setVisible(true);
 			}
 			@Override		
