@@ -33,6 +33,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
@@ -346,8 +347,11 @@ public class FormReservas extends JFrame implements Serializable {
 					hotel.limpiarMenu(modeloTable);
 					// hotel.printHabitaciones(modeloTable,LocalDate.parse(textFieldFechaIn.getText()),LocalDate.parse(textFieldFechaOut.getText()));
 					 refreshTablaHabitaciones(hotel,modeloTable,LocalDate.parse(textFieldFechaIn.getText()),LocalDate.parse(textFieldFechaOut.getText()));
-					 textFieldTarifa.setText(hotel.getHabitaciones().));
-					 
+					 Period a = Period.between(LocalDate.parse(textFieldFechaIn.getText()), LocalDate.parse(textFieldFechaOut.getText()));
+					
+					 textFieldTarifa.setText(String.valueOf(Math.abs(hotel.buscarHabitacion(textFieldHabitacion.getText()).getPrecioNoche()
+							 *(a.getDays()))));
+					
 				}
 				});
 				
@@ -392,13 +396,179 @@ public class FormReservas extends JFrame implements Serializable {
 		
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			}
-		});
+				btnEliminar.setVisible(false);
+				btnAgregar.setVisible(false);
+				lblUsuario.setVisible(true);
+				textUsuario.setVisible(true);
+				lblSeleccioneHabitacin.setVisible(true);
+				textFieldFechaIn.setVisible(true);
+				textFieldFechaOut.setVisible(true);
+				lblFechaIngreso.setVisible(true);
+				lblFechaSalida.setVisible(true);
+				textFieldTarifa.setVisible(true);
+				lblTarifa.setVisible(true);
+				lblIDReserva .setVisible(true);
+				textFieldIDReserva.setVisible(true);
+				btnFinalizar.setVisible(true);
+				btnRefrescar.setVisible(true);
+				lblHabitacin.setVisible(true);
+				textFieldHabitacion.setVisible(true);
+				
+				
+				JScrollPane scrollPane = new JScrollPane();
+				scrollPane.setBounds(209, 90, 462, 171);
+				panel.add(scrollPane);
+				String [] titulos = {"ID","Tipo", "Precio"};	//crear vector con titulos de la tabla
+				DefaultTableModel modeloTable= new DefaultTableModel(titulos,0); //crear modelo con el vector de titulos
+				table = new JTable(modeloTable);							//cargar modelo en la tabla
+				scrollPane.setViewportView(table);
+//				int i = table.getSelectedRow();
+//		    String ID = table.getValueAt(table.getSelectedRow(), 0).toString();
+				
+				
+			    btnFinalizar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					
+						
+						
+					if(textFieldFechaIn.getText()==null && textFieldFechaOut.getText()==null && textUsuario.getText()==null && textFieldIDReserva.getText()==null && textFieldHabitacion.getText()==null) 
+						JOptionPane.showInputDialog("Por favor llenar todos los campos");
+					else {
+						try {
+						    //String ID = table.getValueAt(table.getSelectedRow(), 0).toString();
+							//empleado.addReserva(LocalDate.parse(textFieldFechaIn.getText()), LocalDate.parse(textFieldFechaOut.getText()),
+							//		textFieldHabitacion.getText() , hotel, textUsuario.getText());
+							Reserva r = hotel.buscarCliente(textUsuario.getText()).buscarReserva(textFieldIDReserva.getText());
+							r.setDate_in(LocalDate.parse(textFieldFechaIn.getText()));
+							r.setDate_out(LocalDate.parse(textFieldFechaOut.getText()));
+							r.setHabitacion(hotel.buscarHabitacion(textFieldHabitacion.getText()));
+						
+			    
+						} catch (ExceptionNodo e2) {
+							// TODO Auto-generated catch block
+							e2.printStackTrace();
+						}
+						
+						//JOptionPane.show("La reserva ha sido realizada con exito");
+					
+						
+						btnEliminar.setVisible(true);
+						btnAgregar.setVisible(true);
+						lblUsuario.setVisible(false);
+						textUsuario.setVisible(false);
+						textUsuario.setText("");
+						lblSeleccioneHabitacin.setVisible(false);
+						textFieldFechaIn.setVisible(false);
+						textFieldFechaIn.setText("");
+						textFieldFechaOut.setVisible(false);
+						textFieldFechaOut.setText("");
+						lblFechaIngreso.setVisible(false);
+						lblFechaSalida.setVisible(false);
+						textFieldTarifa.setVisible(false);
+						textFieldTarifa.setText("");
+						lblTarifa.setVisible(false);
+						lblIDReserva .setVisible(false);
+						textFieldIDReserva.setVisible(false);
+						textFieldIDReserva.setText("");
+						btnFinalizar.setVisible(false);
+						btnRefrescar.setVisible(false);
+						
+						hotel.limpiarMenu(modeloTable);
+						scrollPane.setVisible(false);
+						
+						lblHabitacin.setVisible(false);
+						textFieldHabitacion.setVisible(false);
+					}
+					}
+				});
+				
+				
+				
+				btnRefrescar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					
+					hotel.limpiarMenu(modeloTable);
+					// hotel.printHabitaciones(modeloTable,LocalDate.parse(textFieldFechaIn.getText()),LocalDate.parse(textFieldFechaOut.getText()));
+					 refreshTablaHabitaciones(hotel,modeloTable,LocalDate.parse(textFieldFechaIn.getText()),LocalDate.parse(textFieldFechaOut.getText()));
+					 Period a = Period.between(LocalDate.parse(textFieldFechaIn.getText()), LocalDate.parse(textFieldFechaOut.getText()));
+					
+					 textFieldTarifa.setText(String.valueOf(Math.abs(hotel.buscarHabitacion(textFieldHabitacion.getText()).getPrecioNoche()
+							 *(a.getDays()))));
+					
+				}
+				});
+				
+				btnVolver.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						btnEliminar.setVisible(true);
+						btnEditar.setVisible(true);
+						lblUsuario.setVisible(false);
+						textUsuario.setVisible(false);
+						textUsuario.setText("");
+						lblSeleccioneHabitacin.setVisible(false);
+						textFieldFechaIn.setVisible(false);
+						textFieldFechaIn.setText("");
+						textFieldFechaOut.setVisible(false);
+						textFieldFechaOut.setText("");
+						lblFechaIngreso.setVisible(false);
+						lblFechaSalida.setVisible(false);
+						textFieldTarifa.setVisible(false);
+						textFieldTarifa.setText("");
+						lblTarifa.setVisible(false);
+						lblIDReserva .setVisible(false);
+						textFieldIDReserva.setVisible(false);
+						textFieldIDReserva.setText("");
+						btnFinalizar.setVisible(false);
+						btnRefrescar.setVisible(false);
+						
+						hotel.limpiarMenu(modeloTable);
+						scrollPane.setVisible(false);
+						
+						lblHabitacin.setVisible(false);
+						textFieldHabitacion.setVisible(false);
+					}
+				});
+				
+				
+
+				
+				}
+			});
+		
 		btnEditar.setBounds(314, 23, 89, 23);
 		panel.add(btnEditar);
 		
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				btnAgregar.setVisible(false);
+				btnEditar.setVisible(false);
+				lblUsuario.setVisible(true);
+				textUsuario.setVisible(true);
+				lblIDReserva.setVisible(true);
+				textFieldIDReserva.setVisible(true);
+				btnFinalizar.setVisible(true);
+				
+				btnVolver.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						
+						btnAgregar.setVisible(true);
+						btnEditar.setVisible(true);
+						lblUsuario.setVisible(false);
+						textUsuario.setVisible(false);
+						lblIDReserva.setVisible(false);
+						textFieldIDReserva.setVisible(false);
+						btnFinalizar.setVisible(false);
+						
+						
+						
+						lblHabitacin.setVisible(false);
+						textFieldHabitacion.setVisible(false);
+					}
+				});
+				
+				
+				
 			}
 		});
 		btnEliminar.setBounds(602, 23, 89, 23);
