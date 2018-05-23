@@ -88,11 +88,7 @@ public class Hotel implements Serializable{
 			throw new ExceptionNodo ("No existe una reserva para la fecha solicitada: " + in.toString ());
 		}
 	}
-	
-	public Reserva buscarReserva (String id) {
-		
-		for (CLiente cliente : )
-	}
+
 	
 	public Cliente buscarCliente (String cedula) throws ExceptionNodo {
 		return  usuarios.buscarS(cedula).getLlave();
@@ -224,15 +220,28 @@ public class Hotel implements Serializable{
 	}
 	
 
-	public Habitacion buscarHabitacion (String id ) {
-		Habitacion a = null;
-		int i = 0;
-		while(i<habitaciones.size() && a==null) {
-			if (habitaciones.get(i).getID().compareTo(id)==0) {
-				a= habitaciones.get(i);
-			}
+	public DefaultTableModel ConsultaHabitaciones(DefaultTableModel modeloTable) throws EArrayVacio {
+		if(!habitaciones.isEmpty()) {
+		int i=0;
+		while (i<habitaciones.size()) {
+			Habitacion habitacion= habitaciones.get(i);
+			String [] model = {habitacion.getID(),habitacion.getTipo(),String.valueOf(habitacion.getDisponibilidad()),String.valueOf(habitacion.getPrecioNoche())};
+			modeloTable.addRow(model);	
+			i++;
 		}
-		return a;
+		return modeloTable;}
+		else {
+			throw new EArrayVacio("No hay Habitaciones disponibles");
+		}
+	}
+	public Habitacion buscarHabitacion(String id) throws ECliente {
+		int i =0;
+		while(i<habitaciones.size()&&habitaciones.get(i).getID().compareTo(id)!=0)
+			i++;
+		if(i==habitaciones.size())
+			throw new ECliente("Habitacion no encontrada");
+		else
+			return habitaciones.get(i);
 		
 	}
 	

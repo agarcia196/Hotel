@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import exception.EArrayVacio;
 import exception.ECamposVacios;
+import exception.ECliente;
 import exception.ECocina;
 import exception.EIgualdad;
 import exception.ELongitud;
@@ -50,13 +51,26 @@ public class Administrador extends Empleado implements Serializable {
 	 * @param h El hotel
 	 * @throws ECamposVacios the e campos vac�os
 	 */
-	public void addHabitacion(String iD, String tipo,Hotel h, double costo) throws ECamposVacios {
+	public void addHabitacion(String iD, String tipo, double costo,Hotel h) throws ECamposVacios {
 		if (iD.compareTo("")==0 ||tipo.compareTo("")==0) {
 			throw new ECamposVacios();
 		}
 		else {
 			h.addHabitacion(new Habitacion(iD, tipo, costo));
 		}
+	}
+	public Habitacion buscarHabitacion(String id, Hotel h) throws ECliente {
+		return h.buscarHabitacion(id);
+	}
+	public void editarHabitacion(String id, String disponibilidad, String precio, String tipo, Hotel h) throws ECliente {
+		Habitacion habitacion = buscarHabitacion(id,h);
+		habitacion.setDisponible(Boolean.valueOf(disponibilidad));
+		habitacion.setPrecioNoche(Double.valueOf(precio));
+		habitacion.setTipo(tipo);
+		
+	}
+	public DefaultTableModel ConsultaHabitaciones(DefaultTableModel modeloTable, Hotel h) throws EArrayVacio {
+		return h.ConsultaHabitaciones(modeloTable);
 	}
 	
 	/**
