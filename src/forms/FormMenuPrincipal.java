@@ -14,6 +14,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -23,6 +24,7 @@ import hotel.Empleado;
 import hotel.Hotel;
 import hotel.Persona;
 import hotel.Recepcion;
+import hotel.Recursos;
 
 import javax.swing.JTextArea;
 
@@ -76,7 +78,7 @@ public class FormMenuPrincipal extends JFrame implements Serializable{
 		setBounds(0, 0, 1366, 768);	
 
 		lblLogin = new JLabel();
-		lblLogin.setBounds(310, 69, 780, 50);
+		lblLogin.setBounds(310, 69, 780, 75);
 		lblLogin.setFont(new Font(font, Font.BOLD, fontsize+20));
 		lblLogin.setForeground(Color.WHITE);
 		lblInfo = new JLabel("Info");
@@ -209,7 +211,7 @@ public class FormMenuPrincipal extends JFrame implements Serializable{
 		contentPane.add(lblInfo);
 		contentPane.add(textArea);
 		JLabel lblHotel = new JLabel("Hotel");
-		//lblHotel.setBounds(310, 200, lbtnwidth, lbtnheight);
+		lblHotel.setBounds(310, 200, lbtnwidth, lbtnheight);
 		lblHotel.setIcon(new ImageIcon("Icons"+File.separator+"hotel.png"));	
 		lblHotel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -309,7 +311,33 @@ public class FormMenuPrincipal extends JFrame implements Serializable{
 			lblCocina_1.setBounds(637, 450, 189, 60);
 			lblCocina.setIcon(new ImageIcon("Icons"+File.separator+"chef1.png"));
 			contentPane.add(lblCocina_1);
+			
+			
 		}
+		JLabel lblExit = new JLabel("Exit");
+		lblExit.setIcon(new ImageIcon("Icons\\exit.png"));
+		lblExit.setBounds(1130, 296, 64, 64);
+		lblExit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				int validar = JOptionPane.showConfirmDialog(contentPane,
+						"Desea Cerrar Sesion?");
+				if(validar==0) {
+					Recursos.WriteFileObjectEmpresa("hotel.dat", h);
+					FormLogin login = new FormLogin(h);
+					login.setVisible(true);
+				}
+			}
+			public void mouseEntered(MouseEvent arg0) {
+				textArea.setText("Cerrar Sesion.");
+				lblInfo.setVisible(true);
+			}			
+			public void mouseExited(MouseEvent arg0) {
+				textArea.setText("");
+				lblInfo.setVisible(false);
+			}
+		});
+		contentPane.add(lblExit);
 	}
 	private void vistaUsers() {
 		JPanel contentVistaUsuarios = new JPanel();

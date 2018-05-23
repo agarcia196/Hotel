@@ -48,6 +48,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -163,7 +164,7 @@ public class FormCocina extends JFrame implements Serializable  {
 		
 		JLabel lblInfo = new JLabel("Info");
 		lblInfo.setBounds(235, 578, 100, 100);
-		ImageIcon iconinfo =new ImageIcon("Icons\\information.png");
+		ImageIcon iconinfo =new ImageIcon("Icons"+File.separator+"information.png");
 		Icon iconoinfo  = new ImageIcon(iconinfo.getImage().getScaledInstance(lblInfo.getWidth(),lblInfo.getHeight(), Image.SCALE_DEFAULT));
 		lblInfo.setIcon(iconoinfo);
 		lblInfo.setVisible(false);
@@ -182,7 +183,7 @@ public class FormCocina extends JFrame implements Serializable  {
 		contentCmenu.add(textMensaje);
 		JLabel lblBack = new JLabel("Back");
 		lblBack.setBounds(185, 296, 64, 64);
-		lblBack.setIcon(new ImageIcon("Icons\\back1.png"));
+		lblBack.setIcon(new ImageIcon("Icons"+File.separator+"back1.png"));
 		lblBack.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -282,7 +283,7 @@ public class FormCocina extends JFrame implements Serializable  {
 		
 		JLabel lblInfo = new JLabel("Info");
 		lblInfo.setBounds(235, 578, 100, 100);
-		ImageIcon iconinfo =new ImageIcon("Icons\\information.png");
+		ImageIcon iconinfo =new ImageIcon("Icons"+File.separator+"information.png");
 		Icon iconoinfo  = new ImageIcon(iconinfo.getImage().getScaledInstance(lblInfo.getWidth(),lblInfo.getHeight(), Image.SCALE_DEFAULT));
 		lblInfo.setIcon(iconoinfo);
 		lblInfo.setVisible(false);
@@ -415,7 +416,7 @@ public class FormCocina extends JFrame implements Serializable  {
 		
 		JLabel lblInfo = new JLabel("Info");
 		lblInfo.setBounds(245, 578, 100, 100);
-		ImageIcon iconinfo =new ImageIcon("Icons\\information.png");
+		ImageIcon iconinfo =new ImageIcon("Icons"+File.separator+"information.png");
 		Icon iconoinfo  = new ImageIcon(iconinfo.getImage().getScaledInstance(lblInfo.getWidth(),lblInfo.getHeight(), Image.SCALE_DEFAULT));
 		lblInfo.setIcon(iconoinfo);
 		lblInfo.setVisible(false);
@@ -935,7 +936,7 @@ public class FormCocina extends JFrame implements Serializable  {
 		
 		JLabel lblInfo = new JLabel("Info");
 		lblInfo.setBounds(200, 578, 100, 100);
-		ImageIcon iconinfo =new ImageIcon("Icons\\information.png");
+		ImageIcon iconinfo =new ImageIcon("Icons"+File.separator+"information.png");
 		Icon iconoinfo  = new ImageIcon(iconinfo.getImage().getScaledInstance(lblInfo.getWidth(),lblInfo.getHeight(), Image.SCALE_DEFAULT));
 		lblInfo.setIcon(iconoinfo);
 		lblInfo.setVisible(false);
@@ -1140,10 +1141,18 @@ public class FormCocina extends JFrame implements Serializable  {
 						int validar = JOptionPane.showConfirmDialog(contentDespachar,
 								"Esta seguro de dar por terminado el pedido "+pedido);
 						if(validar==0) {
-							if(persona.despachar(pedido, hotel)) {
+							boolean status = false;
+							if(persona!=null)
+								status=persona.despachar(pedido, hotel);
+							if(admin!=null)
+								status= admin.despachar(pedido, hotel);
+							if(status) {
 								JOptionPane.showMessageDialog(contentPane, "Se facturo correctamente");
 								hotel.limpiarMenu(modeloTable);
+								if(persona!=null)
 								persona.consultarCola(modeloTable, hotel);
+								if(admin!=null)
+									admin.consultarCola(modeloTable, hotel);
 								Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
 							}else{
 								JOptionPane.showMessageDialog(contentPane, "No se pudo despachar");
@@ -1174,7 +1183,10 @@ public class FormCocina extends JFrame implements Serializable  {
 		});
 		contentDespachar.add(btnDespachar);
 		try {
+			if(persona!=null)
 			persona.consultarCola(modeloTable, hotel);
+			if(admin!=null)
+			admin.consultarCola(modeloTable, hotel);	
 		} catch (EArrayVacio e1) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(contentDespachar, e1.getMessage());
@@ -1199,7 +1211,7 @@ public class FormCocina extends JFrame implements Serializable  {
 		
 		JLabel lblInfo = new JLabel("Info");
 		lblInfo.setBounds(245, 578, 100, 100);
-		ImageIcon iconinfo =new ImageIcon("Icons\\information.png");
+		ImageIcon iconinfo =new ImageIcon("Icons"+File.separator+"information.png");
 		Icon iconoinfo  = new ImageIcon(iconinfo.getImage().getScaledInstance(lblInfo.getWidth(),lblInfo.getHeight(), Image.SCALE_DEFAULT));
 		lblInfo.setIcon(iconoinfo);
 		lblInfo.setVisible(false);
@@ -1338,7 +1350,8 @@ public class FormCocina extends JFrame implements Serializable  {
 				platos.add(p);
 				String [] model = {p.getNombre(),Double.toString(p.getDuracion()),Double.toString(p.getValor())};
 				modeloTable.addRow(model);
-				System.out.println(platos);		}
+				//System.out.println(platos);		
+				}
 				else
 					JOptionPane.showMessageDialog(contentPedido, "Debe seleccionar un producto");
 			}
@@ -1377,7 +1390,11 @@ public class FormCocina extends JFrame implements Serializable  {
 					 int validar1 = JOptionPane.showConfirmDialog(contentPedido,"Esta seguro de crear el pedido a nombre de :"
 							 + c.getNombre()+" y los platos \n"+platos);
 					 if(validar1==0) {
-						 persona.finalizarPedido(c, platos, hotel);
+						 if(persona!=null) {
+						 persona.finalizarPedido(c, platos, hotel);}
+						 else if(admin!=null) {
+						 admin.finalizarPedido(c, platos, hotel);
+						 }
 						 int validar = JOptionPane.showConfirmDialog(contentPedido,"Pedido creado correctamente ¿Desea crear otro?");
 						 Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
 						 if (validar == 0) {
@@ -1480,7 +1497,10 @@ public class FormCocina extends JFrame implements Serializable  {
 	    columnModel.getColumn(3).setPreferredWidth(50);
 		scrollPane.setViewportView(table_1);
 		try {
+			if(persona!=null)
 			persona.consultarCola(modeloTable, hotel);
+			if(admin!=null)
+			admin.consultarCola(modeloTable, hotel);	
 		} catch (EArrayVacio e1) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(contentPane, e1.getMessage());
