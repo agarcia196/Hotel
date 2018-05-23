@@ -24,9 +24,9 @@ public class Recepcion extends Empleado implements Serializable{
 		super.checkIn (cedula, hotel);
 	}
 	
-	public void checkOut (String cedula, Hotel hotel) throws ECliente, ExceptionNodo {
+	public double checkOut (String cedula, String idReserva, Hotel hotel) throws ECliente, ExceptionNodo {
 		
-		super.checkOut (cedula, hotel);
+		return super.checkOut (cedula, idReserva, hotel);
 	}
 
 
