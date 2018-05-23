@@ -70,6 +70,7 @@ public class ACliente extends ABB<Cliente> {
 			throw new EArrayVacio("No hay Usuarios");
 		}		
 	}
+	
 	private void ConsultaUsuarios(DefaultTableModel list,NodoB<Cliente> r) {
 		if(r!=null) {			
 			ConsultaUsuarios(list,r.getHijoIzq());
@@ -99,8 +100,45 @@ public class ACliente extends ABB<Cliente> {
 		}
 	}
 	
+	
+	
+	public DefaultTableModel ConsultaUsuariosEdit(DefaultTableModel modeloTable,String palabra) throws EArrayVacio {
+		if(raiz!=null) {
+			ConsultaUsuariosEdit(modeloTable,raiz,palabra);
+			return modeloTable;
+		}else {
+			throw new EArrayVacio("No hay Usuarios");
+		}		
+	}
+	private void ConsultaUsuariosEdit(DefaultTableModel list,NodoB<Cliente> r,String palabra) {
+		if(r!=null) {			
+			ConsultaUsuariosEdit(list,r.getHijoIzq(),palabra);
+			if(r.getLlave().getNombre().toLowerCase().contains(palabra)||r.getLlave().getApellido().toLowerCase().contains(palabra)||r.getLlave().getId().toLowerCase().contains(palabra)) {
+				String [] model = {r.getLlave().getId(),r.getLlave().getNombre(),r.getLlave().getApellido(),(r.getLlave().getActivo())};
+				list.addRow(model);	}
+			ConsultaUsuariosEdit(list,r.getHijoDer(),palabra);			
+		}
+	}
+	
 	public void eliminar(String info) throws ExceptionNodo {
 		raiz=eliminar(info, raiz);
+	}
+	
+	public DefaultTableModel ConsultaUsuariosEdit(DefaultTableModel modeloTable) throws EArrayVacio {
+		if(raiz!=null) {
+			ConsultaUsuariosEdit(modeloTable,raiz);
+			return modeloTable;
+		}else {
+			throw new EArrayVacio("No hay Usuarios");
+		}		
+	}
+	private void ConsultaUsuariosEdit(DefaultTableModel list,NodoB<Cliente> r) {
+		if(r!=null) {			
+			ConsultaUsuariosEdit(list,r.getHijoIzq());
+				String [] model = {r.getLlave().getId(),r.getLlave().getNombre(),r.getLlave().getApellido(),r.getLlave().getActivo()};
+				list.addRow(model);
+			ConsultaUsuariosEdit(list,r.getHijoDer());
+		}
 	}
 
 	public NodoB<Cliente> eliminar(String info, NodoB<Cliente> nodo) throws ExceptionNodo {

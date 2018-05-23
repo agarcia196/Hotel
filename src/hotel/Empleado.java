@@ -3,7 +3,11 @@ package hotel;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
+
+import exception.ECamposVacios;
 import exception.ECliente;
+import exception.EIgualdad;
+import exception.ELongitud;
 import exception.ExceptionNodo;
 
 public abstract class Empleado extends Persona implements Serializable {
@@ -40,6 +44,17 @@ public abstract class Empleado extends Persona implements Serializable {
 	
 	
 	
+	@Override
+	public void editarUsuario(String nombre, String apellido, String genero, String correo, String id, String pwd,
+			String cpwd, Hotel h, Persona c) throws ECamposVacios, EIgualdad, ELongitud {
+		c.setNombre(nombre);
+		c.setCorreo(correo);
+		c.setApellido(apellido);
+		c.setCorreo(correo);
+		c.setId(id);
+		c.setPwd(cpwd);
+	}
+
 	public void checkOut (String cedula, Hotel hotel) throws ECliente, ExceptionNodo{
 		
 		Cliente cliente = hotel.buscarCliente(cedula);
@@ -63,14 +78,7 @@ public abstract class Empleado extends Persona implements Serializable {
 		
 		
 	}
-	public String getActivo(boolean A) {
-		A=isActivo();
-		if(A==true) {
-			return "Activa";
-		}else {
-			return "Inactiva";
-		}
-	}
+	
 	
 	public void addEmpleado(Persona c) {
 		// TODO Auto-generated method stub

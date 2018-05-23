@@ -137,6 +137,7 @@ public class Hotel implements Serializable{
 	public DefaultTableModel ConsultaUsuarios(DefaultTableModel modeloTable,String palabra) throws EArrayVacio{
 		return usuarios.ConsultaUsuarios(modeloTable,palabra);
 	}
+	
 	public Persona login(String typeUser,String id,String pwd) throws ExceptionNodo, ECliente {
 		Persona persona =null;
 		switch (typeUser) {
@@ -154,13 +155,23 @@ public class Hotel implements Serializable{
 		else
 			throw new ECliente("Contraseña Inconrrecta");
 	}
+		
+	
+	public DefaultTableModel ConsultaUsuariosEdit(DefaultTableModel modeloTable) throws EArrayVacio{
+		return usuarios.ConsultaUsuariosEdit(modeloTable);
+	}
+	public DefaultTableModel ConsultaUsuariosEdit(DefaultTableModel modeloTable,String palabra) throws EArrayVacio{
+		return usuarios.ConsultaUsuariosEdit(modeloTable,palabra);
+	}
+	
+	
 	
 	public DefaultTableModel ConsultaEmpleados(DefaultTableModel modeloTable) throws EArrayVacio {
 		if(!personal.isEmpty()) {
 		int i=0;
 		while (i<personal.size()) {
 			Empleado e= personal.get(i);
-			String [] model = {e.getId(),e.getNombre(),e.getApellido(),e.getActivo(e.isActivo())};
+			String [] model = {e.getId(),e.getNombre(),e.getApellido(),e.getActivo()};
 			modeloTable.addRow(model);	
 			i++;
 		}
@@ -176,7 +187,7 @@ public class Hotel implements Serializable{
 			while (i<personal.size()) {
 				Empleado e= personal.get(i);
 				if(palabra.compareTo("")==0||e.getNombre().toLowerCase().contains(palabra)||e.getApellido().toLowerCase().contains(palabra)||e.getId().toLowerCase().contains(palabra)) {
-					String [] model = {e.getId(),e.getNombre(),e.getApellido(),e.getActivo(e.isActivo())};
+					String [] model = {e.getId(),e.getNombre(),e.getApellido(),e.getActivo()};
 					modeloTable.addRow(model);	
 				}
 				i++;

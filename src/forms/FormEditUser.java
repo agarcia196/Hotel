@@ -80,7 +80,7 @@ public class FormEditUser extends JFrame {
 					fabio.addUser("Fabio3213", "Pedro", "Masculino", "xd", "6545", "Cedula", "12345678", "12345678", "Recepcion",hotel);
 					fabio.addUser("Fabio3213", "Pedro", "Masculino", "xd", "6545", "Cedula", "12345678", "12345678", "Cliente",hotel);
 					hotel.addUser( Fabox);
-					FormEditUser frame = new FormEditUser(hotel,Fabox,fabio);
+					FormEditUser frame = new FormEditUser(hotel,Fabox);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -89,7 +89,7 @@ public class FormEditUser extends JFrame {
 		});
 	}
 
-	public FormEditUser(Hotel h,Persona persona,Administrador a) {
+	public FormEditUser(Hotel h,Persona persona) {
 		hotel=h;
 		this.p=persona;
 		setTitle("Sign in");
@@ -97,9 +97,9 @@ public class FormEditUser extends JFrame {
 		setExtendedState(MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 1366, 768);	
-		//EditarUsuario(a);
+		EditarUsuario();
 		lblEditar = new JLabel();
-	Editar(persona,a,1);
+		//Editar(persona);
 		
 	/*	if(p instanceof Cliente) {
 		Editar(p,1);}
@@ -116,7 +116,7 @@ public class FormEditUser extends JFrame {
 	 * @param h 
 	 */
 	
-	private void Editar(Persona CEC,Administrador a,int ind) {
+	private void Editar(Persona CEC) {
 		
 		JPasswordField contraseña,ccontraseña;
 		JTextField txtapellido,txtncedula,txtemail,Nombre;
@@ -282,8 +282,9 @@ public class FormEditUser extends JFrame {
 						"¿Está seguro de las modificaciones realizadas?");
 				if (validar == 0) {
 					try {
-						a.editUser(Nombre.getText().toString(),txtapellido.getText().toString(),genero.getText().toString(),txtemail.getText().toString(),
-								txtncedula.getText().toString(),String.valueOf(contraseña.getPassword()),String.valueOf(ccontraseña.getPassword()), hotel, CEC,ind);
+						CEC.editarUsuario(Nombre.getText().toString(),txtapellido.getText().toString(),genero.getText().toString(),txtemail.getText().toString(),
+								txtncedula.getText().toString(),String.valueOf(contraseña.getPassword()),String.valueOf(ccontraseña.getPassword()), hotel, CEC);
+						JOptionPane.showMessageDialog(null, "Edicion completada exitosamente");
 					} catch (ECamposVacios | EIgualdad | ELongitud e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -332,7 +333,7 @@ public class FormEditUser extends JFrame {
 							
 			
 		});
-		signup.setBounds(770, 482, 250, 40);
+		signup.setBounds(720, 482, 300, 40);
 		contentPane2.add(signup);
 		
 		JSeparator separator = new JSeparator();
@@ -390,21 +391,30 @@ public class FormEditUser extends JFrame {
 		contentPane2.add(lblConfirmarContrasea);
 		
 		JButton btnEliminarUsuario = new JButton("Eliminar ");
+		if(CEC.isActivo()) {
+			btnEliminarUsuario.setText("Eliminar");
+		}else {
+			btnEliminarUsuario.setText("Activar");
+		}
 		btnEliminarUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(CEC.getNombre());
-				CEC.setActivo(false);
-				System.out.println(CEC.isActivo());
-				//Recursos.WriteFileObjectEmpresa("hotel.dat", hotel);
-				JOptionPane.showMessageDialog(null, "El estado de la cuenta a pasado a inactivo");
-				getContentPane().setVisible(false);
-				EditarUsuario(a);
+				if(CEC.isActivo()) {
+					CEC.setActivo(false);
+					JOptionPane.showMessageDialog(null, "El estado de la cuenta ha sido desactivada");
+					getContentPane().setVisible(false);
+					EditarUsuario();
+				}else {
+					CEC.setActivo(true);
+					JOptionPane.showMessageDialog(null, "La cuenta ha sido reactivada");
+					getContentPane().setVisible(false);
+					EditarUsuario();
+				}
 			}
 		});
 		btnEliminarUsuario.setForeground(Color.WHITE);
 		btnEliminarUsuario.setFont(new Font("Century Gothic", Font.BOLD, 25));
 		btnEliminarUsuario.setBackground(new Color(58, 136, 219));
-		btnEliminarUsuario.setBounds(355, 482, 221, 40);
+		btnEliminarUsuario.setBounds(355, 482, 300, 40);
 		contentPane2.add(btnEliminarUsuario);
 		
 		JLabel button = new JLabel();
@@ -421,28 +431,16 @@ public class FormEditUser extends JFrame {
 				}
 			}
 			*/
-				EditarUsuario(a);
+				EditarUsuario();
 			}
 		});
 		button.setIcon(new ImageIcon("Icons"+File.separator+"back1.png"));
 		button.setBounds(185, 296, 64, 64);
 		contentPane2.add(button);
-		
-		JButton btnActivar = new JButton("Activar");
-		btnActivar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				CEC.setActivo(true);
-			}
-		});
-		btnActivar.setForeground(Color.WHITE);
-		btnActivar.setFont(new Font("Century Gothic", Font.BOLD, 25));
-		btnActivar.setBackground(Color.RED);
-		btnActivar.setBounds(577, 482, 193, 40);
-		contentPane2.add(btnActivar);
 	}
 		
 		
-	private void EditarUsuario(Administrador a) {			
+	private void EditarUsuario() {			
 			contentPane = new JPanel();
 			contentPane.setBackground(Color.decode(backgroundcolor));
 			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -493,7 +491,7 @@ public class FormEditUser extends JFrame {
 			table_1 = new JTable(modeloTable);							//cargar modelo en la tabla
 			scrollPane.setViewportView(table_1);
 			try {
-				hotel.ConsultaUsuarios(modeloTable);
+				hotel.ConsultaUsuariosEdit(modeloTable);
 			} catch (EArrayVacio e) {
 				// TODO Auto-generated catch block
 				JOptionPane.showMessageDialog(contentPane, e.getMessage());
@@ -517,14 +515,14 @@ public class FormEditUser extends JFrame {
 					String tipo=TipoUsuario.getSelectedItem().toString();
 					if(tipo=="Empleado") {
 							try {
-								hotel.ConsultaEmpleados(modeloTable,textFieldBuscar.getText());
+								hotel.ConsultaUsuariosEdit(modeloTable,textFieldBuscar.getText());
 							} catch (EArrayVacio e) {
 								// TODO Auto-generated catch block
 								JOptionPane.showMessageDialog(contentPane,e.getMessage());
 							}		
 					}else {
 						try {
-							hotel.ConsultaUsuarios(modeloTable);
+							hotel.ConsultaUsuariosEdit(modeloTable);
 						} catch (EArrayVacio e) {
 							// TODO Auto-generated catch block
 							JOptionPane.showMessageDialog(contentPane,e.getMessage());
@@ -545,7 +543,7 @@ public class FormEditUser extends JFrame {
 						if(TipoUsuario.getSelectedItem().toString()=="Empleado") {
 							getContentPane().setVisible(false);
 							try {
-								Editar(hotel.buscarEmpleado(table_1.getValueAt(table_1.getSelectedRow(),0).toString()),a,1);
+								Editar(hotel.buscarEmpleado(table_1.getValueAt(table_1.getSelectedRow(),0).toString()));
 							} catch (ECliente e1) {
 								// TODO Auto-generated catch block
 								JOptionPane.showMessageDialog(contentPane,e1.getMessage());
@@ -553,7 +551,7 @@ public class FormEditUser extends JFrame {
 						}else{
 							try {
 								getContentPane().setVisible(false);
-								Editar(hotel.buscarCliente(table_1.getValueAt(table_1.getSelectedRow(), 0).toString()),a,0);
+								Editar(hotel.buscarCliente(table_1.getValueAt(table_1.getSelectedRow(), 0).toString()));
 							} catch (ExceptionNodo e1) {
 								// TODO Auto-generated catch block
 								JOptionPane.showMessageDialog(contentPane,e1.getMessage());
@@ -585,7 +583,7 @@ public class FormEditUser extends JFrame {
 					String tipo=TipoUsuario.getSelectedItem().toString();
 					try {
 						if(tipo=="Cliente") {
-							hotel.ConsultaUsuarios(modeloTable, textFieldBuscar.getText());
+							hotel.ConsultaUsuariosEdit(modeloTable, textFieldBuscar.getText());
 						}else if(tipo=="Empleado"){
 							hotel.ConsultaEmpleados(modeloTable, textFieldBuscar.getText());
 						}else {

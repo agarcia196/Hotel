@@ -79,6 +79,8 @@ public class Administrador extends Empleado implements Serializable {
 	 * @throws ETipoInconrrecto the e tipo incorrecto
 	 * @throws ExceptionNodo 
 	 */
+	
+	
 	public void addUser(String nombre, String apellido, String genero, String correo, String id, String tipoId,
 			String pwd, String cpwd, String cargo , Hotel h) throws ELongitud, ECamposVacios, EIgualdad, ETipoInconrrecto, ExceptionNodo {
 			Recursos.validarCamposVaciosU(nombre, apellido, genero, correo, id, tipoId, pwd, cpwd, cargo);
@@ -102,17 +104,18 @@ public class Administrador extends Empleado implements Serializable {
 			}
 	}
 	
-	public void editUser(String nombre, String apellido, String genero, String correo, String id,
-			String pwd, String cpwd, Hotel h,Persona c, int ind) throws ECamposVacios, EIgualdad, ELongitud {
+	@Override
+	public void editarUsuario(String nombre, String apellido, String genero, String correo, String id,
+			String pwd, String cpwd, Hotel h,Persona c) throws ECamposVacios, EIgualdad, ELongitud {
 		Recursos.validarCamposVaciosU(nombre, apellido, genero, correo, id, pwd, cpwd);
 		Recursos.validarLongitudPwd(cpwd);
 		Recursos.validarIgualdadPwd(pwd, cpwd);
 		c.setNombre(nombre);
 		c.setApellido(apellido);
 		c.setCorreo(correo);
-		c.setPwd(cpwd);
+		c.setPwd(cpwd); 
+		// TODO Auto-generated method stub
 	}
-	
 
 	@Override
 	public void cancelReserva() {

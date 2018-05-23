@@ -97,6 +97,7 @@ public abstract class Persona implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
 
 	@Override
 	public String toString() {
@@ -152,6 +153,20 @@ public abstract class Persona implements Serializable{
 	 */
 	public Reserva buscarReserva (String id) {
 		return null;
+	}
+
+	public void editarUsuario(String nombre, String apellido, String genero, String correo, String id, String pwd,
+			String cpwd, Hotel h, Persona c) throws ECamposVacios, EIgualdad, ELongitud {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public String getActivo() {
+		if(this.isActivo()) {
+			return "Activa";
+		}else {
+			return "Inactiva";
+		}
 	}
 
 	
