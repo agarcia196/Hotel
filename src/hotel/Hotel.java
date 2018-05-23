@@ -77,13 +77,16 @@ public class Hotel implements Serializable{
 	
 	// buscar reserva 
 	public Reserva buscarReserva (String cedula,LocalDate in) throws ExceptionNodo {
-		Cliente c1=buscarCliente(cedula);
-		if(c1.getReservasActivas().contains(in)) {
-			return c1.buscarReserva(in);
-		}else {
-			return null;
-		}
+		Cliente c1 = buscarCliente (cedula);
+		Reserva reserva = c1.buscarReserva (LocalDate.now ());
 		
+		if(reserva != null) {
+			
+			return reserva;
+		}else {
+			
+			throw new ExceptionNodo ("No existe una reserva para la fecha solicitada: " + in.toString ());
+		}
 	}
 	
 	public Cliente buscarCliente (String cedula) throws ExceptionNodo {
@@ -153,7 +156,7 @@ public class Hotel implements Serializable{
 		if (pwd.compareTo(persona.getPwd())==0)
 			return persona;
 		else
-			throw new ECliente("Contraseña Inconrrecta");
+			throw new ECliente("Contraseï¿½a Inconrrecta");
 	}
 		
 	

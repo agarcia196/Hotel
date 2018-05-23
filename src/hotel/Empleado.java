@@ -21,24 +21,9 @@ public abstract class Empleado extends Persona implements Serializable {
 
 	public void checkIn (String cedula, Hotel hotel) throws ECliente, ExceptionNodo {
 		
-		Cliente cliente = hotel.buscarCliente (cedula);
+		Reserva reserva = hotel.buscarReserva(cedula, LocalDate.now ());
 		
-		if (cliente != null) {
-			
-			LocalDate hoy = LocalDate.now();
-			Reserva reserva = cliente.buscarReserva (hoy);
-			
-			if (reserva != null) {
-				
-				reserva.getHabitacion ().setDisponible (false);
-			} else {
-				
-				throw new ECliente ("No existe una reserva activa para el dÃ­a actual: " + hoy.toString ());
-			}
-		} else {
-			
-			throw new ECliente ("No existe un cliente asociado a la cÃ©dula: " + cedula);
-		}
+		reserva.getHabitacion ().setDisponible (false);
 	}
 	
 	
@@ -70,7 +55,7 @@ public abstract class Empleado extends Persona implements Serializable {
 				reserva.getHabitacion().setDisponible(true);
 			} else {
 				Period period = Period.between(out,hoy);
-				throw new ECliente("El cliente se pasó de la fecha establecida por "+ period + "días" );
+				throw new ECliente("El cliente se pasï¿½ de la fecha establecida por "+ period + "dï¿½as" );
 			}
 		}else {
 			throw new ECliente ("No existe un cliente asociado a la cÃ©dula: " + cedula);
@@ -91,11 +76,13 @@ public abstract class Empleado extends Persona implements Serializable {
 	}
 	
 	public boolean addReserva(LocalDate dateIn, LocalDate dateOut, String ID, Hotel hotel, String cedula) throws ExceptionNodo {
+		
 		Cliente cliente;
 		
 		cliente = hotel.buscarCliente(cedula);
 		
 		cliente.addReserva(dateIn, dateOut, ID, hotel);
+		
 		return false;
 	}
 }

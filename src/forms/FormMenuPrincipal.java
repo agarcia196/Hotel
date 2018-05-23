@@ -9,24 +9,31 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import exception.ECliente;
+import exception.ExceptionNodo;
 import hotel.Administrador;
 import hotel.Cliente;
 import hotel.Empleado;
+import hotel.Habitacion;
 import hotel.Hotel;
 import hotel.Persona;
 import hotel.Recepcion;
 import hotel.Recursos;
+import hotel.Reserva;
 
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class FormMenuPrincipal extends JFrame implements Serializable{
 
@@ -54,6 +61,27 @@ public class FormMenuPrincipal extends JFrame implements Serializable{
 			public void run() {
 				try {
 					Hotel h = new Hotel("Trivago");
+					try {					
+						Cliente a = new Cliente("a", "a", "Sin especificar", "DD", "1234", "CC", "123");
+						Habitacion ha = new Habitacion ("VIP", "VIP", 150000);
+						h.addHabitacion (ha);
+						System.out.println (ha);
+						System.out.println (h.getHabitaciones().size());
+						a.addReserva(LocalDate.now (), LocalDate.of (2018, 10, 29), "VIP", h);
+						Cliente b = new Cliente("b", "b", "Sin especificar", "DD", "abc", "CC", "123");
+						Cliente g = new Cliente("g", "c", "Sin especificar", "DD", "def", "CC", "123");
+						Cliente d = new Cliente("d", "d", "Sin especificar", "DD", "ghi", "CC", "123");
+						Cliente e = new Cliente("e", "e", "Sin especificar", "DD", "jkl", "CC", "123");
+						Cliente f = new Cliente("f", "f", "Sin especificar", "DD", "mno", "CC", "123");
+						h.addUser(a);
+						h.addUser(b);
+						h.addUser(g);
+						h.addUser(d);
+						h.addUser(e);
+						h.addUser(f);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				//	Persona Fabox= new Cliente("Fabio","Anaya","Masculino","fabeac", "1212","Cedula","123");
 					Persona Fabox1= new Administrador("Fabio","Anaya","Masculino","fabeac", "1212","Cedula","123");
 					FormMenuPrincipal frame = new FormMenuPrincipal(h, Fabox1);
@@ -155,9 +183,11 @@ public class FormMenuPrincipal extends JFrame implements Serializable{
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
+				getContentPane().setVisible(false);
+				vistaCheckIn();
 			}
 			public void mouseEntered(MouseEvent arg0) {
-				textArea.setText("TEXTPPPPP");
+				textArea.setText("Realizar check-in a un cliente antes de que pueda pasar a su habitación");
 				lblInfo.setVisible(true);
 			}			
 			public void mouseExited(MouseEvent arg0) {
@@ -417,5 +447,161 @@ public class FormMenuPrincipal extends JFrame implements Serializable{
 			}
 		});
 		contentVistaUsuarios.add(lblBack);
+	}
+	
+	private void vistaCheckIn() {
+		lblInfo.setVisible(false);
+		textArea.setText("");
+		JPanel contentCheckIn = new JPanel();
+		contentCheckIn.setBackground(Color.decode(backgroundcolor));
+		contentCheckIn.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentCheckIn);
+		contentCheckIn.setLayout(null);
+		contentCheckIn.setLayout(null);
+		lblLogin.setText("Check-In");
+		contentCheckIn.add(lblLogin);
+		contentCheckIn.add(lblInfo);
+		contentCheckIn.add(textArea);
+		
+		JLabel lblBack = new JLabel("Back");
+		lblBack.setBounds(185, 296, 64, 64);
+		lblBack.setIcon(new ImageIcon("Icons" + File.separator + "back1.png"));
+		lblBack.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				getContentPane().setVisible(false);
+				vistaHotel();
+			}
+		});
+		contentCheckIn.add(lblBack);
+		
+		JLabel lblCdulaCliente = new JLabel("Cédula cliente:");
+		lblCdulaCliente.setFont(new Font("Dialog", Font.BOLD, 16));
+		lblCdulaCliente.setForeground (Color.WHITE);
+		lblCdulaCliente.setBounds(436, 296, 157, 41);
+		contentCheckIn.add(lblCdulaCliente);
+		
+		JTextField textField = new JTextField();
+		textField.setBounds(627, 296, 313, 41);
+		contentCheckIn.add(textField);
+		textField.setColumns(10);
+		textField.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+
+				new FormBuscarUsuario (h, textField).setVisible(true);
+			}
+		});
+		
+		JButton btnComprobar = new JButton("Comprobar");
+		btnComprobar.setBounds(575, 399, 135, 53);
+		contentCheckIn.add(btnComprobar);
+		
+		btnComprobar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+
+				try {
+					
+					((Empleado)p).checkIn (textField.getText (), h);
+					
+
+					JOptionPane.showMessageDialog(null, "Check-In realizado con éxito", "Completo", JOptionPane.INFORMATION_MESSAGE);
+					
+					
+				} catch (ExceptionNodo | ECliente e) {
+
+					JOptionPane.showMessageDialog(null, e.getMessage (), "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+			public void mouseEntered(MouseEvent arg0) {
+				textArea.setText("Busca un usuario asociado a la cédula introducida y luego mira si tiene una reserva"
+						+ " hecha para el día actual.");
+				lblInfo.setVisible(true);
+			}			
+			public void mouseExited(MouseEvent arg0) {
+				textArea.setText("");
+				lblInfo.setVisible(false);
+			}
+		});
+		
+	}
+	
+	private void vistaCheckOut() {
+		lblInfo.setVisible(false);
+		textArea.setText("");
+		JPanel contentCheckOut = new JPanel();
+		contentCheckOut.setBackground(Color.decode(backgroundcolor));
+		contentCheckOut.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentCheckOut);
+		contentCheckOut.setLayout(null);
+		contentCheckOut.setLayout(null);
+		lblLogin.setText("Check-Out");
+		contentCheckOut.add(lblLogin);
+		contentCheckOut.add(lblInfo);
+		contentCheckOut.add(textArea);
+		
+		JLabel lblBack = new JLabel("Back");
+		lblBack.setBounds(185, 296, 64, 64);
+		lblBack.setIcon(new ImageIcon("Icons" + File.separator + "back1.png"));
+		lblBack.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				getContentPane().setVisible(false);
+				vistaHotel();
+			}
+		});
+		contentCheckOut.add(lblBack);
+		
+		JLabel lblCdulaCliente = new JLabel("Cédula cliente:");
+		lblCdulaCliente.setFont(new Font("Dialog", Font.BOLD, 16));
+		lblCdulaCliente.setForeground (Color.WHITE);
+		lblCdulaCliente.setBounds(436, 296, 157, 41);
+		contentCheckOut.add(lblCdulaCliente);
+		
+		JTextField textField = new JTextField();
+		textField.setBounds(627, 296, 313, 41);
+		contentCheckOut.add(textField);
+		textField.setColumns(10);
+		textField.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+
+				new FormBuscarUsuario (h, textField).setVisible(true);
+			}
+		});
+		
+		JButton btnComprobar = new JButton("Comprobar");
+		btnComprobar.setBounds(575, 399, 135, 53);
+		contentCheckOut.add(btnComprobar);
+		
+		btnComprobar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+
+				try {
+					
+					((Empleado)p).checkIn (textField.getText (), h);
+					
+
+					JOptionPane.showMessageDialog(null, "Check-In realizado con éxito", "Completo", JOptionPane.INFORMATION_MESSAGE);
+					
+					
+				} catch (ExceptionNodo | ECliente e) {
+
+					JOptionPane.showMessageDialog(null, e.getMessage (), "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+			public void mouseEntered(MouseEvent arg0) {
+				textArea.setText("Busca un usuario asociado a la cédula introducida y luego mira si tiene una reserva"
+						+ " hecha para el día actual.");
+				lblInfo.setVisible(true);
+			}			
+			public void mouseExited(MouseEvent arg0) {
+				textArea.setText("");
+				lblInfo.setVisible(false);
+			}
+		});
+		
 	}
 }

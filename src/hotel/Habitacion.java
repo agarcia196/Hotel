@@ -19,9 +19,8 @@ public class Habitacion implements Serializable {
 		this.tipo = tipo;
 		ID = id;
 		this.disponibilidad = new ArrayList<Reserva>();
+		disponible = true;
 	}
-	
-
 	
 	public double getPrecioNoche() {
 		return precioNoche;

@@ -17,8 +17,10 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.DefaultTableModel;	
+
 import exception.EArrayVacio;
+import hotel.Cliente;
 import hotel.Hotel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -44,8 +46,8 @@ public class FormBuscarUsuario extends JFrame implements Serializable {
 	/**
 	 * Launch the application.
 	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
+	public static void main(String[] args) {
+		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					Hotel h = new Hotel();
@@ -62,14 +64,14 @@ public class FormBuscarUsuario extends JFrame implements Serializable {
 					h.addUser(d);
 					h.addUser(e);
 					h.addUser(f);
-					FormBuscarUsuario frame = new FormBuscarUsuario(h);
+					FormBuscarUsuario frame = new FormBuscarUsuario(h, new JTextField ());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}*/
+	}
 
 	/**
 	 * Create the frame.
