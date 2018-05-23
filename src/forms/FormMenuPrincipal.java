@@ -616,6 +616,5 @@ public class FormMenuPrincipal extends JFrame implements Serializable{
 				lblInfo.setVisible(false);
 			}
 		});
-		
 	}
 }
